@@ -4,52 +4,209 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MONDIUM | Be Above</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
             --onyx: #0D1117;
             --teal: #00F2FF;
-            --slate: #161B22;
+            --logic-green: #39FF14;
+            --slate-gray: #161B22;
         }
+        
         body {
             background-color: var(--onyx);
-            color: white;
+            color: #ffffff;
             font-family: 'Inter', sans-serif;
             margin: 0;
+            line-height: 1.7;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        header {
+            padding: 120px 20px 80px;
+            text-align: center;
+            max-width: 900px;
+        }
+
+        .logo { 
+            width: 180px; 
+            margin-bottom: 40px; 
+            /* This helps blend the SVG's dark background into your page's onyx background */
+            filter: drop-shadow(0 0 20px rgba(0, 242, 255, 0.15)); 
+        }
+
+        h1 { 
+            font-weight: 300; 
+            letter-spacing: 0.6em; 
+            font-size: clamp(1.8em, 5vw, 3em); 
+            margin: 0; 
+            text-transform: uppercase;
+        }
+
+        .tagline { 
+            font-family: 'JetBrains Mono', monospace; 
+            color: var(--teal); 
+            letter-spacing: 0.25em; 
+            margin-top: 25px; 
+            font-size: 0.9em; 
+            opacity: 0.8;
+            text-transform: uppercase;
+        }
+
+        .cta-container { margin-top: 60px; }
+
+        .login-btn {
+            display: inline-block;
+            padding: 18px 50px;
+            border: 1px solid var(--teal);
+            color: var(--teal);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85em;
+            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+
+        .login-btn:hover { 
+            background: var(--teal); 
+            color: var(--onyx); 
+            box-shadow: 0 0 40px rgba(0, 242, 255, 0.4);
+            transform: translateY(-3px);
+        }
+
+        /* Content Sections */
+        .content-stack {
+            max-width: 850px;
+            padding: 100px 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .section { margin-bottom: 100px; }
+
+        .section h2 { 
+            color: var(--teal); 
+            font-size: 0.7em; 
+            letter-spacing: 0.4em; 
+            text-transform: uppercase; 
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section h2::before {
+            content: "";
+            width: 30px;
+            height: 1px;
+            background: var(--teal);
+            margin-right: 20px;
+        }
+
+        .section p { 
+            font-weight: 300; 
+            font-size: 1.2em; 
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 25px;
+        }
+
+        .highlight { color: #ffffff; font-weight: 500; }
+
+        /* Technical Snippet */
+        .code-window {
+            background: #090c10;
+            border: 1px solid rgba(0, 242, 255, 0.1);
+            padding: 25px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85em;
+            position: relative;
+            border-radius: 2px;
+        }
+
+        .token-key { color: var(--logic-green); }
+        .token-val { color: var(--teal); }
+        .token-comment { color: #4b5563; font-style: italic; }
+
+        /* Animated Terminal Feed */
+        .terminal-wrap {
+            width: 100%;
+            background: #05070a;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255,255,255,0.03);
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .terminal-content {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--logic-green);
+            opacity: 0.3;
+            animation: scroll-left 60s linear infinite;
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        footer {
+            padding: 60px;
+            font-size: 0.65em;
+            font-family: 'JetBrains Mono', monospace;
+            opacity: 0.3;
+            letter-spacing: 0.2em;
             text-align: center;
         }
-        .logo { width: 120px; margin-bottom: 20px; filter: drop-shadow(0 0 5px var(--teal)); }
-        h1 { font-weight: 300; letter-spacing: 0.3em; color: white; margin: 0; }
-        .tagline { color: var(--teal); font-family: 'JetBrains Mono', monospace; font-size: 0.9em; margin-top: 10px; opacity: 0.8; }
-        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 900px; margin-top: 60px; padding: 20px; }
-        .card { background: var(--slate); padding: 30px; border: 1px solid rgba(0, 242, 255, 0.2); }
-        .card h3 { color: var(--teal); font-size: 0.8em; letter-spacing: 0.1em; margin-bottom: 15px; }
-        .card p { font-size: 0.85em; line-height: 1.6; opacity: 0.7; }
     </style>
 </head>
 <body>
-    <img src="your-logo-path.png" alt="Mondium Logo" class="logo">
-    <h1>MONDIUM</h1>
-    <div class="tagline">BE ABOVE // SOURCE CODE FOR HISTORY</div>
 
-    <div class="grid">
-        <div class="card">
-            <h3>SUBSTRATE</h3>
-            <p>CIE: Compressed Information Expression. A semantically dense DSL for human-verified, machine-readable event encoding.</p>
+    <header>
+        <img src="logo_teal.svg" alt="Mondium" class="logo">
+        <h1>MONDIUM</h1>
+        <div class="tagline">The Source Code for History</div>
+        
+        <div class="cta-container">
+            <a href="https://narratives.mondium.ai" class="login-btn">Initialize Terminal</a>
         </div>
-        <div class="card">
-            <h3>DYNAMICS</h3>
-            <p>Weighted scenario modeling provides a mathematical lens for political and social outcomes through dummy variable prediction.</p>
+    </header>
+
+    <div class="content-stack">
+        <div class="section">
+            <h2>01 / The Substrate</h2>
+            <p>Mondium bypasses the ambiguity of narrative intelligence by operating on the <span class="highlight">Substrate Level</span>. Using Compressed Information Expression (CIE), we encode geopolitical friction into immutable, machine-verifiable logic.</p>
+            <div class="code-window">
+                <span style="display:block"><span class="token-comment">// Verifying Sovereign Intent</span></span>
+                <span style="display:block"><span class="token-key">ENCODE</span>(ID:A-992) -> <span class="token-key">ACTOR</span>(CN_PRC)</span>
+                <span style="display:block"><span class="token-key">VECT</span>(S_CHINA_SEA) -> <span class="token-key">FRICTION</span>(0.92)</span>
+            </div>
         </div>
-        <div class="card">
-            <h3>NARRATIVES</h3>
-            <p>Foundationally reliable intelligence. A high-fidelity analytic stack designed for the strategic oversight of global contestation.</p>
+
+        <div class="section">
+            <h2>02 / The Superstructure</h2>
+            <p>Our models apply <span class="highlight">Weighted Variable Scenarios</span> to the substrate. We don't predict the future; we quantify the architectural possibilities of the present, providing the global 1% with a mathematical lens on power shift velocity.</p>
+        </div>
+
+        <div class="section">
+            <h2>03 / The Narrative</h2>
+            <p>High-altitude intelligence for strategic oversight. Mondium delivers <span class="highlight">Inherent Intelligibility</span>—a bridge between deep-layer data and the executive summary. Understand the contestation before it enters the public lexicon.</p>
         </div>
     </div>
+
+    <div class="terminal-wrap">
+        <div class="terminal-content">
+            CIE_FEED::INITIALIZING... WEIGHT_VAR(0.88)... SOV_LIMIT(ACTIVE)... NARRATIVE_MAP(STABLE)... [AUTH:USER_1]... SOURCE_CODE_HISTORY... CIE_FEED::INITIALIZING... WEIGHT_VAR(0.88)... SOV_LIMIT(ACTIVE)... NARRATIVE_MAP(STABLE)... [AUTH:USER_1]... SOURCE_CODE_HISTORY...
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 MONDIUM &bull; BE ABOVE &bull; GLOBAL NARRATIVES LLC
+    </footer>
+
 </body>
 </html>
