@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MONDIUM | Be Above</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --onyx: #0D1117;
+            --teal: #00F2FF;
+            --slate: #161B22;
+        }
+        body {
+            background-color: var(--onyx);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        .logo { width: 120px; margin-bottom: 20px; filter: drop-shadow(0 0 5px var(--teal)); }
+        h1 { font-weight: 300; letter-spacing: 0.3em; color: white; margin: 0; }
+        .tagline { color: var(--teal); font-family: 'JetBrains Mono', monospace; font-size: 0.9em; margin-top: 10px; opacity: 0.8; }
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 900px; margin-top: 60px; padding: 20px; }
+        .card { background: var(--slate); padding: 30px; border: 1px solid rgba(0, 242, 255, 0.2); }
+        .card h3 { color: var(--teal); font-size: 0.8em; letter-spacing: 0.1em; margin-bottom: 15px; }
+        .card p { font-size: 0.85em; line-height: 1.6; opacity: 0.7; }
+    </style>
+</head>
+<body>
+    <img src="your-logo-path.png" alt="Mondium Logo" class="logo">
+    <h1>MONDIUM</h1>
+    <div class="tagline">BE ABOVE // SOURCE CODE FOR HISTORY</div>
+
+    <div class="grid">
+        <div class="card">
+            <h3>SUBSTRATE</h3>
+            <p>CIE: Compressed Information Expression. A semantically dense DSL for human-verified, machine-readable event encoding.</p>
+        </div>
+        <div class="card">
+            <h3>DYNAMICS</h3>
+            <p>Weighted scenario modeling provides a mathematical lens for political and social outcomes through dummy variable prediction.</p>
+        </div>
+        <div class="card">
+            <h3>NARRATIVES</h3>
+            <p>Foundationally reliable intelligence. A high-fidelity analytic stack designed for the strategic oversight of global contestation.</p>
+        </div>
+    </div>
+</body>
+</html>
