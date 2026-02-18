@@ -1,213 +1,296 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MONDIUM | Be Above</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/svg+xml" href="mondium_favicon.svg">
-    <style>
-        :root {
-            --onyx: #0D1117;
-            --teal: #00F2FF;
-            --logic-green: #39FF14;
-            --slate-gray: #161B22;
-        }
-        
-        body {
-            background-color: var(--onyx);
-            color: #ffffff;
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            line-height: 1.7;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            overflow-x: hidden;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mondium | Geopolitical Intelligence Infrastructure</title>
+  <meta name="description" content="Mondium encodes geopolitical events in CIE — Compressed Information Expression — a formal specification language for rigorous, multilingual political analysis at institutional scale.">
+  <meta property="og:title" content="Mondium | Geopolitical Intelligence Infrastructure">
+  <meta property="og:description" content="The formal language for political events. CIE encodes geopolitical facts with the precision of code — enabling zero-loss, machine-verifiable analysis at scale.">
 
-        /* Hero Section */
-        header {
-            padding: 120px 20px 80px;
-            text-align: center;
-            max-width: 900px;
-        }
+  <!-- Google Fonts: IBM Plex Sans + IBM Plex Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-        .logo { 
-            width: 180px; 
-            margin-bottom: 40px; 
-            /* This helps blend the SVG's dark background into your page's onyx background */
-            filter: drop-shadow(0 0 20px rgba(0, 242, 255, 0.15)); 
-        }
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="mondium_favicon.svg.svg">
 
-        h1 { 
-            font-weight: 300; 
-            letter-spacing: 0.6em; 
-            font-size: clamp(1.8em, 5vw, 3em); 
-            margin: 0; 
-            text-transform: uppercase;
-        }
-
-        .tagline { 
-            font-family: 'JetBrains Mono', monospace; 
-            color: var(--teal); 
-            letter-spacing: 0.25em; 
-            margin-top: 25px; 
-            font-size: 0.9em; 
-            opacity: 0.8;
-            text-transform: uppercase;
-        }
-
-        .cta-container { margin-top: 60px; }
-
-        .login-btn {
-            display: inline-block;
-            padding: 18px 50px;
-            border: 1px solid var(--teal);
-            color: var(--teal);
-            text-decoration: none;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85em;
-            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-        }
-
-        .login-btn:hover { 
-            background: var(--teal); 
-            color: var(--onyx); 
-            box-shadow: 0 0 40px rgba(0, 242, 255, 0.4);
-            transform: translateY(-3px);
-        }
-
-        /* Content Sections */
-        .content-stack {
-            max-width: 850px;
-            padding: 100px 20px;
-            border-top: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .section { margin-bottom: 100px; }
-
-        .section h2 { 
-            color: var(--teal); 
-            font-size: 0.7em; 
-            letter-spacing: 0.4em; 
-            text-transform: uppercase; 
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-        }
-
-        .section h2::before {
-            content: "";
-            width: 30px;
-            height: 1px;
-            background: var(--teal);
-            margin-right: 20px;
-        }
-
-        .section p { 
-            font-weight: 300; 
-            font-size: 1.2em; 
-            color: rgba(255,255,255,0.8);
-            margin-bottom: 25px;
-        }
-
-        .highlight { color: #ffffff; font-weight: 500; }
-
-        /* Technical Snippet */
-        .code-window {
-            background: #090c10;
-            border: 1px solid rgba(0, 242, 255, 0.1);
-            padding: 25px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85em;
-            position: relative;
-            border-radius: 2px;
-        }
-
-        .token-key { color: var(--logic-green); }
-        .token-val { color: var(--teal); }
-        .token-comment { color: #4b5563; font-style: italic; }
-
-        /* Animated Terminal Feed */
-        .terminal-wrap {
-            width: 100%;
-            background: #05070a;
-            padding: 40px 0;
-            border-top: 1px solid rgba(255,255,255,0.03);
-            overflow: hidden;
-            white-space: nowrap;
-        }
-
-        .terminal-content {
-            display: inline-block;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 11px;
-            color: var(--logic-green);
-            opacity: 0.3;
-            animation: scroll-left 60s linear infinite;
-        }
-
-        @keyframes scroll-left {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        footer {
-            padding: 60px;
-            font-size: 0.65em;
-            font-family: 'JetBrains Mono', monospace;
-            opacity: 0.3;
-            letter-spacing: 0.2em;
-            text-align: center;
-        }
-    </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <header>
-        <img src="logo_teal.svg" alt="Mondium" class="logo">
-        <h1>MONDIUM</h1>
-        <div class="tagline">The Source Code for History</div>
-        
-        <div class="cta-container">
-            <a href="https://narratives.mondium.ai" class="login-btn">Initialize Terminal</a>
-        </div>
-    </header>
+  <!-- ═══════════════════════════════════════════
+       HEADER — fixed, minimal
+  ═══════════════════════════════════════════ -->
+  <header class="site-header">
+    <div class="container">
+      <a href="#" aria-label="Mondium home">
+        <img src="logo_teal.svg.svg" alt="Mondium" class="site-header__logo">
+      </a>
+      <a href="mailto:editor@mondium.ai" class="site-header__cta">Request Analyst Access</a>
+    </div>
+  </header>
 
-    <div class="content-stack">
-        <div class="section">
-            <h2>01 / The Substrate</h2>
-            <p>Mondium bypasses the ambiguity of narrative intelligence by operating on the <span class="highlight">Substrate Level</span>. Using Compressed Information Expression (CIE), we encode geopolitical friction into immutable, machine-verifiable logic.</p>
-            <div class="code-window">
-                <span style="display:block"><span class="token-comment">// Verifying Sovereign Intent</span></span>
-                <span style="display:block"><span class="token-key">ENCODE</span>(ID:A-992) -> <span class="token-key">ACTOR</span>(CN_PRC)</span>
-                <span style="display:block"><span class="token-key">VECT</span>(S_CHINA_SEA) -> <span class="token-key">FRICTION</span>(0.92)</span>
+  <main>
+
+    <!-- ═══════════════════════════════════════════
+         HERO — two-column: copy + CIE Annotator
+    ═══════════════════════════════════════════ -->
+    <section class="hero">
+      <div class="container">
+
+        <!-- Left: copy column (60%) -->
+        <div class="hero__copy">
+          <p class="hero__eyebrow anim-fade-up anim-delay-1">Analytical Infrastructure &nbsp;// &nbsp;CIE Protocol</p>
+          <h1 class="hero__title anim-fade-up anim-delay-2">Political events,<br><strong>precisely encoded.</strong></h1>
+          <p class="hero__subhead anim-fade-up anim-delay-3">
+            Global Narratives encodes geopolitical events in CIE — Compressed Information Expression — a formal specification language that enables syntactically-dense, zero-loss, multilingual political analysis and news coverage at institutional scale. Legacy media covers events. CIE encodes them.
+          </p>
+          <div class="hero__ctas anim-fade-up anim-delay-4">
+            <a href="mailto:editor@mondium.ai" class="btn-primary">Request Analyst Access</a>
+            <a href="#methodology" class="btn-ghost">Read the methodology &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Right: CIE Annotator (40%) -->
+        <div class="hero__annotator anim-fade-up anim-delay-5">
+          <div class="cie-panel">
+
+            <!-- Panel chrome -->
+            <div class="cie-panel__header">
+              <span class="cie-panel__dot"></span>
+              <span class="cie-panel__dot"></span>
+              <span class="cie-panel__dot"></span>
+              <span class="cie-panel__label">CIE_ANNOTATOR &nbsp;//&nbsp; EVENT_VIEWER</span>
             </div>
+
+            <!-- Annotated CIE expression -->
+            <!-- NOTE: <pre> content is intentionally unindented to preserve whitespace fidelity -->
+            <div class="cie-panel__body">
+<pre class="cie-expression"><span class="cie-token" data-label="Event 39 in South America, 26th November 2025">e.26112025.sam.039</span>
+
+<span class="cie-token cie-token--entity" data-label="Brazilian Supreme Court">bra.jstc.grtc</span> <span class="cie-token cie-token--operator" data-label="makes a ruling">[rl]</span>
+    - <span class="cie-token cie-token--operator" data-label="with respect to">$</span> <span class="cie-token cie-token--ref" data-label="Docket number AP-2668">ap-2668.dkt</span> <span class="cie-token cie-token--operator" data-label="sentencing">{sc}</span>
+    - <span class="cie-token cie-token--operator" data-label="the ruling is">{rl}</span> -&gt; <span class="cie-token cie-token--entity" data-label="Brazilian figure born in 1955, number 61 (Jair Bolsonaro)">bra.1955.061</span> : <span class="cie-token cie-token--operator" data-label="jailed">[jl]</span> &gt; <span class="cie-token cie-token--temporal" data-label="starting from that date for 27 years">&#x222B; dt.*:27y</span></pre>
+            </div>
+
+            <!-- Plain-English translation -->
+            <div class="cie-panel__translation">
+              <strong>Plain English:</strong> The Brazilian Supreme Court issued a ruling on docket AP-2668, sentencing Jair Bolsonaro to 27 years imprisonment, effective immediately from 26 November 2025.
+            </div>
+
+          </div>
         </div>
 
-        <div class="section">
-            <h2>02 / The Superstructure</h2>
-            <p>Our models apply <span class="highlight">Weighted Variable Scenarios</span> to the substrate. We don't predict the future; we quantify the architectural possibilities of the present, providing the global 1% with a mathematical lens on power shift velocity.</p>
-        </div>
+      </div>
+    </section>
 
-        <div class="section">
-            <h2>03 / The Narrative</h2>
-            <p>High-altitude intelligence for strategic oversight. Mondium delivers <span class="highlight">Inherent Intelligibility</span>—a bridge between deep-layer data and the executive summary. Understand the contestation before it enters the public lexicon.</p>
+    <!-- ═══════════════════════════════════════════
+         THE PROBLEM
+    ═══════════════════════════════════════════ -->
+    <section id="problem" class="section--problem section-pad">
+      <div class="container">
+        <p class="section__label">01 / The Problem</p>
+        <h2 class="section__title">Building the infrastructure for the next phase of global analysis.</h2>
+        <div class="section__prose">
+          <p>Legacy media was fundamentally built for a world of <strong>information scarcity</strong>. Journalists raced to be first. Editors curated what was knowable. Audiences trusted the hierarchy because there was no alternative.</p>
+          <p>We now live in a world of <strong>information overabundance</strong>. The same event is described a hundred different ways across a thousand sources — none of them machine-verifiable, none of them structurally comparable. Analysts spend the majority of their time reconciling conflicting narratives rather than extracting signal.</p>
+          <p>Global Narratives does not just report the news. CIE <strong>encodes it</strong> — for transparent, testable, rigorous analytic and explanatory uses, from newsmedia to political risk analysis to predictive planning. The substrate of global power is legible. The interface, until now, has been broken.</p>
         </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         METHODOLOGY — 3-step explainer
+    ═══════════════════════════════════════════ -->
+    <section id="methodology" class="section-pad">
+      <div class="container">
+        <p class="section__label">02 / How CIE Works</p>
+        <h2 class="section__title">A formal language for political events.</h2>
+
+        <div class="methodology-grid">
+
+          <div class="methodology-step">
+            <div class="step__number">01</div>
+            <h3 class="step__title">Encode</h3>
+            <p class="step__desc">Every political event — a sanction, a treaty, a leadership change — is expressed in CIE: a structured syntax that captures actor, action, institution, and time with no ambiguity and no translation loss.</p>
+          </div>
+
+          <div class="methodology-step">
+            <div class="step__number">02</div>
+            <h3 class="step__title">Link</h3>
+            <p class="step__desc">Encoded events are assigned to Scenarios: binary, falsifiable predictions designed for analytic rigor. Each assignment carries a directional weight, building a living probability model updated by real-world developments.</p>
+          </div>
+
+          <div class="methodology-step">
+            <div class="step__number">03</div>
+            <h3 class="step__title">Analyze</h3>
+            <p class="step__desc">Scenarios aggregate into Narratives — high-level geopolitical frameworks. Analysts can query across thousands of encoded events to surface patterns invisible to prose-based research. CIE is extensible and transferable across use cases.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SAMPLE EVENTS — 5 CIE event cards
+    ═══════════════════════════════════════════ -->
+    <section id="events" class="section--problem section-pad">
+      <div class="container">
+        <p class="section__label">03 / Sample Events</p>
+        <h2 class="section__title">Events from the corpus.</h2>
+
+        <div class="events-grid">
+
+          <!-- Event 1: Brazil/Bolsonaro -->
+          <article class="event-card">
+            <p class="event-card__id">e.26112025.sam.039</p>
+<pre class="event-card__cie">bra.jstc.grtc [rl]
+    - $ ap-2668.dkt {sc}
+    - {rl} -> bra.1955.061 : [jl] > &#x222B; dt.*:27y</pre>
+            <div class="event-card__footer">
+              <p class="event-card__summary">Brazilian Supreme Court sentences Jair Bolsonaro to 27 years imprisonment on docket AP-2668.</p>
+              <span class="event-card__tag">SAM</span>
+            </div>
+          </article>
+
+          <!-- Event 2: France/Provence -->
+          <article class="event-card">
+            <p class="event-card__id">e.17112025.weu.102</p>
+<pre class="event-card__cie">fra.min.jstc.exc.01, fra.min.gndm.* [s-gp]
+    - $ fra.sbs.pac.cpl / *axn.*vrbn, *axn.*psc @ *.loc
+        - {a-in} min.jstc, min.gndm > [sr] @ *.loc</pre>
+            <div class="event-card__footer">
+              <p class="event-card__summary">French ministers of justice and interior pledge coordinated action on crime in Provence-Alpes.</p>
+              <span class="event-card__tag">WEU</span>
+            </div>
+          </article>
+
+          <!-- Event 3: UK/Mayor of London -->
+          <article class="event-card">
+            <p class="event-card__id">e.17012026.weu.086</p>
+<pre class="event-card__cie">gbr.cpl.exc.01 [s-op]
+    - $ gbr.lh.318-2024-26.lex
+    - {s-op} + $ sbs.imp.lex</pre>
+            <div class="event-card__footer">
+              <p class="event-card__summary">Mayor of London expresses support for new tax powers under legislation 318-2024-26.</p>
+              <span class="event-card__tag">WEU</span>
+            </div>
+          </article>
+
+          <!-- Event 4: Thailand/Cambodia border -->
+          <article class="event-card">
+            <p class="event-card__id">e.10122025.sea.138</p>
+<pre class="event-card__cie">tha.dfns.ary.spx [s-ds] tha.ary {ak} khm
+    - 3.{ak} &#x222B;@ ~13.9N,~103.2E # .ary, .arf
+    - [c-uv] khm.ary [nu] `+1.tha.ary, [ij] ~8.*</pre>
+            <div class="event-card__footer">
+              <p class="event-card__summary">Thai army spokesman confirms three armed actions along the Cambodian border, with approximately eight reported injuries.</p>
+              <span class="event-card__tag">SEA</span>
+            </div>
+          </article>
+
+          <!-- Event 5: Hong Kong fire -->
+          <article class="event-card">
+            <p class="event-card__id">e.27112025.nea.072</p>
+<pre class="event-card__cie">chn.sbs.hkg.ntfd.incd.exc.01 [s-ds]
+    - $ axn.incd @ *.loc 26112025 UTC 0651
+        - `+65.civ {di}, `+270 {ij} ~incd
+        - unk.hom, unk.fem, unk.enf</pre>
+            <div class="event-card__footer">
+              <p class="event-card__summary">Hong Kong fire chief gives update on incident: 65 civilians displaced, approximately 270 injured at location.</p>
+              <span class="event-card__tag">NEA</span>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         FOR ANALYSTS — alpha recruitment
+    ═══════════════════════════════════════════ -->
+    <section id="alpha" class="section-pad">
+      <div class="container">
+        <p class="section__label">04 / Alpha Testing</p>
+        <div class="alpha-card">
+          <div class="alpha-card__content">
+            <h2 class="section__title">Alpha testing.</h2>
+            <p class="alpha-card__body">
+              We are recruiting professional geopolitical analysts for a closed alpha. Participants will encode real events, test analytical workflows, and help refine CIE syntax through practical use. This is institutional-grade infrastructure in active development — not a finished product.
+            </p>
+            <p class="alpha-card__body" style="margin-top: 16px;">
+              We are looking for analysts with professional backgrounds in political risk, intelligence, international news coverage, international relations, or adjacent fields. Familiarity with formal methods or structured analytical techniques is valued but not required.
+            </p>
+          </div>
+          <div class="alpha-card__action">
+            <a href="mailto:editor@mondium.ai" class="btn-primary">Apply for Analyst Access</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════ -->
+  <footer class="site-footer">
+    <div class="container">
+      <p class="site-footer__copy">&copy; 2026 Mondium &bull; Global Narratives is a product of Mondium LLC</p>
+      <p class="site-footer__copy">Be Above.</p>
     </div>
+  </footer>
 
-    <div class="terminal-wrap">
-        <div class="terminal-content">
-            CIE_FEED::INITIALIZING... WEIGHT_VAR(0.88)... SOV_LIMIT(ACTIVE)... NARRATIVE_MAP(STABLE)... [AUTH:USER_1]... SOURCE_CODE_HISTORY... CIE_FEED::INITIALIZING... WEIGHT_VAR(0.88)... SOV_LIMIT(ACTIVE)... NARRATIVE_MAP(STABLE)... [AUTH:USER_1]... SOURCE_CODE_HISTORY...
-        </div>
-    </div>
+  <!-- ═══════════════════════════════════════════
+       CIE ANNOTATOR — tooltip JS (vanilla, <50 lines)
+  ═══════════════════════════════════════════ -->
+  <script>
+  (function () {
+    'use strict';
 
-    <footer>
-        &copy; 2026 MONDIUM &bull; BE ABOVE &bull; GLOBAL NARRATIVES LLC
-    </footer>
+    // Inject tooltip <span> from data-label attribute on each .cie-token
+    var tokens = document.querySelectorAll('.cie-token[data-label]');
+    tokens.forEach(function (token) {
+      var tip = document.createElement('span');
+      tip.className = 'cie-tooltip';
+      tip.textContent = token.getAttribute('data-label');
+      token.appendChild(tip);
+    });
+
+    // Touch/click: toggle one tooltip at a time
+    var activeToken = null;
+
+    tokens.forEach(function (token) {
+      token.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (activeToken && activeToken !== token) {
+          activeToken.classList.remove('is-active');
+        }
+        token.classList.toggle('is-active');
+        activeToken = token.classList.contains('is-active') ? token : null;
+      });
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function () {
+      if (activeToken) {
+        activeToken.classList.remove('is-active');
+        activeToken = null;
+      }
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && activeToken) {
+        activeToken.classList.remove('is-active');
+        activeToken = null;
+      }
+    });
+
+  }());
+  </script>
 
 </body>
 </html>
