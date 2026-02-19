@@ -762,3 +762,452 @@ code {
     align-items: flex-start;
   }
 }
+
+
+/* ══════════════════════════════════════════════════════════════
+   MULTI-SECTION EXPANSION — appended styles
+   ══════════════════════════════════════════════════════════════ */
+
+
+/* ── 16. Page Section Routing ────────────────────────────────── */
+
+.page-section {
+  display: none;
+}
+
+.page-section.is-active {
+  display: block;
+}
+
+
+/* ── 17. Site Nav ────────────────────────────────────────────── */
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.site-nav__link {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  padding: 6px 14px;
+  border-bottom: 1px solid transparent;
+  transition:
+    color var(--duration-fast) ease,
+    border-color var(--duration-fast) ease;
+}
+
+.site-nav__link:hover {
+  color: var(--color-text);
+}
+
+.site-nav__link.is-active {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+}
+
+/* Right side of header: hamburger + CTA grouped */
+.site-header__right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+/* Hamburger button */
+.hamburger {
+  display: none;
+  background: none;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  line-height: 1;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: color var(--duration-fast) ease, border-color var(--duration-fast) ease;
+}
+
+.hamburger:hover {
+  color: var(--color-text);
+  border-color: var(--color-text-muted);
+}
+
+
+/* ── 18. Prose Layout (deep-dive pages) ──────────────────────── */
+
+.prose-layout {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.prose-layout h3 {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 1rem;
+  color: var(--color-text);
+  letter-spacing: 0.01em;
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-md);
+}
+
+.prose-layout p {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  line-height: 1.85;
+  margin-bottom: var(--space-md);
+}
+
+.prose-layout p strong {
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.prose-layout p:last-child {
+  margin-bottom: 0;
+}
+
+
+/* ── 19. Pull Quote ──────────────────────────────────────────── */
+
+.pull-quote {
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  color: var(--color-accent);
+  line-height: 1.65;
+  border-left: 3px solid var(--color-accent);
+  padding: 4px 0 4px 24px;
+  margin: var(--space-xl) 0;
+  opacity: 0.85;
+}
+
+.pull-quote cite {
+  display: block;
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.08em;
+  margin-top: 10px;
+}
+
+
+/* ── 20. Deep Page Hero ──────────────────────────────────────── */
+
+.page-hero {
+  padding-top: calc(var(--header-height) + var(--space-xl));
+  padding-bottom: var(--space-xl);
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: var(--space-2xl);
+}
+
+.page-hero__label {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-md);
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.page-hero__label::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.page-hero__headline {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: clamp(1.9rem, 3.2vw, 2.9rem);
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+  color: var(--color-text);
+  max-width: 780px;
+}
+
+.page-hero__headline strong {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+
+/* ── 21. Page Section Inner Sections ─────────────────────────── */
+
+.prose-section {
+  margin-bottom: var(--space-xl);
+}
+
+.page-section__cta-wrap {
+  margin-top: var(--space-xl);
+  padding-top: var(--space-xl);
+  border-top: 1px solid var(--color-border);
+}
+
+.page-section__cta-link {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  transition: gap var(--duration-fast) ease;
+}
+
+.page-section__cta-link:hover {
+  gap: var(--space-md);
+}
+
+
+/* ── 22. Hierarchy Diagram ───────────────────────────────────── */
+
+.hierarchy-diagram {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1;
+  margin: var(--space-xl) 0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-accent);
+  padding: var(--space-lg);
+}
+
+.hierarchy-layer {
+  display: flex;
+  gap: var(--space-lg);
+  padding: var(--space-md) 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  align-items: flex-start;
+}
+
+.hierarchy-layer:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.hierarchy-layer__indent {
+  color: var(--color-border);
+  flex-shrink: 0;
+  user-select: none;
+  letter-spacing: -0.05em;
+}
+
+.hierarchy-layer__code {
+  color: var(--color-accent);
+  min-width: 110px;
+  flex-shrink: 0;
+  font-weight: 500;
+}
+
+.hierarchy-layer__def {
+  color: var(--color-text-muted);
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+.hierarchy-layer__def strong {
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+
+/* ── 23. Annotator Intro (methodology page) ──────────────────── */
+
+.annotator-intro {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  line-height: 1.8;
+  margin-bottom: var(--space-lg);
+  max-width: 720px;
+}
+
+.annotator-intro strong {
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.annotator-wrap {
+  max-width: 640px;
+  margin-bottom: var(--space-xl);
+}
+
+
+/* ── 24. Action Code Table ───────────────────────────────────── */
+
+.action-table-wrap {
+  margin: var(--space-lg) 0 var(--space-xl);
+  overflow-x: auto;
+}
+
+.action-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+}
+
+.action-table th {
+  text-align: left;
+  font-size: 0.60rem;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  padding: 10px 16px 10px 0;
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.action-table td {
+  padding: 12px 16px 12px 0;
+  border-bottom: 1px solid rgba(30, 45, 61, 0.6);
+  vertical-align: top;
+  line-height: 1.55;
+}
+
+.action-table tr:last-child td {
+  border-bottom: none;
+}
+
+.action-table .col-code {
+  color: var(--color-accent);
+  font-weight: 500;
+  white-space: nowrap;
+  min-width: 60px;
+}
+
+.action-table .col-cat {
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  min-width: 160px;
+  font-size: 0.72rem;
+}
+
+.action-table .col-name {
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.82rem;
+  min-width: 130px;
+}
+
+.action-table .col-desc {
+  color: var(--color-text-muted);
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  min-width: 280px;
+}
+
+
+/* ── 25. Responsive: Nav + Hamburger ─────────────────────────── */
+
+/* Tablet/mobile hamburger threshold */
+@media (max-width: 767px) {
+
+  .hamburger {
+    display: block;
+    order: 1;
+  }
+
+  .site-header__cta {
+    display: none;
+  }
+
+  /* Nav collapses — hidden by default */
+  .site-nav {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    background: rgba(10, 14, 19, 0.97);
+    border-bottom: 1px solid var(--color-border);
+    padding: var(--space-md) var(--gutter);
+    z-index: 99;
+  }
+
+  /* Nav open state (JS toggles .is-open) */
+  .site-nav.is-open {
+    display: flex;
+  }
+
+  .site-nav__link {
+    padding: 14px 0;
+    font-size: 0.75rem;
+    width: 100%;
+    border-bottom: 1px solid rgba(30, 45, 61, 0.5);
+    border-left: none;
+    letter-spacing: 0.14em;
+  }
+
+  .site-nav__link:last-child {
+    border-bottom: none;
+  }
+
+  .site-nav__link.is-active {
+    border-bottom-color: rgba(30, 45, 61, 0.5);
+  }
+
+  .site-nav__link.is-active::before {
+    content: '▶ ';
+    color: var(--color-accent);
+    font-size: 0.5rem;
+    vertical-align: middle;
+    margin-right: 4px;
+  }
+
+  /* Page hero responsive */
+  .page-hero {
+    padding-top: calc(var(--header-height) + 40px);
+    margin-bottom: var(--space-xl);
+  }
+
+  /* Prose layout padding */
+  .prose-layout {
+    max-width: 100%;
+  }
+
+  /* Hierarchy diagram scrollable */
+  .hierarchy-diagram {
+    font-size: 0.72rem;
+    overflow-x: auto;
+  }
+
+  .hierarchy-layer {
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+}
+
+@media (max-width: 639px) {
+
+  .page-hero__headline {
+    font-size: 1.65rem;
+  }
+
+  .pull-quote {
+    font-size: 0.88rem;
+  }
+
+  .action-table {
+    font-size: 0.70rem;
+  }
+
+  .action-table th {
+    font-size: 0.55rem;
+  }
+}
