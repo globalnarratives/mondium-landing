@@ -1,585 +1,250 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Global Narratives | Geopolitical Intelligence Infrastructure</title>
-  <meta name="description" content="Global Narratives encodes geopolitical events in CIE — Compressed Information Expression — a formal specification language for rigorous, multilingual political analysis at institutional scale.">
-  <meta property="og:title" content="Global Narratives | Geopolitical Intelligence Infrastructure">
-  <meta property="og:description" content="The formal language for political events. CIE encodes geopolitical facts with the precision of code — enabling zero-loss, machine-verifiable analysis at scale.">
-
-  <!-- Google Fonts: IBM Plex Sans + IBM Plex Mono -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="mondium_favicon.svg">
-
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mondium — From News to Intelligence</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=PT+Mono&display=swap">
+<link rel="stylesheet" href="css/main.css">
 </head>
 <body>
+<div class="page-wrap">
 
-  <!-- ═══════════════════════════════════════════
-       HEADER — fixed, with nav
-  ═══════════════════════════════════════════ -->
-  <header class="site-header">
-    <div class="container">
-      <a href="#home" class="site-header__logo-link" aria-label="Global Narratives home">
-        <img src="logo_teal.svg" alt="Global Narratives" class="site-header__logo">
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Mondium<em>.</em>ai</a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="problem.html">The Problem</a></li>
+      <li><a href="cie.html">What Is CIE</a></li>
+      <li><a href="examples.html">Examples</a></li>
+      <li><a href="contact.html" class="nav-cta">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg-word word-news">News.</div>
+  <div class="hero-bg-word word-intel">Intel.</div>
+
+  <div class="hero-eyebrow">Mondium — Compressed Information Expression</div>
+
+  <h1 class="hero-title">
+    The world has moved from<br>
+    the age of <em>news</em><br>
+    to the age of <em>intelligence.</em><br>
+    The infrastructure hasn't.
+  </h1>
+
+  <p class="hero-body">Political events still arrive as prose — structured for a reader, not a database. CIE is the encoding layer that changes this: a formal specification language for discrete, observable events, built for systematic analysis at the scale the world now demands.</p>
+
+  <div class="hero-actions">
+    <a href="problem.html" class="btn-primary">The Problem</a>
+    <a href="cie.html" class="btn-ghost">What Is CIE</a>
+  </div>
+
+  <div class="hero-scroll-indicator">Scroll</div>
+</div>
+
+<!-- METRICS STRIP -->
+<div class="metrics-strip">
+  <div class="metric">
+    <span class="metric-value">CIE 1.0</span>
+    <span class="metric-label">Specification complete</span>
+  </div>
+  <div class="metric">
+    <span class="metric-value">~8 yrs</span>
+    <span class="metric-label">In active development</span>
+  </div>
+  <div class="metric">
+    <span class="metric-value">573</span>
+    <span class="metric-label">Registry location nodes</span>
+  </div>
+  <div class="metric">
+    <span class="metric-value">~45%</span>
+    <span class="metric-label">AI error rate on political events</span>
+  </div>
+</div>
+
+<!-- PROBLEM SECTION -->
+<div class="landing-section" id="section-problem">
+  <div class="section-inner">
+    <div class="section-eyebrow">The Problem</div>
+    <h2 class="section-h">Political information infrastructure is <em>a century out of date.</em></h2>
+    <p class="section-intro">The systems through which political events are recorded and analyzed were built for a world of information scarcity. They have not been updated for a world of information volume. Every layer introduces distortion — and the distortions compound.</p>
+
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-card-num">01</div>
+        <h3>Volume without structure</h3>
+        <p>The volume of political reporting now produced globally every hour exceeds what any system can responsibly process. Yet the fundamental architecture — the article, the wire item — has not changed. Accumulation is not analytical progress.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-card-num">02</div>
+        <h3>The article is the wrong unit</h3>
+        <p>A news story embeds discrete events alongside quotes, commentary, background, and speculation — unlabeled and undifferentiated. In a systematic encoding exercise, fewer than 40% of front-page stories qualify as encodable events. The rest is context and noise.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-card-num">03</div>
+        <h3>Interpretation dressed as fact</h3>
+        <p>"Tensions rise." "Escalates his feud." These are not descriptions of observable events — they are editorial interpretations embedded in the grammatical form of fact. Any system trained on political prose inherits these frames invisibly.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-card-num">04</div>
+        <h3>News was never designed to be data</h3>
+        <p>Every organization that tries to feed political events into a model, a trading system, or a back-test faces the same preprocessing burden: entity resolution, deduplication, normalization. Weeks of work. No methodological consistency. Repeated from scratch each time.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-card-num">05</div>
+        <h3>Language as a structural barrier</h3>
+        <p>Important events are reported first — and sometimes exclusively — in languages other than English. Automated translation approximates meaning. Political terminology, formal titles, and legal concepts are among the first casualties. A language-independent encoding layer is the only solution.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-card-num">06</div>
+        <h3>Neither human nor machine solves this alone</h3>
+        <p>LLMs process political prose fluently and inherit all of its failures at scale. Empirical studies put AI error rates on generated political information at approximately 45%. The resolution is a structured encoding layer between the raw information and the analytical system — human for fidelity, machine-parseable for scale.</p>
+      </div>
+    </div>
+
+    <a href="problem.html" class="section-link">Full analysis of the problem <span>→</span></a>
+  </div>
+</div>
+
+<!-- CIE SECTION -->
+<div class="landing-section" id="section-cie">
+  <div class="section-inner">
+    <div class="section-eyebrow">Compressed Information Expression</div>
+    <h2 class="section-h">A formal language for <em>what actually happened.</em></h2>
+    <p class="section-intro">CIE is a domain-specific encoding language for discrete, observable political events. Human-authored for fidelity. Machine-parseable for scale. Governed by a formal specification for consistency across analysts, time, and geography.</p>
+
+    <div class="cie-split">
+      <div>
+        <div class="cie-principles-list">
+          <div class="cie-principle">
+            <span class="cie-principle-glyph">I</span>
+            <div class="cie-principle-text">
+              <strong>Observable events only</strong>
+              CIE encodes what can be directly verified — actions taken by identified actors in the real world. Intent, interpretation, and narrative remain outside the specification.
+            </div>
+          </div>
+          <div class="cie-principle">
+            <span class="cie-principle-glyph">II</span>
+            <div class="cie-principle-text">
+              <strong>Maximum semantic density</strong>
+              Every token carries governed meaning. The same encoding produced by different analysts at different times is directly comparable — by design, not convention.
+            </div>
+          </div>
+          <div class="cie-principle">
+            <span class="cie-principle-glyph">III</span>
+            <div class="cie-principle-text">
+              <strong>Valence normalization</strong>
+              Action codes carry no built-in directional bias. Analytical valence is encoded explicitly — never baked invisibly into the action type.
+            </div>
+          </div>
+          <div class="cie-principle">
+            <span class="cie-principle-glyph">IV</span>
+            <div class="cie-principle-text">
+              <strong>A governed expansion path</strong>
+              CIE 1.0 is a stable base specification with a formal extension architecture. The foundation does not shift as the vocabulary grows.
+            </div>
+          </div>
+        </div>
+
+        <a href="cie.html" class="section-link">See CIE in action <span>→</span></a>
+      </div>
+
+      <div class="cie-encoding-preview">
+        <div class="encoding-preview-header">
+          <span class="encoding-preview-label">CIE — Live Encoding</span>
+          <span class="encoding-preview-badge">OSINT / Parsed</span>
+        </div>
+        <div class="encoding-preview-source">
+          <strong>Source event</strong>
+          "India's Prime Minister met with the Russian President and Defence Minister in New Delhi over two days, discussing energy cooperation in hydrocarbon and nuclear sectors."
+        </div>
+<pre class="encoding-preview-code"><span class="tok-actor">ind.hog</span> <span class="tok-operator">&lt;</span><span class="tok-action">[mt]</span><span class="tok-operator">&gt;</span>
+  <span class="tok-operator">-</span> <span class="tok-actor">rus.hos</span><span class="tok-operator">,</span> <span class="tok-actor">rus.min.dfns.exc.01</span> <span class="tok-operator">@</span> <span class="tok-location">ind.hps</span>
+      <span class="tok-operator">-</span> <span class="tok-operator">&lt;{sp}&gt;</span> <span class="tok-operator">$</span> <span class="tok-domain">eng.hyc</span><span class="tok-operator">,</span> <span class="tok-domain">eng.nuc</span>
+  <span class="tok-operator">-</span> <span class="tok-actor">rus.hos</span> <span class="tok-operator">&gt; @</span> <span class="tok-location">*.loc</span> <span class="tok-operator">&#x222b;</span> <span class="tok-value">04122025:05122025</span></pre>
+        <div class="encoding-preview-footer">
+          <span class="encoding-stat">Source: <span class="encoding-stat-val">1,240 words</span></span>
+          <span class="encoding-stat">Encoding: <span class="encoding-stat-val">63 characters</span></span>
+          <span class="encoding-stat">Ratio: <span class="encoding-stat-val">~1:120</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXAMPLES SECTION -->
+<div class="landing-section" id="section-examples">
+  <div class="section-inner">
+    <div class="section-eyebrow">Examples &amp; Applications</div>
+    <h2 class="section-h">Four layers of capability. <em>One analytical stack.</em></h2>
+    <p class="section-intro">The capabilities below are not independent features. Each one is built on the structured event corpus that precedes it. None of them can be replicated by systems that begin with unstructured prose.</p>
+
+    <div class="stack-row">
+      <a href="examples.html#entry-1" class="stack-card">
+        <div class="stack-card-layer">Layer 01</div>
+        <h3>Pattern Recognition</h3>
+        <p>Query the event corpus directly — by actor, action type, domain, location, or time window — across jurisdictions and source languages, without normalization overhead.</p>
+        <span class="stack-card-link">Learn more <span style="opacity:0.4; font-size:9px;">→</span></span>
       </a>
-
-      <nav class="site-nav" id="site-nav" aria-label="Main navigation">
-        <a href="#home"        class="site-nav__link is-active" data-section="home">Home</a>
-        <a href="#problem"     class="site-nav__link"           data-section="problem">The Problem</a>
-        <a href="#methodology" class="site-nav__link"           data-section="methodology">Methodology</a>
-      </nav>
-
-      <div class="site-header__right">
-        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">&#9776;</button>
-        <a href="mailto:editor@mondium.ai" class="site-header__cta">Request Analyst Access</a>
-      </div>
-    </div>
-  </header>
-
-
-  <!-- ═══════════════════════════════════════════
-       PAGE SECTION: HOME
-  ═══════════════════════════════════════════ -->
-  <div id="home" class="page-section is-active">
-    <main>
-
-      <!-- Hero -->
-      <section class="hero">
-        <div class="container">
-
-          <!-- Left: copy column (60%) -->
-          <div class="hero__copy">
-            <p class="hero__eyebrow anim-fade-up anim-delay-1">Analytical Infrastructure &nbsp;// &nbsp;CIE Protocol</p>
-            <h1 class="hero__title anim-fade-up anim-delay-2">The world,<br><strong>encoded.</strong></h1>
-            <p class="hero__subhead anim-fade-up anim-delay-3">
-              Global Narratives encodes geopolitical events in CIE — Compressed Information Expression — a formal specification language that enables syntactically-dense, zero-loss, multilingual political analysis and news coverage at institutional scale. Legacy media covers events. CIE encodes them.
-            </p>
-            <div class="hero__ctas anim-fade-up anim-delay-4">
-              <a href="mailto:editor@mondium.ai" class="btn-primary">Request Analyst Access</a>
-              <a href="#methodology" class="btn-ghost nav-trigger" data-section="methodology">Read the methodology &rarr;</a>
-            </div>
-          </div>
-
-          <!-- Right: CIE Annotator (40%) -->
-          <div class="hero__annotator anim-fade-up anim-delay-5">
-            <div class="cie-panel">
-              <div class="cie-panel__header">
-                <span class="cie-panel__dot"></span>
-                <span class="cie-panel__dot"></span>
-                <span class="cie-panel__dot"></span>
-                <span class="cie-panel__label">CIE_ANNOTATOR &nbsp;//&nbsp; EVENT_VIEWER</span>
-              </div>
-              <div class="cie-panel__body">
-<pre class="cie-expression"><span class="cie-token" data-label="Event 39 in South America, 26th November 2025">e.26112025.sam.039</span>
-
-<span class="cie-token cie-token--entity" data-label="Brazilian Supreme Court">bra.jstc.grtc</span> <span class="cie-token cie-token--operator" data-label="makes a ruling">[rl]</span>
-    - <span class="cie-token cie-token--operator" data-label="with respect to">$</span> <span class="cie-token cie-token--ref" data-label="Docket number AP-2668">ap-2668.dkt</span> <span class="cie-token cie-token--operator" data-label="sentencing">{sc}</span>
-    - <span class="cie-token cie-token--operator" data-label="the ruling is">{rl}</span> -&gt; <span class="cie-token cie-token--entity" data-label="Brazilian figure born in 1955, number 61 (Jair Bolsonaro)">bra.1955.061</span> : <span class="cie-token cie-token--operator" data-label="jailed">[jl]</span> &gt; <span class="cie-token cie-token--temporal" data-label="starting from that date for 27 years">&#x222B; dt.*:27y</span></pre>
-              </div>
-              <div class="cie-panel__translation">
-                <strong>Plain English:</strong> The Brazilian Supreme Court issued a ruling on docket AP-2668, sentencing Jair Bolsonaro to 27 years imprisonment, effective immediately from 26 November 2025.
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- The Problem (home preview) -->
-      <section class="section--problem section-pad">
-        <div class="container">
-          <p class="section__label">01 / The Problem</p>
-          <h2 class="section__title">Building the infrastructure for the next phase of global analysis.</h2>
-          <div class="section__prose">
-            <p>Legacy media was fundamentally built for a world of <strong>information scarcity</strong>. Journalists raced to be first. Editors curated what was knowable. Audiences trusted the hierarchy because there was no alternative.</p>
-            <p>We now live in a world of <strong>information overabundance</strong>. The same event is described a hundred different ways across a thousand sources — none of them machine-verifiable, none of them structurally comparable. Analysts spend the majority of their time reconciling conflicting narratives rather than extracting signal.</p>
-            <p>Global Narratives does not just report the news. CIE <strong>encodes it</strong> — for transparent, testable, rigorous analytic and explanatory uses, from newsmedia to political risk analysis to predictive planning. The substrate of global power is legible. The interface, until now, has been broken.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Methodology (home preview) -->
-      <section class="section-pad">
-        <div class="container">
-          <p class="section__label">02 / How CIE Works</p>
-          <h2 class="section__title">A formal language for political events.</h2>
-
-          <div class="methodology-grid">
-            <div class="methodology-step">
-              <div class="step__number">01</div>
-              <h3 class="step__title">Encode</h3>
-              <p class="step__desc">Every political event — a sanction, a treaty, a leadership change — is expressed in CIE: a structured syntax that captures actor, action, institution, and time with no ambiguity and no translation loss.</p>
-            </div>
-            <div class="methodology-step">
-              <div class="step__number">02</div>
-              <h3 class="step__title">Link</h3>
-              <p class="step__desc">Encoded events are assigned to Scenarios: binary, falsifiable predictions designed for analytic rigor. Each assignment carries a directional weight, building a living probability model updated by real-world developments.</p>
-            </div>
-            <div class="methodology-step">
-              <div class="step__number">03</div>
-              <h3 class="step__title">Analyze</h3>
-              <p class="step__desc">Scenarios aggregate into Narratives — high-level geopolitical frameworks. Analysts can query across thousands of encoded events to surface patterns invisible to prose-based research. CIE is extensible and transferable across use cases.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Sample Events -->
-      <section id="events" class="section--problem section-pad">
-        <div class="container">
-          <p class="section__label">03 / Sample Events</p>
-          <h2 class="section__title">Events from the corpus.</h2>
-
-          <div class="events-grid">
-
-            <article class="event-card">
-              <p class="event-card__id"><span class="cie-token" data-label="Event 39 in South America, 26th November 2025">e.26112025.sam.039</span></p>
-<pre class="event-card__cie cie-expression"><span class="cie-token cie-token--entity" data-label="Brazilian Supreme Court">bra.jstc.grtc</span> <span class="cie-token cie-token--operator" data-label="makes a ruling">[rl]</span>
-    - <span class="cie-token cie-token--operator" data-label="with respect to">$</span> <span class="cie-token cie-token--ref" data-label="Docket number AP-2668">ap-2668.dkt</span> <span class="cie-token cie-token--operator" data-label="sentencing">{sc}</span>
-    - <span class="cie-token cie-token--operator" data-label="the ruling is">{rl}</span> <span class="cie-token cie-token--operator" data-label="directed at / resulting in">-&gt;</span> <span class="cie-token cie-token--entity" data-label="Brazilian figure born in 1955, number 61 (Jair Bolsonaro)">bra.1955.061</span> <span class="cie-token cie-token--operator" data-label="such that">:</span> <span class="cie-token cie-token--operator" data-label="jailed">[jl]</span> <span class="cie-token cie-token--operator" data-label="starting from">&gt;</span> <span class="cie-token cie-token--temporal" data-label="starting from that date for 27 years">&#x222B; dt.*:27y</span></pre>
-              <div class="event-card__footer">
-                <p class="event-card__summary">Brazilian Supreme Court sentences Jair Bolsonaro to 27 years imprisonment on docket AP-2668.</p>
-                <span class="event-card__tag">SAM</span>
-              </div>
-            </article>
-
-            <article class="event-card">
-              <p class="event-card__id"><span class="cie-token" data-label="Event 102 in Western Europe, 17th November 2025">e.17112025.weu.102</span></p>
-<pre class="event-card__cie cie-expression"><span class="cie-token cie-token--entity" data-label="French Minister of Justice — DARMANIN, Gerald">fra.min.jstc.exc.01</span>, <span class="cie-token cie-token--entity" data-label="French Minister of the Interior — NUNEZ, Laurent">fra.min.gndm.*</span> <span class="cie-token cie-token--operator" data-label="joint statement">[s-gp]</span>
-    - <span class="cie-token cie-token--operator" data-label="with respect to">$</span> <span class="cie-token cie-token--entity" data-label="Marseille (capital of Provence-Alpes-Côte d'Azur)">fra.sbs.pac.cpl</span> <span class="cie-token cie-token--operator" data-label="specifically regarding">/</span> <span class="cie-token cie-token--operator" data-label="criminal actions / crime">*axn.*vrbn</span>, <span class="cie-token cie-token--operator" data-label="public security actions / policing">*axn.*psc</span> <span class="cie-token cie-token--operator" data-label="at location">@</span> <span class="cie-token cie-token--ref" data-label="the location referenced earlier in this event">*.loc</span>
-        - <span class="cie-token cie-token--operator" data-label="announcement of intention">{a-in}</span> <span class="cie-token cie-token--entity" data-label="French Minister of Justice — DARMANIN, Gerald">min.jstc</span>, <span class="cie-token cie-token--entity" data-label="French Minister of the Interior — NUNEZ, Laurent">min.gndm</span> <span class="cie-token cie-token--operator" data-label="resulting in">&gt;</span> <span class="cie-token cie-token--operator" data-label="secure">[sr]</span> <span class="cie-token cie-token--operator" data-label="at location">@</span> <span class="cie-token cie-token--ref" data-label="the location referenced earlier in this event">*.loc</span></pre>
-              <div class="event-card__footer">
-                <p class="event-card__summary">French ministers of justice and interior pledge coordinated action on crime in Provence-Alpes.</p>
-                <span class="event-card__tag">WEU</span>
-              </div>
-            </article>
-
-            <article class="event-card">
-              <p class="event-card__id"><span class="cie-token" data-label="Event 86 in Western Europe, 17th January 2026">e.17012026.weu.086</span></p>
-<pre class="event-card__cie cie-expression"><span class="cie-token cie-token--entity" data-label="Mayor of London — KHAN, Sadiq">gbr.cpl.exc.01</span> <span class="cie-token cie-token--operator" data-label="statement of support">[s-op]</span>
-    - <span class="cie-token cie-token--operator" data-label="with respect to">$</span> <span class="cie-token cie-token--ref" data-label="Bill Number 318-2024-26">gbr.lh.318-2024-26.lex</span>
-    - <span class="cie-token cie-token--operator" data-label="the expression of support is">{s-op}</span> <span class="cie-token cie-token--operator" data-label="and additionally">+</span> <span class="cie-token cie-token--operator" data-label="with respect to">$</span> <span class="cie-token cie-token--ref" data-label="substate taxation / imposition legislation">sbs.imp.lex</span></pre>
-              <div class="event-card__footer">
-                <p class="event-card__summary">Mayor of London expresses support for new tax powers under legislation 318-2024-26.</p>
-                <span class="event-card__tag">WEU</span>
-              </div>
-            </article>
-
-            <article class="event-card">
-              <p class="event-card__id"><span class="cie-token" data-label="Event 138 in Southeast Asia, 10th December 2025">e.10122025.sea.138</span></p>
-<pre class="event-card__cie cie-expression"><span class="cie-token cie-token--entity" data-label="Spokesman, Thai Army — SUVAREE, Winthai">tha.dfns.ary.spx</span> <span class="cie-token cie-token--operator" data-label="statement describing">[s-ds]</span> <span class="cie-token cie-token--entity" data-label="Thai Army">tha.ary</span> <span class="cie-token cie-token--operator" data-label="armed kinetic action">{ak}</span> <span class="cie-token cie-token--entity" data-label="Cambodia">khm</span>
-    - <span class="cie-token cie-token--operator" data-label="three instances of armed kinetic action">3.{ak}</span> <span class="cie-token cie-token--temporal" data-label="across defined coordinates">&#x222B;@</span> <span class="cie-token cie-token--temporal" data-label="approximately 13.9°N, 103.2°E">~13.9N,~103.2E</span> <span class="cie-token cie-token--ref" data-label="involving army and air force units"># .ary, .arf</span>
-    - <span class="cie-token cie-token--operator" data-label="unverifiable claim">[c-uv]</span> <span class="cie-token cie-token--entity" data-label="Cambodian Army">khm.ary</span> <span class="cie-token cie-token--operator" data-label="neutralizes">[nu]</span> <span class="cie-token cie-token--entity" data-label="approximately 1 Thai Army personnel">`+1.tha.ary</span>, <span class="cie-token cie-token--operator" data-label="injured">[ij]</span> <span class="cie-token cie-token--temporal" data-label="approximately 8 individuals">~8.*</span></pre>
-              <div class="event-card__footer">
-                <p class="event-card__summary">Thai army spokesman confirms three armed actions along the Cambodian border, with approximately eight reported injuries.</p>
-                <span class="event-card__tag">SEA</span>
-              </div>
-            </article>
-
-            <article class="event-card">
-              <p class="event-card__id"><span class="cie-token" data-label="Event 72 in Northeast Asia, 27th November 2025">e.27112025.nea.072</span></p>
-<pre class="event-card__cie cie-expression"><span class="cie-token cie-token--entity" data-label="Director, Hong Kong Fire Services Department — YEUNG, Andy Yan Kin">chn.sbs.hkg.ntfd.incd.exc.01</span> <span class="cie-token cie-token--operator" data-label="statement describing">[s-ds]</span>
-    - <span class="cie-token cie-token--operator" data-label="with respect to">$</span> <span class="cie-token cie-token--ref" data-label="fire">axn.incd</span> <span class="cie-token cie-token--operator" data-label="at location">@</span> <span class="cie-token cie-token--ref" data-label="the location referenced earlier in this event">*.loc</span> <span class="cie-token cie-token--temporal" data-label="26th November 2025">26112025</span> <span class="cie-token cie-token--temporal" data-label="06:51 UTC">UTC 0651</span>
-        - <span class="cie-token cie-token--entity" data-label="approximately 65 civilians">`+65.civ</span> <span class="cie-token cie-token--operator" data-label="died">{di}</span>, <span class="cie-token cie-token--temporal" data-label="approximately 270">`+270</span> <span class="cie-token cie-token--operator" data-label="injured">{ij}</span> <span class="cie-token cie-token--ref" data-label="approximately at the incident">~incd</span>
-        - <span class="cie-token cie-token--entity" data-label="unknown number of males">unk.hom</span>, <span class="cie-token cie-token--entity" data-label="unknown number of females">unk.fem</span>, <span class="cie-token cie-token--entity" data-label="unknown number of children">unk.enf</span></pre>
-              <div class="event-card__footer">
-                <p class="event-card__summary">Hong Kong fire chief gives update on incident: 65 civilians displaced, approximately 270 injured at location.</p>
-                <span class="event-card__tag">NEA</span>
-              </div>
-            </article>
-
-          </div>
-        </div>
-      </section>
-
-      <!-- For Analysts -->
-      <section id="alpha" class="section-pad">
-        <div class="container">
-          <p class="section__label">04 / Alpha Testing</p>
-          <div class="alpha-card">
-            <div class="alpha-card__content">
-              <h2 class="section__title">Alpha testing.</h2>
-              <p class="alpha-card__body">
-                We are recruiting professional geopolitical analysts for a closed alpha. Participants will encode real events, test analytical workflows, and help refine CIE syntax through practical use. This is institutional-grade infrastructure in active development — not a finished product.
-              </p>
-              <p class="alpha-card__body" style="margin-top: 16px;">
-                We are looking for analysts with professional backgrounds in political risk, intelligence, international news coverage, international relations, or adjacent fields. Familiarity with formal methods or structured analytical techniques is valued but not required.
-              </p>
-            </div>
-            <div class="alpha-card__action">
-              <a href="mailto:editor@mondium.ai" class="btn-primary">Apply for Analyst Access</a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-    </main>
-
-    <footer class="site-footer">
-      <div class="container">
-        <p class="site-footer__copy">&copy; 2026 Mondium &bull; Global Narratives is a product of Mondium LLC</p>
-        <p class="site-footer__copy">Be Above.</p>
-      </div>
-    </footer>
-  </div><!-- /#home -->
-
-
-  <!-- ═══════════════════════════════════════════
-       PAGE SECTION: THE PROBLEM
-  ═══════════════════════════════════════════ -->
-  <div id="problem" class="page-section">
-
-    <div class="page-hero section--problem">
-      <div class="container prose-layout">
-        <p class="page-hero__label">01 / The Problem</p>
-        <h1 class="page-hero__headline">The analytical tools used to understand geopolitics were built for a world that no longer exists.</h1>
-      </div>
+      <a href="examples.html#entry-2" class="stack-card">
+        <div class="stack-card-layer">Layer 02</div>
+        <h3>Scenario Tracking</h3>
+        <p>Prediction markets built on structured inputs — with event-level attribution for every probability movement, competing models, independent analyst weighting, and full backtesting capability.</p>
+        <span class="stack-card-link">Learn more <span style="opacity:0.4; font-size:9px;">→</span></span>
+      </a>
+      <a href="examples.html#entry-3" class="stack-card">
+        <div class="stack-card-layer">Layer 03</div>
+        <h3>Structured Reporting</h3>
+        <p>Reports generated from the encoded event corpus — not from scraped prose. Every claim traces to a specific event and source record. Explicit assumptions. No black box.</p>
+        <span class="stack-card-link">Learn more <span style="opacity:0.4; font-size:9px;">→</span></span>
+      </a>
+      <a href="examples.html#entry-4" class="stack-card">
+        <div class="stack-card-layer">Layer 04</div>
+        <h3>Inquiries</h3>
+        <p>Analytical intelligence about the analysis itself — why analysts diverged, who moved toward accuracy and why, what the variance between competing models reveals about the events.</p>
+        <span class="stack-card-link">Learn more <span style="opacity:0.4; font-size:9px;">→</span></span>
+      </a>
     </div>
 
-    <main>
-      <div class="container prose-layout section-pad">
+    <a href="examples.html" class="section-link">Full examples and applications <span>→</span></a>
+  </div>
+</div>
 
-        <blockquote class="pull-quote">
-          "Men are disturbed not by events, but by the view that they take of them."
-          <cite>— Epictetus</cite>
-        </blockquote>
-
-        <div class="prose-section">
-          <h3>The End of an Age</h3>
-          <p>The contemporary newsmedia and political risk industries were engineered for an era defined by <strong>information scarcity</strong>. The premium resided in access — the wire service that moved fastest, the analyst who had the source, the bureau that was present when the event occurred. Information itself was the moat. To get the story, or to get it first, was a defensible positional advantage that justified entire institutional architectures: foreign correspondents, embassy contacts, paywalled intelligence reports, proprietary databases.</p>
-          <p>That world is gone. We now live under conditions of near-total <strong>information overabundance</strong>. The same event is described by hundreds of sources in the hour after it occurs — wire services, social feeds, official statements, analysis pieces, counter-narratives, corrections, and retractions arriving in an undifferentiated stream. The scarcity that once gave the established institutional players their edge has dissolved. What has replaced it is not clarity, but noise — and a particular kind of noise: untraceable, opaque narrative distortion that is structurally invisible to existing analytical tools.</p>
-          <p>The problem facing anyone who needs to understand the world at scale is no longer access to raw information. It is the <strong>inability to verify, compare, or aggregate</strong> what they already have. Our core institutional infrastructure — media organizations, risk consultancies, intelligence services — was designed to solve the problems of the previous era. In doing so, it has become systematically unable to solve the ones we actually face.</p>
-        </div>
-
-        <div class="prose-section">
-          <h3>The Prose Problem</h3>
-          <p>Prose-based political analysis is the medium through which almost all geopolitical intelligence is currently transmitted — news articles, risk reports, briefing papers, academic publications. Prose is flexible, expressive, and persuasive. It is also, from an analytical standpoint, <strong>largely useless at scale</strong>. A prose description of a political event cannot be machine-verified, cannot be systematically compared to another prose description of the same or a related event, cannot be searched across a corpus for structural patterns, and cannot be tested for internal consistency or factual accuracy.</p>
-          <p>The result is that pattern recognition across even a modest corpus of events — say, fifty judicial decisions in Southeast Asia over three years — is practically impossible. Each event is effectively locked inside its own narrative container, accessible only through the analyst's memory or the imprecision of keyword search. The analytical labor required to extract signal from noise under these conditions is enormous, and the results are not reproducible. Two analysts working from the same sources can arrive at incompatible conclusions with no formal mechanism for adjudication.</p>
-          <p>Compressed Information Expression addresses this directly. CIE imposes <strong>strict, transparent, syntactic guardrails</strong> on the encoding of political events — ensuring that actor, action, institution, and temporal reference are recorded in a consistent, machine-readable form across the entire event corpus. The resulting structure enables the kind of cross-corpus analysis, pattern matching, and systematic insight that prose-based methods categorically cannot produce. It is not a taxonomy or an ontology. It is a specification language: one in which meaning is transferred completely and unambiguously, regardless of the analyst encoding it or the language in which the underlying source material appears.</p>
-        </div>
-
-        <div class="prose-section">
-          <h3>The Prediction Market Failure Mode</h3>
-          <p>Prediction markets have attracted serious attention as a candidate solution to the problem of structured political forecasting. The premise is appealing: aggregate distributed beliefs through a price mechanism, and the resulting probability estimates will outperform expert consensus. And on certain narrow, well-defined questions — election outcomes, for instance — they sometimes do. But prediction markets have a <strong>structural misalignment between their incentive architecture and the demands of serious geopolitical analysis</strong>. Questions are designed to be resolvable, not important. The liquidity necessary for market function concentrates around high-profile events with unambiguous resolution criteria — which is to say, precisely the events that least require forecasting assistance. The events that matter most to institutional decision-makers are often complex, slow-moving, and impossible to reduce to a binary with a clean resolution date.</p>
-          <p>More fundamentally, prediction markets offer no transparency into the analytical reasoning underlying any given price. A probability estimate produced by a market conveys a confidence level but provides no insight into the logic, the evidence base, or the structural interpretation generating it. For anyone whose professional task is not to bet on outcomes but to <strong>understand the dynamics producing them</strong>, this is a critical deficiency. A number without an argument is not intelligence.</p>
-        </div>
-
-        <div class="prose-section">
-          <h3>What's Needed</h3>
-          <p>What the newsmedia and political risk industries need is the analytic revolution that the financial industry completed over the previous forty years: the shift from proprietary, prose-based analysis to <strong>standardized data, structured encoding, interlinked databases, and queryable infrastructure</strong>. That revolution — driven by Bloomberg, Reuters Elektron, the emergence of algorithmic trading, and ultimately the full digitization of financial markets — did not make human analysts redundant. It changed what they could do, dramatically expanding the scope and precision of what was analytically possible. The analysts who thrived were those who learned to work with the infrastructure rather than around it.</p>
-          <p>Global Narratives is building that infrastructure for political intelligence. Not another consulting report. Not another prediction market. Not another journalistic organization doing the same thing differently. A <strong>wholly revised informational substrate</strong> — one in which geopolitical events are encoded with the precision and interoperability that financial data long ago achieved, and through which the analytical possibilities of that substrate are only beginning to be understood.</p>
-        </div>
-
-        <div class="page-section__cta-wrap">
-          <a href="#methodology" class="page-section__cta-link nav-trigger" data-section="methodology">
-            How Global Narratives approaches this problem &rarr;
-          </a>
-        </div>
-
-      </div>
-    </main>
-
-    <footer class="site-footer">
-      <div class="container">
-        <p class="site-footer__copy">&copy; 2026 Mondium &bull; Global Narratives is a product of Mondium LLC</p>
-        <p class="site-footer__copy">Be Above.</p>
-      </div>
-    </footer>
-  </div><!-- /#problem -->
-
-
-  <!-- ═══════════════════════════════════════════
-       PAGE SECTION: METHODOLOGY
-  ═══════════════════════════════════════════ -->
-  <div id="methodology" class="page-section">
-
-    <div class="page-hero">
-      <div class="container prose-layout">
-        <p class="page-hero__label">02 / Methodology</p>
-        <h1 class="page-hero__headline">CIE is a formal specification language for political events.</h1>
-      </div>
+<!-- CTA SECTION -->
+<div class="cta-section landing-section" id="section-cta">
+  <div class="cta-bg">Mondium</div>
+  <div class="cta-inner">
+    <div class="cta-eyebrow">Mondium, LLC — Closed Development</div>
+    <h2 class="cta-h">The right conversations, <em>not the most.</em></h2>
+    <p class="cta-body">Cypher is not in public release. We are interested in contact from analysts, researchers, risk professionals, and technologists who have felt firsthand the limitations of the tools currently available — and who recognize what a structured encoding layer makes possible.</p>
+    <div class="cta-actions">
+      <a href="contact.html" class="btn-primary">Get in touch</a>
+      <a href="problem.html" class="btn-ghost">Start with the problem</a>
     </div>
+  </div>
+</div>
 
-    <main>
-      <div class="container section-pad">
+<!-- FOOTER -->
+<footer>
+  <span class="footer-left">Mondium<em>.</em>ai — Mondium, LLC © 2026</span>
+  <span class="footer-motto">Omnia Vincit Veritas</span>
+  <span class="footer-right">CIE Language Specification Suite</span>
+</footer>
 
-        <!-- Section 1: Design philosophy -->
-        <div class="prose-layout">
-          <div class="prose-section">
-            <h3>Design Philosophy</h3>
-            <p>CIE was not designed as a taxonomy or an ontology — two approaches that have been attempted before and found wanting in political intelligence contexts. Taxonomies classify; ontologies define relationships. Both are useful for organizing existing knowledge, but neither provides the precision required for encoding novel events in a consistent, transferable form. What was needed was a <strong>specification language</strong>: a formal system with defined syntax, a controlled vocabulary, and strict encoding rules, such that any event can be expressed by any trained analyst and yield the same structured output.</p>
-            <p>The design is informed by standards-based thinking drawn from fields where precision, reproducibility, and interoperability are baseline requirements — formal logic, software specification, legal drafting, and the encoding standards that underpin modern financial data infrastructure. The goal of <strong>zero-loss multilingual transfer</strong> was foundational from the outset: a CIE-encoded event must carry exactly the same analytical content whether the source material is in English, Arabic, Mandarin, or Portuguese, and whether it is encoded by an analyst in London or Jakarta.</p>
-            <p>CIE has been in active development since 2017–18 and has evolved through practical application rather than abstract design. Every syntactic decision in the current specification reflects a concrete encoding problem that arose in the field — an event that could not be represented without ambiguity, a category of actor that had no existing code, an action type that fell between established categories. The language is not finished. It is designed to be extended systematically as the corpus grows and new encoding requirements emerge.</p>
-          </div>
-        </div>
+</div><!-- /page-wrap -->
 
-        <!-- Section 2: Four-layer hierarchy -->
-        <div class="prose-layout">
-          <h3>The Four-Layer Hierarchy</h3>
-          <p class="annotator-intro">CIE organizes political knowledge into four nested layers, each with a defined role in the analytical architecture. The structure is designed so that lower layers supply the empirical substrate for higher-layer analysis.</p>
-        </div>
-
-        <div class="hierarchy-diagram" role="img" aria-label="CIE four-layer hierarchy: Narratives, Scenarios, Events, Entities">
-          <div class="hierarchy-layer">
-            <span class="hierarchy-layer__indent"></span>
-            <span class="hierarchy-layer__code">Narratives</span>
-            <span class="hierarchy-layer__def"><strong>High-level geopolitical frameworks.</strong> Narratives organize related Scenarios into coherent interpretive structures — the overarching dynamics within which individual events acquire their analytical significance. They are not predictions; they are frameworks for understanding what a sequence of events means.</span>
-          </div>
-          <div class="hierarchy-layer">
-            <span class="hierarchy-layer__indent">&nbsp;&nbsp;└──</span>
-            <span class="hierarchy-layer__code">Scenarios</span>
-            <span class="hierarchy-layer__def"><strong>Binary, falsifiable predictions.</strong> Each Scenario is a structured hypothesis with a defined resolution condition — it will either occur or it will not. Scenarios aggregate encoded Events with directional weights to produce a probability estimate that updates in real time as new events are encoded. The Scenario is the primary analytical unit.</span>
-          </div>
-          <div class="hierarchy-layer">
-            <span class="hierarchy-layer__indent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└──</span>
-            <span class="hierarchy-layer__code">Events</span>
-            <span class="hierarchy-layer__def"><strong>Discrete political actions encoded in CIE syntax.</strong> An Event links one or more Entities to an action code at a specific point in time and, where relevant, in a specific location. Events are the empirical atoms of the system — the encoded record of what actually happened, stripped of interpretive framing and expressed in machine-readable form.</span>
-          </div>
-          <div class="hierarchy-layer">
-            <span class="hierarchy-layer__indent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└──</span>
-            <span class="hierarchy-layer__code">Entities</span>
-            <span class="hierarchy-layer__def"><strong>Actors, institutions, and positions.</strong> The fundamental building blocks of the system. Every individual, organization, state, court, military unit, or office that appears in an encoded event is assigned a unique, persistent CIE entity code. Entity codes eliminate naming ambiguity — <code>bra.1955.061</code> always refers to the same individual, regardless of how their name is transliterated, spelled, or abbreviated in the source material.</span>
-          </div>
-        </div>
-
-        <!-- Section 3: Anatomy of a CIE expression -->
-        <div class="prose-layout" style="margin-top: var(--space-xl);">
-          <h3>Anatomy of a CIE Expression</h3>
-          <p class="annotator-intro">Below is a fully annotated CIE expression encoding a real political event. Hover over any underlined component to see its plain-English interpretation. Each element is syntactically required and has an unambiguous definition within the CIE specification.</p>
-        </div>
-
-        <div class="annotator-wrap container">
-          <div class="cie-panel">
-            <div class="cie-panel__header">
-              <span class="cie-panel__dot"></span>
-              <span class="cie-panel__dot"></span>
-              <span class="cie-panel__dot"></span>
-              <span class="cie-panel__label">CIE_ANNOTATOR &nbsp;//&nbsp; EVENT_VIEWER</span>
-            </div>
-            <div class="cie-panel__body">
-<pre class="cie-expression"><span class="cie-token" data-label="Event 39 in South America, 26th November 2025">e.26112025.sam.039</span>
-
-<span class="cie-token cie-token--entity" data-label="Brazilian Supreme Court">bra.jstc.grtc</span> <span class="cie-token cie-token--operator" data-label="makes a ruling">[rl]</span>
-    - <span class="cie-token cie-token--operator" data-label="with respect to">$</span> <span class="cie-token cie-token--ref" data-label="Docket number AP-2668">ap-2668.dkt</span> <span class="cie-token cie-token--operator" data-label="sentencing">{sc}</span>
-    - <span class="cie-token cie-token--operator" data-label="the ruling is">{rl}</span> -&gt; <span class="cie-token cie-token--entity" data-label="Brazilian figure born in 1955, number 61 (Jair Bolsonaro)">bra.1955.061</span> : <span class="cie-token cie-token--operator" data-label="jailed">[jl]</span> &gt; <span class="cie-token cie-token--temporal" data-label="starting from that date for 27 years">&#x222B; dt.*:27y</span></pre>
-            </div>
-            <div class="cie-panel__translation">
-              <strong>Plain English:</strong> The Brazilian Supreme Court issued a ruling on docket AP-2668, sentencing Jair Bolsonaro to 27 years imprisonment, effective immediately from 26 November 2025.
-            </div>
-          </div>
-        </div>
-
-        <!-- Section 4: Action codes -->
-        <div class="prose-layout" style="margin-top: var(--space-xl);">
-          <h3>Action Codes</h3>
-          <p>CIE uses a controlled vocabulary of action codes to classify political behaviors. The vocabulary is hierarchical: broad categories (Legal, Diplomatic, Military, Statement, Claims) subdivide into specific codes, each defined precisely and designed to be mutually exclusive. Every action in CIE has one correct code — the encoding is not interpretive, it is classificatory. The current vocabulary contains over 100 action codes covering the full range of political, institutional, economic, military, and informational behavior observed in the event corpus.</p>
-        </div>
-
-        <!-- AUTHOR NOTE: Action code table — vocabulary confirmed, definitions as provided -->
-        <div class="action-table-wrap container">
-          <table class="action-table" aria-label="Sample CIE action codes">
-            <thead>
-              <tr>
-                <th class="col-code">Code</th>
-                <th class="col-cat">Category</th>
-                <th class="col-name">Name</th>
-                <th class="col-desc">Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="col-code">[vu]</td>
-                <td class="col-cat">Legal-Executive</td>
-                <td class="col-name">Approves</td>
-                <td class="col-desc">The act of an executive or other non-legislative governmental entity approving a formal process</td>
-              </tr>
-              <tr>
-                <td class="col-code">[rc]</td>
-                <td class="col-cat">Political-Diplomatic</td>
-                <td class="col-name">Recognizes</td>
-                <td class="col-desc">The act of granting formal status under law to a specific person, institution, or act</td>
-              </tr>
-              <tr>
-                <td class="col-code">[nm]</td>
-                <td class="col-cat">Political-Operational</td>
-                <td class="col-name">Nominates</td>
-                <td class="col-desc">The act of selecting an individual for a designated office with the need for confirmation of this choice by another entity</td>
-              </tr>
-              <tr>
-                <td class="col-code">[pt]</td>
-                <td class="col-cat">Commercial-Operational</td>
-                <td class="col-name">Capitalizes</td>
-                <td class="col-desc">The act of providing capital to a designated enterprise in exchange for equity</td>
-              </tr>
-              <tr>
-                <td class="col-code">[nu]</td>
-                <td class="col-cat">Military-Kinetic</td>
-                <td class="col-name">Neutralizes</td>
-                <td class="col-desc">The act of killing or destroying a specified target by the recognized and uniformed armed forces of a state</td>
-              </tr>
-              <tr>
-                <td class="col-code">[s-al]</td>
-                <td class="col-cat">Statement-Inflected</td>
-                <td class="col-name">Alleges</td>
-                <td class="col-desc">To raise a defined, unverified but falsifiable claim about a specified actor or institution</td>
-              </tr>
-              <tr>
-                <td class="col-code">[s-st]</td>
-                <td class="col-cat">Statement-Neutral</td>
-                <td class="col-name">States</td>
-                <td class="col-desc">To offer a formal declaration of individual position on a specific entity, individual, or event</td>
-              </tr>
-              <tr>
-                <td class="col-code">[c-or]</td>
-                <td class="col-cat">Claims &amp; Rumors</td>
-                <td class="col-name">Off-the-Record Claim</td>
-                <td class="col-desc">A specific claim, opinion, or interpretation made without full attribution at the request of the claimant</td>
-              </tr>
-              <tr>
-                <td class="col-code">[c-uv]</td>
-                <td class="col-cat">Claims &amp; Rumors</td>
-                <td class="col-name">Unverifiable Claim</td>
-                <td class="col-desc">A factual and falsifiable claim or assessment made by an individual or organization whose underlying truth cannot be verified at time of reporting</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Section 5: Scenarios and probability -->
-        <div class="prose-layout" style="margin-top: var(--space-xl);">
-          <div class="prose-section">
-            <h3>Scenarios and Probability</h3>
-            <p>Every encoded Event can be assigned to one or more Scenarios — binary, falsifiable predictions about how a specific geopolitical situation will resolve. Each assignment carries a <strong>directional weight</strong> on a scale from &minus;12 to +12, indicating how strongly the event supports or undermines the Scenario's resolution condition. A judicial decision that directly advances a constitutional crisis scenario might carry a weight of +10; a diplomatic statement that marginally complicates the picture might carry +2. Weights are assigned by the encoding analyst according to a defined categorical framework — the process is structured and transparent, not discretionary.</p>
-            <p>As Events are encoded and assigned, the system aggregates their weighted inputs to produce a <strong>probability estimate</strong> for each Scenario. This estimate updates in near-real time as new events arrive. Crucially, the probability is not a black box — every contributing event, its directional weight, and its categorical classification are visible in the audit trail. An analyst who disagrees with a probability estimate can examine the inputs that produced it, identify where their interpretation diverges, and articulate precisely why. This is what distinguishes CIE-based analysis from both prose-based consulting reports and prediction market prices: the reasoning is inspectable and falsifiable at every level.</p>
-          </div>
-
-          <div class="page-section__cta-wrap">
-            <a href="mailto:editor@mondium.ai" class="page-section__cta-link">
-              Apply for analyst access &rarr;
-            </a>
-          </div>
-        </div>
-
-      </div><!-- /.container -->
-    </main>
-
-    <footer class="site-footer">
-      <div class="container">
-        <p class="site-footer__copy">&copy; 2026 Mondium &bull; Global Narratives is a product of Mondium LLC</p>
-        <p class="site-footer__copy">Be Above.</p>
-      </div>
-    </footer>
-  </div><!-- /#methodology -->
-
-
-  <!-- ═══════════════════════════════════════════
-       CONSOLIDATED JS — routing + nav + tooltips
-       Target: ≤ 120 lines
-  ═══════════════════════════════════════════ -->
-  <script>
-  (function () {
-    'use strict';
-
-    /* ── Config ────────────────────────────────────── */
-    var PAGE_SECTIONS = ['home', 'problem', 'methodology'];
-    var TITLES = {
-      home:        'Global Narratives | Geopolitical Intelligence Infrastructure',
-      problem:     'The Problem — Global Narratives',
-      methodology: 'How CIE Works — Global Narratives'
-    };
-
-    /* ── Tooltip injection ─────────────────────────── */
-    var tokens = document.querySelectorAll('.cie-token[data-label]');
-    tokens.forEach(function (token) {
-      var tip = document.createElement('span');
-      tip.className = 'cie-tooltip';
-      tip.textContent = token.getAttribute('data-label');
-      token.appendChild(tip);
-    });
-
-    var activeToken = null;
-    tokens.forEach(function (token) {
-      token.addEventListener('click', function (e) {
-        e.stopPropagation();
-        if (activeToken && activeToken !== token) activeToken.classList.remove('is-active');
-        token.classList.toggle('is-active');
-        activeToken = token.classList.contains('is-active') ? token : null;
-      });
-    });
-    document.addEventListener('click', function () {
-      if (activeToken) { activeToken.classList.remove('is-active'); activeToken = null; }
-    });
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && activeToken) { activeToken.classList.remove('is-active'); activeToken = null; }
-    });
-
-    /* ── Section switching ─────────────────────────── */
-    function showSection(id) {
-      PAGE_SECTIONS.forEach(function (sid) {
-        var el = document.getElementById(sid);
-        if (el) el.classList.toggle('is-active', sid === id);
-      });
-      document.querySelectorAll('.site-nav__link').forEach(function (link) {
-        link.classList.toggle('is-active', link.getAttribute('data-section') === id);
-      });
-      document.title = TITLES[id] || TITLES.home;
-      window.scrollTo(0, 0);
-    }
-
-    /* ── Route from hash ───────────────────────────── */
-    function route() {
-      var hash = window.location.hash.replace('#', '') || 'home';
-      if (PAGE_SECTIONS.indexOf(hash) !== -1) {
-        showSection(hash);
-      } else {
-        // Treat as in-page anchor within #home
-        showSection('home');
-        var target = document.getElementById(hash);
-        if (target) { setTimeout(function () { target.scrollIntoView({ behavior: 'smooth' }); }, 50); }
-      }
-    }
-
-    /* ── Nav link clicks ───────────────────────────── */
-    document.querySelectorAll('.site-nav__link, .nav-trigger').forEach(function (link) {
-      link.addEventListener('click', function (e) {
-        var section = link.getAttribute('data-section');
-        if (!section) return;
-        e.preventDefault();
-        window.location.hash = '#' + section;
-        showSection(section);
-        // Close mobile menu if open
-        var nav = document.getElementById('site-nav');
-        if (nav) { nav.classList.remove('is-open'); }
-        var btn = document.getElementById('hamburger');
-        if (btn) { btn.textContent = '\u2630'; btn.setAttribute('aria-expanded', 'false'); }
-      });
-    });
-
-    /* ── Hashchange (browser back/forward) ─────────── */
-    window.addEventListener('hashchange', route);
-
-    /* ── Mobile hamburger ──────────────────────────── */
-    var hamburger = document.getElementById('hamburger');
-    var siteNav   = document.getElementById('site-nav');
-    if (hamburger && siteNav) {
-      hamburger.addEventListener('click', function () {
-        var open = siteNav.classList.toggle('is-open');
-        hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
-        hamburger.textContent = open ? '\u2715' : '\u2630';
-      });
-    }
-
-    /* ── Initial route on page load ────────────────── */
-    route();
-
-  }());
-  </script>
-
+<script>
+const sections = document.querySelectorAll('.landing-section');
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.06 });
+sections.forEach(s => revealObs.observe(s));
+</script>
 </body>
 </html>
