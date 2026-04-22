@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Examples &amp; Applications — Mondium</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=PT+Mono&display=swap">
+<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<div class="page-wrap">
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Mondium<em>.</em>ai</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="problem.html">The Problem</a></li>
+      <li><a href="cie.html">What Is CIE</a></li>
+      <li><a href="examples.html" class="active">Examples</a></li>
+      <li><a href="contact.html" class="nav-cta">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-container">
+
+  <div class="page-header">
+    <div class="breadcrumb">
+      <a href="index.html">Mondium</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">Examples &amp; Applications</span>
+    </div>
+    <div class="page-header-single">
+      <h1 class="page-title">What structured political data <em>makes possible.</em></h1>
+      <p class="page-intro">These are not separate features. They are layers of a single analytical stack — each one built on the foundation below it, each one impossible without the encoding discipline that precedes it.</p>
+    </div>
+  </div>
+
+  <div class="content-body">
+    <div class="content-main">
+
+      <!-- STACK OVERVIEW -->
+      <div class="stack-diagram" id="stack">
+        <div class="stack-label-row">Analytical stack — each layer requires the one below it</div>
+        <div class="stack-layers">
+          <div class="stack-layer">
+            <div class="stack-layer-num">01</div>
+            <div class="stack-layer-name">Pattern Recognition</div>
+            <div class="stack-layer-desc">Requires: structured event corpus</div>
+          </div>
+          <div class="stack-layer">
+            <div class="stack-layer-num">02</div>
+            <div class="stack-layer-name">Scenario Tracking</div>
+            <div class="stack-layer-desc">Requires: pattern recognition + event weighting</div>
+          </div>
+          <div class="stack-layer">
+            <div class="stack-layer-num">03</div>
+            <div class="stack-layer-name">Structured Reporting</div>
+            <div class="stack-layer-desc">Requires: structured corpus + assumptions layer</div>
+          </div>
+          <div class="stack-layer">
+            <div class="stack-layer-num">04</div>
+            <div class="stack-layer-name">Inquiries</div>
+            <div class="stack-layer-desc">Requires: scenarios + multi-analyst weighting history</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAPABILITY 1 — Pattern Recognition -->
+      <div class="cap-entry" id="entry-1">
+        <div class="layer-indicator">
+          <span class="layer-num">01</span>
+          <span class="layer-tag">Pattern Recognition</span>
+          <span class="layer-prereq"><span class="prereq-arrow">↳</span> Requires structured event corpus</span>
+        </div>
+
+        <div class="cap-layout">
+          <div class="cap-text">
+            <h2>Event patterns that prose databases <em>cannot see.</em></h2>
+            <p>The most immediate gain from structured encoding is the ability to query the record in ways that are simply impossible with prose. When every event is encoded with a consistent actor, action, domain, location, and timestamp — in a governed vocabulary — the corpus becomes a database in the full analytical sense of the word.</p>
+            <p>Questions that currently require weeks of manual research become direct queries. <strong>How many times has a given actor engaged a given counterpart, in what domains, with what actions, over a defined time period?</strong> Which institutional actors most frequently initiate diplomatic contact in the energy domain, and how does that pattern differ by region? Which action types cluster around elections in Southeast Asia in the eighteen months prior to polling day?</p>
+            <p>None of these questions are exotic. They are the questions analysts ask routinely. What CIE provides is the infrastructure to answer them rigorously — against a corpus where the same event encoded by different analysts in different source languages produces a directly comparable record.</p>
+
+            <div class="query-block">
+              <div class="query-header">Example queries — enabled by structured encoding</div>
+              <div class="query-body">
+                <div class="query-example">"Show all <em>[dpl.mt]</em> events between <em>[ind.*]</em> and <em>[rus.*]</em> actors in the <em>[eng.*]</em> domain, last 36 months"</div>
+                <div class="query-example">"Which <em>[*.hog]</em> actors have initiated <em>[dpl.sgn]</em> actions most frequently, filtered by <em>[axn.sec.bil]</em> domain, by region"</div>
+                <div class="query-example">"Show frequency of <em>[cl.*]</em> action codes in <em>[sea.*]</em> events within 18 months of scheduled national elections"</div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="visual-placeholder">
+              <div class="placeholder-icon">◫</div>
+              <div class="placeholder-label">Visual placeholder</div>
+              <div class="placeholder-title">Actor relationship graph<br>query result view</div>
+            </div>
+
+            <div class="sub-caps">
+              <div class="sub-cap">
+                <div class="sub-cap-dot"></div>
+                <div class="sub-cap-text">
+                  <strong>Cross-jurisdictional comparison</strong>
+                  The same action code means the same thing regardless of the originating country, source language, or reporting outlet. Transnational pattern analysis requires no additional normalization.
+                </div>
+              </div>
+              <div class="sub-cap">
+                <div class="sub-cap-dot"></div>
+                <div class="sub-cap-text">
+                  <strong>Graph traversal</strong>
+                  The Neo4j analytical layer supports relationship queries unavailable in relational databases — actor networks, institutional hierarchies, and event chains traversed in a single query.
+                </div>
+              </div>
+              <div class="sub-cap">
+                <div class="sub-cap-dot"></div>
+                <div class="sub-cap-text">
+                  <strong>Auditable results</strong>
+                  Every result traces back to a specific encoded event with a source record. No black box. No generated summaries. Every finding is reproducible.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAPABILITY 2 — Scenario Tracking -->
+      <div class="cap-entry" id="entry-2">
+        <div class="layer-indicator">
+          <span class="layer-num">02</span>
+          <span class="layer-tag">Scenario Tracking</span>
+          <span class="layer-prereq"><span class="prereq-arrow">↳</span> Requires pattern recognition + event weighting</span>
+        </div>
+
+        <div class="cap-layout">
+          <div class="cap-text">
+            <h2>Prediction markets, <em>built on something real.</em></h2>
+            <p>Scenarios are binary, falsifiable questions about future political conditions — structured the same way as a prediction market question, but with a critical difference in the underlying architecture. Where prediction markets aggregate crowd opinion against vague natural language inputs, Cypher's scenario system is fed by pre-parsed, structured events, allowing for a precision of analytical accounting that crowdsourced probability simply cannot produce.</p>
+            <p>Each scenario has a defined resolution condition, a resolution date, and a probability that updates over its lifespan as analysts assign encoded events to it with explicit weights and documented reasoning. The weight an analyst assigns to an event is not an opinion — it is a structured claim about how that event bears on the scenario's resolution, recorded against the full context of the actor's institutional position, relationships, and prior actions.</p>
+            <p>This structure enables capabilities that prediction markets do not have: <strong>granular event-level attribution</strong> for every probability movement, <strong>competing analytical models</strong> running simultaneously against the same event corpus, <strong>backtesting</strong> against historical scenario runs, and a complete audit trail of every assumption made during the scenario's lifetime.</p>
+
+            <div class="scenario-grid">
+              <div class="scenario-cell">
+                <div class="scenario-cell-label">Scenario structure</div>
+                <div class="scenario-cell-value">Binary</div>
+                <div class="scenario-cell-desc">Resolution is 1 or 0. Forces precise, falsifiable claim formulation.</div>
+              </div>
+              <div class="scenario-cell">
+                <div class="scenario-cell-label">Probability update mechanism</div>
+                <div class="scenario-cell-value">Weighted</div>
+                <div class="scenario-cell-desc">Each encoded event is explicitly weighted by the analyst and documented.</div>
+              </div>
+              <div class="scenario-cell">
+                <div class="scenario-cell-label">Input data</div>
+                <div class="scenario-cell-value">Structured</div>
+                <div class="scenario-cell-desc">Pre-parsed CIE events, not prose summaries or natural language inputs.</div>
+              </div>
+              <div class="scenario-cell">
+                <div class="scenario-cell-label">Analyst positions</div>
+                <div class="scenario-cell-value">Independent</div>
+                <div class="scenario-cell-desc">Multiple analysts work simultaneously without seeing each other's weightings.</div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="visual-placeholder">
+              <div class="placeholder-icon">◫</div>
+              <div class="placeholder-label">Visual placeholder</div>
+              <div class="placeholder-title">Scenario probability<br>tracking view</div>
+            </div>
+
+            <div class="sub-caps">
+              <div class="sub-cap">
+                <div class="sub-cap-dot"></div>
+                <div class="sub-cap-text">
+                  <strong>Event-level attribution</strong>
+                  Every probability movement traces to specific encoded events and specific analyst weight assignments. You can always answer: why did the probability move, and who moved it.
+                </div>
+              </div>
+              <div class="sub-cap">
+                <div class="sub-cap-dot"></div>
+                <div class="sub-cap-text">
+                  <strong>Backtesting</strong>
+                  Resolved scenarios remain in the corpus with their full event and weighting history. New models and assumptions can be run against historical scenario runs to evaluate methodology before deploying it forward.
+                </div>
+              </div>
+              <div class="sub-cap">
+                <div class="sub-cap-dot"></div>
+                <div class="sub-cap-text">
+                  <strong>Competing models</strong>
+                  Multiple analysts assign independent initial probabilities and independent event weights. The variance between models is itself an analytical signal — not noise to be averaged away.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAPABILITY 3 — Structured Reporting -->
+      <div class="cap-entry" id="entry-3">
+        <div class="layer-indicator">
+          <span class="layer-num">03</span>
+          <span class="layer-tag">Structured Reporting</span>
+          <span class="layer-prereq"><span class="prereq-arrow">↳</span> Requires structured corpus + assumptions layer</span>
+        </div>
+
+        <div class="cap-layout">
+          <div class="cap-text">
+            <h2>Reports that show <em>their working.</em></h2>
+            <p>The most common use of AI in political analysis today is to summarize unstructured reporting — to take a large volume of news and produce a readable digest. The limitation is structural: when the input is unstructured prose carrying all the editorializing, duplication, and language asymmetries described on the Problem page, the output inherits those failures, presented in confident fluent prose that does not flag its own uncertainty.</p>
+            <p>Cypher's reporting capability inverts this. Reports are generated not from scraped prose but from the structured event corpus — encoded facts, explicit source credibility ratings, and analyst-documented assumptions. The result is not a summary of what reporters wrote about what happened. It is a structured account of <strong>what actually happened</strong>, against a defined set of explicit assumptions, with every claim traceable to a specific encoded event and a specific source record.</p>
+            <p>This changes the epistemic character of the output. Instead of a confident paragraph that cannot be audited, you get a report where every factual claim is a link to an event encoding, every probabilistic assessment cites the scenario it derives from, and every assumption is recorded and queryable. The report is not a black box. It is a transparent instrument.</p>
+          </div>
+
+          <div>
+            <div class="visual-placeholder">
+              <div class="placeholder-icon">◫</div>
+              <div class="placeholder-label">Visual placeholder</div>
+              <div class="placeholder-title">Structured report output<br>with traceable event citations</div>
+            </div>
+
+            <div class="sub-caps">
+              <div class="sub-cap">
+                <div class="sub-cap-dot"></div>
+                <div class="sub-cap-text">
+                  <strong>Traceable inputs</strong>
+                  Every claim in a Cypher report links to the encoded event it derives from. The source record, credibility rating, and encoding analyst are all recoverable.
+                </div>
+              </div>
+              <div class="sub-cap">
+                <div class="sub-cap-dot"></div>
+                <div class="sub-cap-text">
+                  <strong>Configurable scope</strong>
+                  Reports can be scoped by actor, institution, domain, region, or time window — and combinations thereof — producing tailored output without manual curation of the underlying dataset.
+                </div>
+              </div>
+              <div class="sub-cap">
+                <div class="sub-cap-dot"></div>
+                <div class="sub-cap-text">
+                  <strong>Explicit assumptions</strong>
+                  Where probabilistic assessments appear in a report, the assumptions underlying them are recorded and accessible — not embedded invisibly in the model's weights.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAPABILITY 4 — Inquiries -->
+      <div class="cap-entry" id="entry-4">
+        <div class="layer-indicator">
+          <span class="layer-num">04</span>
+          <span class="layer-tag">Inquiries</span>
+          <span class="layer-prereq"><span class="prereq-arrow">↳</span> Requires scenarios + multi-analyst weighting history</span>
+        </div>
+
+        <div class="cap-layout layout-full">
+          <div class="cap-text">
+            <h2>Analytical intelligence about <em>the analysis itself.</em></h2>
+            <p>Inquiries are the layer of the system that has no equivalent in existing political analysis tools — and the one that most clearly illustrates what structured data makes possible when it accumulates over time. Where scenario tracking asks "what is the probability of this outcome," Inquiries ask a different set of questions: <strong>why did analysts disagree, who was right, and what does that reveal about the event or the analyst?</strong></p>
+            <p>Because every probability movement in a scenario is attributed to specific encoded events and specific analyst weightings, with reasoning documented at the time of assignment, Inquiries can examine the history of a scenario's analysis at whatever level of granularity the question demands. The system can identify which analysts moved in tandem against the consensus and subsequently proved more accurate — and then surface the specific event weightings that explain the divergence. It can identify an analyst whose initial probability assessments consistently outperform their ongoing event weighting, suggesting a specific diagnostic about where their analytical value lies. It can isolate a week in which two analysts reached similar directional conclusions through entirely different event selections, and ask what that means about the events themselves.</p>
+            <p>These are not capabilities that can be bolted onto a prose-based system after the fact. They depend on the full weighting history being structured, attributed, and queryable from the moment it was created. They are the compounding return on the prior discipline of encoding.</p>
+          </div>
+        </div>
+
+        <div class="inquiry-callout">
+          <div class="inquiry-callout-label">Illustration — the kind of question Inquiries answers</div>
+          <p>In a twelve-week scenario run, two analysts independently moved their probability assessments in the same direction during weeks three through six and again in weeks ten through twelve — against the consensus of all other analysts working the same scenario. Both ultimately proved more accurate than the group. Pulling the event assignations for those specific weeks reveals that both analysts weighted the same two events that no other analyst had included — one from North America, one from Southeast Asia — while working independently on a scenario centered on Northeast Asian political stability.</p>
+          <p><strong>The question Inquiries raises:</strong> did these two analysts share an interpretive framework that caused them to see connections others missed? Were those events genuinely causally relevant, or coincidentally correlated with the outcome? The structured record provides the raw material to investigate both possibilities — and to do so reproducibly, with the full event and weighting history available for re-examination.</p>
+          <p>This is the kind of meta-analytical insight that professional intelligence shops spend significant manual effort to reconstruct after the fact, if they attempt it at all. With structured inputs, it is a query.</p>
+        </div>
+
+        <div class="visual-placeholder-wide">
+          <div class="placeholder-icon">◫</div>
+          <div class="placeholder-label">Visual placeholder</div>
+          <div class="placeholder-title">Multi-analyst scenario probability comparison — Inquiries view</div>
+        </div>
+      </div>
+
+      <!-- CONCLUSION -->
+      <div class="conclusion-entry" id="conclusion">
+        <div class="conclusion-rule"><span>The compounding return</span></div>
+        <p class="conclusion-text">Each layer of the stack is useful in isolation. Together, they constitute something that does not exist elsewhere: <em>a closed analytical environment where every input is structured, every output is traceable, and every assumption is recorded.</em></p>
+        <p class="conclusion-body">The competitive advantage of this system is not any single capability. It is the corpus — the accumulating body of structured, governed, auditable event encodings that makes each layer of the stack more powerful over time. The corpus is not a byproduct of the system. It is the system.</p>
+        <a href="contact.html" class="next-page-link">Get in touch <span>→</span></a>
+      </div>
+
+    </div><!-- /content-main -->
+
+    <!-- SIDEBAR -->
+    <div class="content-sidebar">
+      <div class="sidebar-progress" id="progress-nav">
+        <div class="progress-item active" data-target="stack">
+          <div class="progress-dot"></div>
+          <span class="progress-label">The Stack</span>
+        </div>
+        <div class="progress-item" data-target="entry-1">
+          <div class="progress-dot"></div>
+          <span class="progress-label">Pattern Recognition</span>
+        </div>
+        <div class="progress-item" data-target="entry-2">
+          <div class="progress-dot"></div>
+          <span class="progress-label">Scenario Tracking</span>
+        </div>
+        <div class="progress-item" data-target="entry-3">
+          <div class="progress-dot"></div>
+          <span class="progress-label">Structured Reporting</span>
+        </div>
+        <div class="progress-item" data-target="entry-4">
+          <div class="progress-dot"></div>
+          <span class="progress-label">Inquiries</span>
+        </div>
+      </div>
+      <div class="sidebar-cta">
+        <div class="sidebar-cta-label">Interested?</div>
+        <p>We are looking for the right conversations. If this is a problem you recognize, get in touch.</p>
+        <a href="contact.html" class="sidebar-cta-link">Contact us →</a>
+      </div>
+    </div>
+
+  </div><!-- /content-body -->
+</div><!-- /page-container -->
+
+<footer>
+  <span class="footer-left">Mondium<em>.</em>ai — Mondium, LLC © 2026</span>
+  <span class="footer-motto">Omnia Vincit Veritas</span>
+  <span class="footer-right">Examples &amp; Applications — 04 / 05</span>
+</footer>
+
+</div><!-- /page-wrap -->
+
+<script>
+const revealEls = document.querySelectorAll('.cap-entry, .conclusion-entry, .stack-diagram');
+const revealObs = new IntersectionObserver((items) => {
+  items.forEach(item => { if (item.isIntersecting) item.target.classList.add('visible'); });
+}, { threshold: 0.05 });
+revealEls.forEach(e => revealObs.observe(e));
+
+const progressItems = document.querySelectorAll('.progress-item[data-target]');
+const progressObs = new IntersectionObserver((items) => {
+  items.forEach(item => {
+    if (item.isIntersecting && item.intersectionRatio > 0.12) {
+      const id = item.target.id;
+      progressItems.forEach(p => p.classList.toggle('active', p.dataset.target === id));
+    }
+  });
+}, { threshold: 0.12, rootMargin: '-10% 0px -60% 0px' });
+document.querySelectorAll('#stack, #entry-1, #entry-2, #entry-3, #entry-4, #conclusion').forEach(e => progressObs.observe(e));
+</script>
+</body>
+</html>
