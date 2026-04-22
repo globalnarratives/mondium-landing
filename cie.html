@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Is CIE — Mondium</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=PT+Mono&display=swap">
+<link rel="stylesheet" href="css/main.css">
+<style>
+.page-header-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 80px;
+  align-items: end;
+}
+
+.principle-list { border: 1px solid var(--border-med); background: var(--bg-card); }
+.principle-row { display: flex; gap: 16px; align-items: flex-start; padding: 16px 20px; border-bottom: 1px solid var(--border); }
+.principle-row:last-child { border-bottom: none; }
+.principle-glyph { font-family: var(--mono); font-size: 10px; color: var(--accent); opacity: 0.55; min-width: 20px; padding-top: 2px; }
+.principle-text { font-size: 13px; font-weight: 300; line-height: 1.55; color: var(--text-secondary); }
+.principle-text strong { font-weight: 500; color: var(--text-primary); }
+
+.cie-entry {
+  padding: 72px 0;
+  border-bottom: 1px solid var(--border);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.cie-entry.visible { opacity: 1; transform: translateY(0); }
+.cie-entry:last-of-type { border-bottom: none; }
+
+.encoding-block { margin: 36px 0; border: 1px solid var(--border-med); background: var(--bg-card); overflow: hidden; }
+
+.encoding-header { padding: 12px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.encoding-title { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-tertiary); }
+.encoding-badges { display: flex; gap: 8px; align-items: center; }
+.badge { font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 8px; border: 1px solid; }
+.badge-osint  { color: var(--mono-green); border-color: rgba(122,184,154,0.3); }
+.badge-rumint { color: var(--mono-red);   border-color: rgba(200,122,122,0.3); }
+.badge-parsed { color: var(--text-tertiary); border-color: var(--border); }
+
+.encoding-body { padding: 24px 20px; }
+
+.rumint-header {
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 2;
+  color: var(--text-tertiary);
+  padding: 14px 20px;
+  background: rgba(200,122,122,0.04);
+  border-bottom: 1px solid rgba(200,122,122,0.12);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 24px;
+}
+.rh-field { display: flex; gap: 10px; }
+.rh-key { color: var(--text-tertiary); }
+.rh-val { color: var(--mono-red); opacity: 0.8; }
+
+.cie-expression {
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 2;
+  background: rgba(0,0,0,0.25);
+  border: 1px solid var(--border);
+  padding: 20px 24px;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.caption-block { padding: 20px 20px 24px; border-top: 1px solid var(--border); }
+.caption-text { font-size: 14px; font-weight: 300; line-height: 1.75; color: var(--text-secondary); font-style: italic; margin-bottom: 14px; }
+
+.annotation-toggle {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  background: none;
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.annotation-toggle:hover { color: var(--accent); border-color: rgba(196,180,154,0.3); }
+.toggle-arrow { display: inline-block; transition: transform 0.25s ease; font-size: 9px; opacity: 0.6; }
+.annotation-toggle.open .toggle-arrow { transform: rotate(90deg); }
+
+.annotation-panel { display: none; margin-top: 16px; border: 1px solid var(--border); }
+.annotation-panel.open { display: grid; grid-template-columns: 1fr 1fr; }
+.ann-item { padding: 12px 16px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.ann-item:nth-child(even) { border-right: none; }
+.ann-item:last-child { border-bottom: none; }
+.ann-item:nth-last-child(2):nth-child(odd) { border-bottom: none; }
+.ann-token { font-family: var(--mono); font-size: 11px; margin-bottom: 5px; }
+.ann-label { font-size: 11px; font-weight: 300; color: var(--text-tertiary); line-height: 1.5; }
+
+.conclusion-entry {
+  padding: 72px 0 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.conclusion-entry.visible { opacity: 1; transform: translateY(0); }
+.conclusion-rule { display: flex; align-items: center; gap: 20px; margin-bottom: 48px; }
+.conclusion-rule::before, .conclusion-rule::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.conclusion-rule span { font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-tertiary); white-space: nowrap; }
+.conclusion-text { font-family: var(--serif); font-weight: 300; font-size: clamp(20px, 2.5vw, 28px); line-height: 1.55; color: var(--text-primary); max-width: 680px; margin-bottom: 24px; }
+.conclusion-text em { font-style: italic; color: var(--accent); }
+.conclusion-body { font-size: 15px; font-weight: 300; line-height: 1.82; color: var(--text-secondary); max-width: 620px; margin-bottom: 40px; }
+
+@media (max-width: 1024px) {
+  .page-header-grid { grid-template-columns: 1fr; gap: 40px; }
+  .annotation-panel.open { grid-template-columns: 1fr; }
+  .ann-item { border-right: none; }
+  .ann-item:nth-last-child(2):nth-child(odd) { border-bottom: 1px solid var(--border); }
+  .ann-item:last-child { border-bottom: none; }
+  .rumint-header { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Mondium<em>.</em>ai</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="problem.html">The Problem</a></li>
+      <li><a href="cie.html" class="active">What Is CIE</a></li>
+      <li><a href="examples.html">Examples</a></li>
+      <li><a href="contact.html" class="nav-cta">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-container">
+
+  <div class="page-header">
+    <div class="breadcrumb">
+      <a href="index.html">Mondium</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">What Is CIE</span>
+    </div>
+
+    <div class="page-header-grid">
+      <div>
+        <h1 class="page-title">A formal language for <em>what actually happened.</em></h1>
+        <p class="page-intro">Compressed Information Expression is a domain-specific encoding language for discrete, observable political events. Human-authored for fidelity. Machine-parseable for scale. Governed by specification for consistency across analysts, time, and geography.</p>
+      </div>
+      <div>
+        <div class="principle-list">
+          <div class="principle-row">
+            <span class="principle-glyph">I</span>
+            <span class="principle-text"><strong>Observable events only.</strong> CIE encodes what can be directly verified — actions taken by identified actors in the real world. Intent, interpretation, and narrative remain outside the specification.</span>
+          </div>
+          <div class="principle-row">
+            <span class="principle-glyph">II</span>
+            <span class="principle-text"><strong>Maximum semantic density.</strong> Every token carries governed meaning. The same encoding produced by different analysts at different times is directly comparable — by design.</span>
+          </div>
+          <div class="principle-row">
+            <span class="principle-glyph">III</span>
+            <span class="principle-text"><strong>Valence normalization.</strong> Action codes carry no built-in directional bias. Analytical valence is encoded explicitly where it exists — never baked silently into the action type.</span>
+          </div>
+          <div class="principle-row">
+            <span class="principle-glyph">IV</span>
+            <span class="principle-text"><strong>A governed expansion path.</strong> CIE 1.0 is a stable base specification with a formal extension architecture. The foundation does not shift as the vocabulary grows.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-body">
+    <div class="content-main">
+
+      <!-- INTRO -->
+      <div class="cie-entry" id="entry-intro">
+        <div class="entry-meta">
+          <span class="entry-tag">The Architecture</span>
+        </div>
+        <h2 class="entry-h">A language built for <em>the analyst, not the reader.</em></h2>
+        <div class="entry-body">
+          <p>CIE expressions are built from two separable layers. The grammar defines how tokens are composed, how clauses are structured, and how meaning derives from their combination. The Registry — a managed, versioned vocabulary — defines what those tokens resolve to: the specific named codes for actors, institutions, positions, actions, domains, and locations that give CIE expressions their semantic content.</p>
+          <p>An expression is syntactically valid by reference to the grammar alone. It is semantically valid — and analytically meaningful — only when its tokens resolve to entries in the Registry. This separation is foundational: it means the grammar is stable while the vocabulary can grow, and it means two expressions using the same action code are making the same claim, regardless of who encoded them or when.</p>
+          <div class="callout">
+            <span class="callout-icon">—</span>
+            <p class="callout-text">CIE does not replace the source reporting. It sits above it — a structured record of what the reporting contains, from which the prose can be recovered on demand. The encoding is the analytical unit; the article is the citation.</p>
+          </div>
+          <p>The examples below are drawn from real events across different action types and information environments. They are not edge cases chosen to show the system's range — they are representative of what a working analyst encodes on any given day. The complexity varies; the underlying logic is the same throughout.</p>
+        </div>
+      </div>
+
+      <!-- EXAMPLE 1 — Modi / Putin bilateral -->
+      <div class="cie-entry" id="entry-1">
+        <div class="entry-meta">
+          <span class="entry-num">01</span>
+          <span class="entry-tag">Bilateral Meeting / OSINT</span>
+        </div>
+        <h2 class="entry-h">Head of government bilateral <em>with domain scope and temporal span</em></h2>
+        <div class="entry-body">
+          <p>A bilateral meeting between heads of state with senior ministerial participation, covering multiple defined domains, at a specified location, over a bounded time period. This is among the most common event types in political encoding — and the one where prose reporting most reliably loses the structurally important detail.</p>
+        </div>
+
+        <div class="encoding-block">
+          <div class="encoding-header">
+            <span class="encoding-title">CIE Expression</span>
+            <div class="encoding-badges">
+              <span class="badge badge-osint">OSINT</span>
+              <span class="badge badge-parsed">Parsed</span>
+            </div>
+          </div>
+          <div class="encoding-body">
+<pre class="cie-expression"><span class="tok-actor">ind.hog</span> <span class="tok-operator">&lt;</span><span class="tok-action">[mt]</span><span class="tok-operator">&gt;</span>
+	<span class="tok-operator">-</span> <span class="tok-actor">rus.hos</span><span class="tok-operator">,</span> <span class="tok-actor">rus.min.dfns.exc.01</span> <span class="tok-operator">@</span> <span class="tok-location">ind.hps</span>
+		<span class="tok-operator">-</span> <span class="tok-operator">&lt;{sp}&gt;</span> <span class="tok-operator">$</span> <span class="tok-domain">eng.hyc</span><span class="tok-operator">,</span> <span class="tok-domain">eng.nuc</span>
+	<span class="tok-operator">-</span> <span class="tok-actor">rus.hos</span> <span class="tok-operator">&gt; @</span> <span class="tok-location">*.loc</span> <span class="tok-operator">&#x222b;</span> <span class="tok-value">04122025:05122025</span></pre>
+          </div>
+          <div class="caption-block">
+            <p class="caption-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua — including bilateral scope, the two-day temporal span, and the energy domain specifications that prose accounts of this meeting consistently omitted or submerged in context.</p>
+            <button class="annotation-toggle" onclick="toggleAnnotation(this,'ann-1')">
+              Show annotation <span class="toggle-arrow">&#9658;</span>
+            </button>
+            <div id="ann-1" class="annotation-panel">
+              <div class="ann-item">
+                <div class="ann-token"><span class="tok-actor">ind.hog</span></div>
+                <div class="ann-label">India / Head of Government — subject of the senior clause</div>
+              </div>
+              <div class="ann-item">
+                <div class="ann-token"><span class="tok-operator">&lt;</span><span class="tok-action">[mt]</span><span class="tok-operator">&gt;</span></div>
+                <div class="ann-label">Bilateral action: meet. Angle brackets encode bilaterality — both parties are principal actors.</div>
+              </div>
+              <div class="ann-item">
+                <div class="ann-token"><span class="tok-actor">rus.hos</span><span class="tok-operator">, </span><span class="tok-actor">rus.min.dfns.exc.01</span></div>
+                <div class="ann-label">Russia / Head of State and Russia / Ministry of Defence / Executive Position 01 — bilateral counterparties attending</div>
+              </div>
+              <div class="ann-item">
+                <div class="ann-token"><span class="tok-operator">@ </span><span class="tok-location">ind.hps</span></div>
+                <div class="ann-label">Location: India / Head of State official residence — where the meeting took place</div>
+              </div>
+              <div class="ann-item">
+                <div class="ann-token"><span class="tok-operator">&lt;{sp}&gt; $ </span><span class="tok-domain">eng.hyc</span><span class="tok-operator">, </span><span class="tok-domain">eng.nuc</span></div>
+                <div class="ann-label">Bilateral discussion of domains: Energy / Hydrocarbon and Energy / Nuclear — the defined subject matter of the meeting</div>
+              </div>
+              <div class="ann-item">
+                <div class="ann-token"><span class="tok-operator">&#x222b; </span><span class="tok-value">04122025:05122025</span></div>
+                <div class="ann-label">Temporal span: 4–5 December 2025. The &#x222b; operator encodes a bounded duration rather than a single date.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EXAMPLE 2 — Thai Army statement -->
+      <div class="cie-entry" id="entry-2">
+        <div class="entry-meta">
+          <span class="entry-num">02</span>
+          <span class="entry-tag">Military Statement / OSINT</span>
+        </div>
+        <h2 class="entry-h">Official military statement describing <em>cross-border incidents with coordinates and casualties</em></h2>
+        <div class="entry-body">
+          <p>A defense ministry spokesperson issues a public description of armed incidents at an international border, including approximate coordinates, unit-level force identifications, and casualty data. This encoding illustrates how CIE handles geographic precision, the separation of the statement act from the events being described within it, and quantified casualty reporting in a subsidiary clause.</p>
+        </div>
+
+        <div class="encoding-block">
+          <div class="encoding-header">
+            <span class="encoding-title">CIE Expression</span>
+            <div class="encoding-badges">
+              <span class="badge badge-osint">OSINT</span>
+              <span class="badge badge-parsed">Parsed</span>
+            </div>
+          </div>
+          <div class="encoding-body">
+<pre class="cie-expression"><span class="tok-actor">tha.min.dfns.ary.spx</span> <span class="tok-action">[st.ds]</span>
+	<span class="tok-operator">-</span> <span class="tok-actor">tha.ary</span> <span class="tok-operator">{ak}</span> <span class="tok-actor">khm.loc.3+</span>
+		<span class="tok-operator">-</span> <span class="tok-operator">{ak}</span> <span class="tok-operator">@ &#x222b; ~</span> <span class="tok-location">(13.9.no, 103.2.es)</span><span class="tok-operator">.loc</span> <span class="tok-operator">#</span> <span class="tok-actor">*.ary</span><span class="tok-operator">,</span> <span class="tok-actor">*.arf</span>
+		<span class="tok-operator">-</span><span class="tok-action">[cl.uv]</span> <span class="tok-actor">khm.ary</span> <span class="tok-action">[nu]</span> <span class="tok-actor">tha.ary.unk.1+</span> <span class="tok-action">[ij]</span> <span class="tok-operator">*.8.+</span></pre>
+          </div>
+          <div class="caption-block">
+            <p class="caption-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris — encoding both the act of the statement and the events described within it as distinct analytical layers, with coordinate-based location and explicit casualty quantification in the subsidiary clause.</p>
+            <button class="annotation-toggle" onclick="toggleAnnotation(this,'ann-2')">
+              Show annotation <span class="toggle-arrow">&#9658;</span>
+            </button>
+            <div id="ann-2" class="annotation-panel">
+              <div class="ann-item">
+                <div class="ann-token"><span class="tok-actor">tha.min.dfns.ary.spx</span></div>
+                <div class="ann-label">Thailand / Ministry of Defence / Army / Spokesperson — the acting subject issuing the statement</div>
+              </div>
+              <div class="ann-item">
+                <div class="ann-token"><span class="tok-action">[st.ds]</span></div>
+                <div class="ann-label">Action: Statement / Describe. Encodes the statement act itself — not the incidents described within it. The distinction is deliberate and analytically significant.</div>
+              </div>
+              <div class="ann-item">
+                <div class="ann-token"><span class="tok-actor">tha.ary</span> <span class="tok-operator">{ak}</span> <span class="tok-actor">khm.loc.3+</span></div>
+                <div class="ann-label">Thai Army engaged by three or more Cambodian local forces — the event the statement describes</div>
+              </div>
+              <div class="ann-item">
+                <div class="ann-token"><span class="tok-operator">@ &#x222b; ~</span> <span class="tok-location">(13.9.no, 103.2.es)</span></div>
+                <div class="ann-label">Approximate coordinate location spanning an area: ~13.9°N, 103.2°E. The &#x222b; marks a locative span; ~ marks approximation.</div>
+              </div>
+              <div class="ann-item">
+                <div class="ann-token"><span class="tok-operator"># </span><span class="tok-actor">*.ary</span><span class="tok-operator">, </span><span class="tok-actor">*.arf</span></div>
+                <div class="ann-label">Force identifiers: Army and Air Force — participating units resolved anaphorically from previously established actors</div>
+              </div>
+              <div class="ann-item">
+                <div class="ann-token"><span class="tok-action">[cl.uv]</span> <span class="tok-actor">khm.ary</span> <span class="tok-action">[nu]</span> <span class="tok-actor">tha.ary.unk.1+</span> <span class="tok-action">[ij]</span> <span class="tok-operator">*.8.+</span></div>
+                <div class="ann-label">Subsidiary clause: Cambodian Army neutralized one or more unknown Thai personnel; eight or more additional casualties injured</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EXAMPLE 3 — Tsunami warning -->
+      <div class="cie-entry" id="entry-3">
+        <div class="entry-meta">
+          <span class="entry-num">03</span>
+          <span class="entry-tag">Emergency Warning / OSINT</span>
+        </div>
+        <h2 class="entry-h">Meteorological authority issues seismic and tsunami warnings <em>at coordinate and prefecture level</em></h2>
+        <div class="entry-body">
+          <p>A government meteorological agency issues a seismic event warning and a derived tsunami warning for named coastal prefectures. This example shows CIE at its most compressed — a high-information, time-critical event encoded in two subsidiary clauses. The brevity is not a limitation. When the event is discrete, the encoding needs nothing more.</p>
+        </div>
+
+        <div class="encoding-block">
+          <div class="encoding-header">
+            <span class="encoding-title">CIE Expression</span>
+            <div class="encoding-badges">
+              <span class="badge badge-osint">OSINT</span>
+              <span class="badge badge-parsed">Parsed</span>
+            </div>
+          </div>
+          <div class="encoding-body">
+<pre class="cie-expression"><span class="tok-actor">jpn.min.infr.mteo.spx</span> <span class="tok-action">[st.wr]</span>
+
+	<span class="tok-operator">-</span> <span class="tok-operator">$</span> <span class="tok-domain">natx.smsc</span> <span class="tok-operator">~</span> <span class="tok-operator">@</span> <span class="tok-location">(40.8.no, 143.2.es)</span>
+
+	<span class="tok-operator">-</span> <span class="tok-operator">{st.wr}</span> <span class="tok-domain">natx.tsun</span> <span class="tok-operator">@</span> <span class="tok-location">jpn.sbs.amr</span><span class="tok-operator">,</span> <span class="tok-location">*.hkk</span><span class="tok-operator">,</span> <span class="tok-location">*.iwt</span></pre>
+          </div>
+          <div class="caption-block">
+            <p class="caption-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum — two clauses encoding both the seismic event and the derived coastal warning, with prefecture-level location resolution and coordinate approximation for the epicentre.</p>
+            <button class="annotation-toggle" onclick="toggleAnnotation(this,'ann-3')">
+              Show annotation <span class="toggle-arrow">&#9658;</span>
+            </button>
+            <div id="ann-3" class="annotation-panel">
+              <div class="ann-item">
+                <div class="ann-token"><span class="tok-actor">jpn.min.infr.mteo.spx</span></div>
+                <div class="ann-label">Japan / Ministry of Infrastructure / Meteorological Agency / Spokesperson</div>
+              </div>
+              <div class="ann-item">
+                <div class="ann-token"><span class="tok-action">[st.wr]</span></div>
+                <div class="ann-label">Action: Statement / Warn. The formal warning issuance is the encodable event.</div>
+              </div>
+              <div class="ann-item">
+                <div class="ann-token"><span class="tok-domain">natx.smsc</span> <span class="tok-operator">~ @ </span><span class="tok-location">(40.8.no, 143.2.es)</span></div>
+                <div class="ann-label">Natural event: seismic. Approximate location ~40.8°N, 143.2°E — the epicentre warned about in the first clause</div>
+              </div>
+              <div class="ann-item">
+                <div class="ann-token"><span class="tok-operator">{st.wr} </span><span class="tok-domain">natx.tsun</span></div>
+                <div class="ann-label">Anaphoric reference to the prior warning action; object: natural event / tsunami — the secondary warning derived from the seismic event</div>
+              </div>
+              <div class="ann-item">
+                <div class="ann-token"><span class="tok-location">jpn.sbs.amr</span><span class="tok-operator">, </span><span class="tok-location">*.hkk</span><span class="tok-operator">, </span><span class="tok-location">*.iwt</span></div>
+                <div class="ann-label">Three affected prefectures: Aomori, Hokkaido, Iwate. Second and third resolved anaphorically — avoiding repetition of the country code.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EXAMPLE 4 — RUMINT / Turkey-Lebanon -->
+      <div class="cie-entry" id="entry-4">
+        <div class="entry-meta">
+          <span class="entry-num">04</span>
+          <span class="entry-tag">Defense Claim / RUMINT</span>
+        </div>
+        <h2 class="entry-h">Source claim on nonpublic military coordination, <em>with full credibility metadata</em></h2>
+        <div class="entry-body">
+          <p>Not all political information arrives publicly confirmed. A substantial share of what matters in intelligence and risk analysis comes through channels that require explicit sourcing and credibility assessment before the underlying claim can be used analytically. CIE encodes RUMINT as a first-class information type — with its own metadata header, its own credibility vocabulary, and its own rules for how source claims interact with the confirmed event record. The structure below is not a workaround. It is a designed capability.</p>
+        </div>
+
+        <div class="encoding-block">
+          <div class="encoding-header">
+            <span class="encoding-title">CIE Expression</span>
+            <div class="encoding-badges">
+              <span class="badge badge-rumint">RUMINT</span>
+              <span class="badge badge-parsed">Parsed</span>
+            </div>
+          </div>
+          <div class="rumint-header">
+            <div class="rh-field"><span class="rh-key">Source:</span><span class="rh-val">6512.2983</span></div>
+            <div class="rh-field"><span class="rh-key">Rel / Cred:</span><span class="rh-val">C4</span></div>
+            <div class="rh-field"><span class="rh-key">Conf:</span><span class="rh-val">Med</span></div>
+            <div class="rh-field"><span class="rh-key">Func:</span><span class="rh-val">Atm / Elite-Weak</span></div>
+          </div>
+          <div class="encoding-body">
+<pre class="cie-expression"><span class="tok-operator">-</span> <span class="tok-actor">tur.min.dfns.exc.01</span> <span class="tok-action">[ag]</span> <span class="tok-actor">lbn.hog</span> <span class="tok-operator">/</span> <span class="tok-operator">{st.pr}</span>
+	<span class="tok-operator">-&gt;&gt;</span> <span class="tok-action">[ak]</span> <span class="tok-operator">@</span> <span class="tok-location">syr.sbs.rqq.hps</span>
+		<span class="tok-operator">-</span> <span class="tok-operator">&#x222b;</span> <span class="tok-operator">*.dt :</span> <span class="tok-value">02.wk</span></pre>
+          </div>
+          <div class="caption-block">
+            <p class="caption-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia — a source claim about nonpublic coordination between a Turkish defence official and a Lebanese counterpart, with a proposed military action contingent on a prior statement, carrying medium analyst confidence and a two-week forward time horizon.</p>
+            <button class="annotation-toggle" onclick="toggleAnnotation(this,'ann-4')">
+              Show annotation <span class="toggle-arrow">&#9658;</span>
+            </button>
+            <div id="ann-4" class="annotation-panel">
+              <div class="ann-item">
+                <div class="ann-token"><span class="tok-meta">Source: 6512.2983 &nbsp;/&nbsp; Rel/Cred: C4</span></div>
+                <div class="ann-label">Registry source identifier with credibility rating — sourcing metadata that travels with the encoding and does not touch the event body</div>
+              </div>
+              <div class="ann-item">
+                <div class="ann-token"><span class="tok-meta">Func: Atm / Elite-Weak</span></div>
+                <div class="ann-label">Source functional classification: access through atmospheric channels to elite-level actors, assessed as weak reliability</div>
+              </div>
+              <div class="ann-item">
+                <div class="ann-token"><span class="tok-actor">tur.min.dfns.exc.01</span> <span class="tok-action">[ag]</span> <span class="tok-actor">lbn.hog</span></div>
+                <div class="ann-label">Turkey / Ministry of Defence / Executive Position 01 engaged Lebanon / Head of Government — the claimed bilateral contact</div>
+              </div>
+              <div class="ann-item">
+                <div class="ann-token"><span class="tok-operator">/ {st.pr}</span></div>
+                <div class="ann-label">Conditionality marker: what follows is contingent on the prior statement/proposal — explicitly encoding the conditional character of the claim</div>
+              </div>
+              <div class="ann-item">
+                <div class="ann-token"><span class="tok-operator">&gt;&gt; </span><span class="tok-action">[ak]</span> <span class="tok-operator">@ </span><span class="tok-location">syr.sbs.rqq.hps</span></div>
+                <div class="ann-label">Proposed future action: armed engagement at Syria / Raqqa Governorate / specified location — claimed forward intent, not confirmed event</div>
+              </div>
+              <div class="ann-item">
+                <div class="ann-token"><span class="tok-operator">&#x222b; *.dt : </span><span class="tok-value">02.wk</span></div>
+                <div class="ann-label">Temporal span: from event date, two weeks forward — the claimed window for the proposed action</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONCLUSION -->
+      <div class="conclusion-entry" id="conclusion">
+        <div class="conclusion-rule"><span>What this makes possible</span></div>
+        <p class="conclusion-text">Four events. Four action types. A bilateral meeting, a military statement, an emergency warning, a source claim — all encoded in the same grammar, against the same Registry, producing records that can be queried, compared, and aggregated <em>without any further normalization.</em></p>
+        <p class="conclusion-body">This is the analytical gain CIE is designed to produce. Not through automation, not through AI summarization, but through the prior discipline of encoding: the commitment to record what happened, once, in a form that a machine can traverse and an analyst can audit. The encoding is the work. Everything downstream becomes easier.</p>
+        <a href="examples.html" class="next-page-link">Examples &amp; Applications <span>→</span></a>
+      </div>
+
+    </div><!-- /content-main -->
+
+    <div class="content-sidebar">
+      <div class="sidebar-progress" id="progress-nav">
+        <div class="progress-item active" data-target="entry-intro">
+          <div class="progress-dot"></div>
+          <span class="progress-label">The Architecture</span>
+        </div>
+        <div class="progress-item" data-target="entry-1">
+          <div class="progress-dot"></div>
+          <span class="progress-label">Bilateral Meeting</span>
+        </div>
+        <div class="progress-item" data-target="entry-2">
+          <div class="progress-dot"></div>
+          <span class="progress-label">Military Statement</span>
+        </div>
+        <div class="progress-item" data-target="entry-3">
+          <div class="progress-dot"></div>
+          <span class="progress-label">Emergency Warning</span>
+        </div>
+        <div class="progress-item" data-target="entry-4">
+          <div class="progress-dot"></div>
+          <span class="progress-label">RUMINT Claim</span>
+        </div>
+      </div>
+      <div class="sidebar-cta">
+        <div class="sidebar-cta-label">Next</div>
+        <p>Where CIE applies — use cases across political risk, intelligence, and quantitative analysis.</p>
+        <a href="examples.html" class="sidebar-cta-link">Examples &amp; Applications →</a>
+      </div>
+    </div>
+
+  </div><!-- /content-body -->
+</div><!-- /page-container -->
+
+<footer>
+  <span class="footer-left">Mondium<em>.</em>ai — Mondium, LLC © 2026</span>
+  <span class="footer-motto">Omnia Vincit Veritas</span>
+  <span class="footer-right">What Is CIE — 03 / 05</span>
+</footer>
+
+</div><!-- /page-wrap -->
+
+<script>
+function toggleAnnotation(btn, panelId) {
+  const panel = document.getElementById(panelId);
+  const isOpen = panel.classList.contains('open');
+  panel.classList.toggle('open', !isOpen);
+  btn.classList.toggle('open', !isOpen);
+  btn.childNodes[0].textContent = isOpen ? 'Show annotation ' : 'Hide annotation ';
+}
+
+const entries = document.querySelectorAll('.cie-entry, .conclusion-entry');
+const revealObs = new IntersectionObserver((items) => {
+  items.forEach(item => { if (item.isIntersecting) item.target.classList.add('visible'); });
+}, { threshold: 0.06 });
+entries.forEach(e => revealObs.observe(e));
+
+const progressItems = document.querySelectorAll('.progress-item[data-target]');
+const progressObs = new IntersectionObserver((items) => {
+  items.forEach(item => {
+    if (item.isIntersecting && item.intersectionRatio > 0.15) {
+      const id = item.target.id;
+      progressItems.forEach(p => p.classList.toggle('active', p.dataset.target === id));
+    }
+  });
+}, { threshold: 0.15, rootMargin: '-10% 0px -60% 0px' });
+document.querySelectorAll('[id^="entry"], #conclusion').forEach(e => progressObs.observe(e));
+</script>
+</body>
+</html>
