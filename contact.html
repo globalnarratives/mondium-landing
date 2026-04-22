@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Mondium</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=PT+Mono&display=swap">
+<link rel="stylesheet" href="css/main.css">
+<style>
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 480px;
+  gap: 100px;
+  align-items: start;
+  padding-top: 72px;
+  padding-bottom: 120px;
+}
+
+.contact-left h2 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(26px, 3.5vw, 40px);
+  line-height: 1.2;
+  color: var(--text-primary);
+  margin-bottom: 24px;
+}
+.contact-left h2 em { font-style: italic; color: var(--accent); }
+
+.contact-left p {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.82;
+  color: var(--text-secondary);
+  margin-bottom: 18px;
+  max-width: 480px;
+}
+
+.contact-contexts {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--border);
+}
+
+.context-item {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.context-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.4;
+  margin-top: 8px;
+  flex-shrink: 0;
+}
+
+.context-text {
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+.context-text strong {
+  font-weight: 500;
+  color: var(--text-primary);
+  display: block;
+  margin-bottom: 3px;
+}
+
+/* FORM */
+.contact-form-wrap {
+  border: 1px solid var(--border-med);
+  background: var(--bg-card);
+}
+
+.form-header {
+  padding: 18px 28px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-header-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.form-header-enc {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-tertiary);
+  opacity: 0.5;
+}
+
+.contact-form {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.contact-form input,
+.contact-form textarea,
+.contact-form select {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border-med);
+  color: var(--text-primary);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 300;
+  padding: 11px 14px;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: var(--text-tertiary);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus,
+.contact-form select:focus {
+  border-color: var(--border-accent);
+  background: rgba(255,255,255,0.05);
+}
+
+.contact-form select option {
+  background: #18181c;
+  color: var(--text-primary);
+}
+
+.contact-form textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+.form-submit {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #0a0a0b;
+  background: var(--accent);
+  border: none;
+  padding: 14px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  width: 100%;
+  margin-top: 4px;
+}
+.form-submit:hover { opacity: 0.88; }
+
+.form-confirm {
+  display: none;
+  padding: 28px;
+  text-align: center;
+}
+.form-confirm-inner {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--mono-green);
+  line-height: 2;
+}
+.form-confirm-sub {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--text-tertiary);
+  margin-top: 8px;
+  font-family: var(--sans);
+  letter-spacing: 0;
+}
+
+@media (max-width: 1024px) {
+  .contact-layout { grid-template-columns: 1fr; gap: 48px; }
+  .form-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Mondium<em>.</em>ai</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="problem.html">The Problem</a></li>
+      <li><a href="cie.html">What Is CIE</a></li>
+      <li><a href="examples.html">Examples</a></li>
+      <li><a href="contact.html" class="active nav-cta">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-container">
+
+  <div class="page-header">
+    <div class="breadcrumb">
+      <a href="index.html">Mondium</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">Contact</span>
+    </div>
+    <h1 class="page-title">Let's <em>talk.</em></h1>
+    <p class="page-intro">Cypher is in closed development. If the problem we're solving is one you recognize, we want to hear from you.</p>
+  </div>
+
+  <div class="contact-layout">
+
+    <div class="contact-left">
+      <h2>We are looking for <em>the right conversations,</em> not the most conversations.</h2>
+      <p>Mondium is not currently seeking broad public engagement. What we are interested in is contact from people who work directly with political event data — and who have felt, firsthand, the limitations of the tools currently available.</p>
+      <p>That includes analysts, researchers, risk professionals, and technologists. It also includes potential partners and institutional collaborators who see the infrastructure case for what CIE makes possible.</p>
+
+      <div class="contact-contexts">
+        <div class="context-item">
+          <div class="context-dot"></div>
+          <div class="context-text">
+            <strong>Political risk &amp; intelligence</strong>
+            Analysts working with event data at volume who have built workarounds for the absence of a structured encoding layer.
+          </div>
+        </div>
+        <div class="context-item">
+          <div class="context-dot"></div>
+          <div class="context-text">
+            <strong>Defense &amp; government</strong>
+            Institutional users of structured political information with requirements around auditability, source credibility, and systematic comparability.
+          </div>
+        </div>
+        <div class="context-item">
+          <div class="context-dot"></div>
+          <div class="context-text">
+            <strong>Quantitative &amp; financial</strong>
+            Teams that treat political events as inputs to models and have absorbed the normalization burden that unstructured news imposes.
+          </div>
+        </div>
+        <div class="context-item">
+          <div class="context-dot"></div>
+          <div class="context-text">
+            <strong>Academic &amp; research</strong>
+            Researchers working on political event datasets, conflict databases, or cross-jurisdictional comparative analysis.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form-wrap">
+      <div class="form-header">
+        <span class="form-header-label">Contact — Mondium, LLC</span>
+        <span class="form-header-enc">mondium.ai</span>
+      </div>
+
+      <form class="contact-form" id="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <input type="text" placeholder="Name" required>
+          <input type="text" placeholder="Organization">
+        </div>
+        <input type="email" placeholder="Email address" required>
+        <input type="text" placeholder="Role / title">
+        <select>
+          <option value="" disabled selected>Area of interest</option>
+          <option>Political Risk / Intelligence Analysis</option>
+          <option>Defense / Government</option>
+          <option>Quantitative / Financial</option>
+          <option>Academic / Research</option>
+          <option>Technology / Infrastructure</option>
+          <option>Other</option>
+        </select>
+        <textarea placeholder="What brings you here?"></textarea>
+        <button type="submit" class="form-submit">Send message</button>
+      </form>
+
+      <div class="form-confirm" id="form-confirm">
+        <div class="form-confirm-inner">— Message received.</div>
+        <p class="form-confirm-sub">We'll be in touch shortly.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <span class="footer-left">Mondium<em>.</em>ai — Mondium, LLC © 2026</span>
+  <span class="footer-motto">Omnia Vincit Veritas</span>
+  <span class="footer-right">Contact — 05 / 05</span>
+</footer>
+
+</div><!-- /page-wrap -->
+
+<script>
+function handleSubmit(e) {
+  e.preventDefault();
+  document.getElementById('contact-form').style.display = 'none';
+  document.getElementById('form-confirm').style.display = 'block';
+}
+</script>
+</body>
+</html>
