@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Problem — Mondium</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=PT+Mono&display=swap">
+</head>
+<body>
+<div class="page-wrap">
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Mondium<em>.</em>ai</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="problem.html" class="active">The Problem</a></li>
+      <li><a href="cie.html">What Is CIE</a></li>
+      <li><a href="examples.html">Examples</a></li>
+      <li><a href="contact.html" class="nav-cta">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-container">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="breadcrumb">
+      <a href="index.html">Mondium</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">The Problem</span>
+    </div>
+
+    <div class="page-header-grid">
+      <div>
+        <h1 class="page-title">The infrastructure of political knowledge is <em>a century out of date.</em></h1>
+        <p class="page-intro">The systems through which political events are observed, recorded, and analyzed were built for a different world — one where the limiting constraint was how much you could find out, not how much you could process. They have not caught up.</p>
+      </div>
+
+      <div class="header-aside">
+        <div class="aside-block">
+          <div class="aside-label">Contents</div>
+          <ul class="toc-list">
+            <li class="toc-item" onclick="scrollTo('entry-1')">
+              <span class="toc-num">01</span>
+              <span class="toc-text">Built for a world that no longer exists</span>
+            </li>
+            <li class="toc-item" onclick="scrollTo('entry-2')">
+              <span class="toc-num">02</span>
+              <span class="toc-text">What the article contains — and does not</span>
+            </li>
+            <li class="toc-item" onclick="scrollTo('entry-3')">
+              <span class="toc-num">03</span>
+              <span class="toc-text">Interpretation dressed as fact</span>
+            </li>
+            <li class="toc-item" onclick="scrollTo('entry-4')">
+              <span class="toc-num">04</span>
+              <span class="toc-text">Language as a barrier, not a bridge</span>
+            </li>
+            <li class="toc-item" onclick="scrollTo('entry-5')">
+              <span class="toc-num">05</span>
+              <span class="toc-text">News was never designed to be data</span>
+            </li>
+            <li class="toc-item" onclick="scrollTo('entry-6')">
+              <span class="toc-num">06</span>
+              <span class="toc-text">Duplication and the false signal problem</span>
+            </li>
+            <li class="toc-item" onclick="scrollTo('entry-7')">
+              <span class="toc-num">07</span>
+              <span class="toc-text">Neither human nor machine can solve this alone</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content-body">
+
+    <div class="content-main">
+
+      <div class="problem-entry" id="entry-1">
+        <div class="entry-meta">
+          <span class="entry-num">01</span>
+          <span class="entry-tag">Infrastructure</span>
+        </div>
+        <h2 class="entry-h">Built for a world that <em>no longer exists</em></h2>
+        <div class="entry-body">
+          <p>The news wire, the daily newspaper, the broadcast bulletin — these formats emerged in an environment defined by a single constraint: information was hard to get. Correspondents were scarce, transmission was expensive, and a finite news hole imposed editorial discipline by necessity. The infrastructure built around those constraints was rational for its time. It encoded the assumption that more information was always better, and that the limiting factor was supply.</p>
+
+          <p>That world is gone. The constraint today is not supply — it is <strong>structure</strong>. The volume of political reporting produced globally every hour now exceeds what any analyst, any team, or any automated system can responsibly process. Yet the fundamental architecture of information gathering has not changed. We still produce the same outputs — articles, wire items, broadcast segments — and treat their accumulation as analytical progress.</p>
+
+          <div class="callout">
+            <span class="callout-icon">—</span>
+            <p class="callout-text">The problem is not that there is too little information about the world. It is that the format in which information arrives makes it structurally resistant to the kind of systematic analysis that volume should, in principle, enable.</p>
+          </div>
+
+          <p>Volume without structure is not an asset. It is a different kind of scarcity: a scarcity of signal within an overwhelming mass of noise. The response to this — more aggregators, more dashboards, more AI-assisted summarization — addresses the symptom while leaving the underlying architecture untouched.</p>
+        </div>
+      </div>
+
+      <!-- ENTRY 2 -->
+      <div class="problem-entry" id="entry-2">
+        <div class="entry-meta">
+          <span class="entry-num">02</span>
+          <span class="entry-tag">Format</span>
+        </div>
+        <h2 class="entry-h">What the article contains — and <em>what it does not</em></h2>
+        <div class="entry-body">
+          <p>A political event carries multiple simultaneous points of information: who acted, in what institutional capacity, toward whom, by what means, in what domain, at what location, with what effect. Prose is capable of conveying all of this — but only imprecisely, inconsistently, and at the cost of enormous contextual overhead. The same event, written up by two competent journalists, produces records that cannot be systematically compared.</p>
+
+          <p>This is not a criticism of journalism. It is an observation about what the article is built to do. Writing requires choices about what to foreground and what to omit, shaped by editorial judgment, audience assumption, and the reporter's model of what the reader already knows. By the time a political event has been rendered as a news item, a great deal of metadata has been discarded — and much of it cannot be recovered from the text.</p>
+
+          <p>The gap between the journalistic record and the analytical record is measurable. In a systematic exercise encoding a full newspaper front section into CIE, 9 of 24 stories qualified as discrete events — the remaining 15 were human interest, background, analysis, or retrospective, none of which constitute new encodable actions. The 9 qualifying stories occupied a combined 9,170 words in print. Their CIE encodings occupied 244 words — <strong>2.66% of the original</strong>. Measured against the full section including non-qualifying material, the ratio falls to under 1%.</p>
+
+          <div class="example-block">
+            <div class="example-label-row">
+              <div class="example-col-label">Original news story — 1,276 words</div>
+              <div class="example-col-label">The encodable event — 15 words</div>
+            </div>
+            <div class="example-content-row">
+              <div class="example-prose-col">
+                <p>"The special counsel's office on Friday seized a trove of documents from Mr. Manafort's storage unit, including files related to his consulting work in Ukraine and his tax and financial records, according to a person briefed on the matter who was not authorized to discuss it publicly. The move came as investigators continue to look into possible collusion..."</p>
+              </div>
+              <div class="example-noise-col">
+                <span class="noise-tag signal">Signal: Special Counsel seizes documents from named subject</span>
+                <span class="noise-tag signal">Signal: Storage unit, specific document categories</span>
+                <span class="noise-tag vague">Attribution: anonymous, "not authorized"</span>
+                <span class="noise-tag opinion">1,100+ words: prior history, political context, character</span>
+                <span class="noise-tag context">Background: collusion framing, prior investigations</span>
+                <span class="noise-tag duplicate">Rehash: events covered in prior stories, now retold</span>
+                <p class="noise-caption">The discrete event — a law enforcement action with a named subject and document scope — encodes in 63 characters. The original story is 7,385 characters. The ratio is approximately 1:117.</p>
+              </div>
+            </div>
+          </div>
+
+          <p>The signal-to-noise ratio varies by story type, but the underlying pattern is consistent. The article format expands a discrete event into a narrative container filled with attribution, hedging, historical context, and editorial inference. For a reader encountering the story at the moment of publication, much of this is useful. For an analyst working from an accumulated corpus, the vast majority of it is overhead — and the actual event is difficult to isolate, compare, or query.</p>
+        </div>
+      </div>
+
+      <!-- ENTRY 3 -->
+      <div class="problem-entry" id="entry-3">
+        <div class="entry-meta">
+          <span class="entry-num">03</span>
+          <span class="entry-tag">Signal Quality</span>
+        </div>
+        <h2 class="entry-h">The editorializing layer: <em>interpretation dressed as fact</em></h2>
+        <div class="entry-body">
+          <p>A distinct and underappreciated problem is the degree to which political reporting operates in the register of rhetorical framing rather than factual description. "Tensions rise." "The premier escalates his feud with the opposition." "Relations remain strained." These are not statements about observable events. They are editorial interpretations — presented, critically, in the grammatical form of fact.</p>
+
+          <div class="pull-quote">
+            <p>The verb "escalates" carries an interpretation of trajectory, intent, and comparative severity. It asserts a claim about the meaning of an event without disclosing that it is doing so — embedded in the report's syntax where a reader is least likely to notice it.</p>
+          </div>
+
+          <p>This matters analytically because the editorializing layer is not labeled as such. Framing is baked into word choice, and word choice is invisible to any system that processes the resulting text as if it were neutral description. When an AI model is trained on or prompted with political reporting, it inherits not the events but the interpretive frame through which those events were rendered. The model's outputs then reflect the cumulative editorial biases of its source corpus — a fact that is structurally obscured by the fluency of the output.</p>
+
+          <p>Compounding this is a second, related problem: a very large share of political reporting is not about actions at all. It is about <strong>what people are saying to each other</strong> — official statements, press briefings, congressional testimony, on-the-record comments, unnamed-source characterizations. This material floods the information environment and, absent any systematic way to classify it, is treated by default as signal. Most of it is not. A minister's press spokesperson describing a meeting as "constructive" is not an event. A diplomat telling a reporter that talks are "ongoing" is not an event. These are statements about events — often carefully managed statements, calibrated precisely for their rhetorical effect — and the distinction matters enormously for any analytical system trying to build a factual record.</p>
+
+          <p>The solution is not to strip editorializing from journalism — that is neither possible nor desirable. The solution is to enforce the distinction at the point of analytical input. <strong>What an actor did is a different question from what was said about what an actor did.</strong> CIE encodes both — but keeps them in explicitly separate categories, so that the statement and the underlying action are never conflated in the record.</p>
+        </div>
+      </div>
+
+      <!-- ENTRY 4 -->
+      <div class="problem-entry" id="entry-4">
+        <div class="entry-meta">
+          <span class="entry-num">04</span>
+          <span class="entry-tag">Language</span>
+        </div>
+        <h2 class="entry-h">Language as a barrier, <em>not a bridge</em></h2>
+        <div class="entry-body">
+          <p>The global information environment is multilingual. Significant political events are reported first — and sometimes exclusively — in languages other than English. For analysts working outside those language environments, the practical solution has been automated translation. The problem is that automated translation does not preserve meaning; it approximates it.</p>
+
+          <p>Political language is particularly resistant to clean translation. Formal titles, institutional terminology, legal concepts, and politically loaded vocabulary all carry meaning that is language-specific and often jurisdiction-specific. A translated passage necessarily flattens these distinctions. Nuances of formality, the distinction between an official statement and a personal remark, the specific weight of a technical legal term — these are among the first casualties of machine translation at scale.</p>
+
+          <div class="callout">
+            <span class="callout-icon">—</span>
+            <p class="callout-text">More fundamentally, a great deal of important source material is never translated at all. Regional newspapers, legislative transcripts, court filings, and official gazettes in smaller language environments remain siloed — analytically invisible to any system that operates primarily in English.</p>
+          </div>
+
+          <p>The language barrier is not solved by better translation models. It is solved by a <strong>language-independent encoding layer</strong> — a formal specification that captures the observable content of an event without reference to the natural language in which it was first reported. The same event, sourced from an Arabic-language wire, a Japanese legislative record, or an English news aggregator, produces the same CIE encoding. Comparability is built in, not translated in after the fact.</p>
+        </div>
+      </div>
+
+      <!-- ENTRY 5 -->
+      <div class="problem-entry" id="entry-5">
+        <div class="entry-meta">
+          <span class="entry-num">05</span>
+          <span class="entry-tag">Architecture</span>
+        </div>
+        <h2 class="entry-h">News was never designed <em>to be data</em></h2>
+        <div class="entry-body">
+          <p>The article — the fundamental unit of modern political journalism — is designed to be read once. Its structure is optimized for the experience of a single reader encountering it at the moment of publication: the inverted pyramid, the contextualizing nut graf, the quote that gives a human voice to the story. All of these conventions serve the goal of immediate comprehension and disposability. The article tells you what happened today, gives you just enough background to situate it, and is superseded by tomorrow's article. The archive is a byproduct of this process, not its purpose.</p>
+
+          <p>This creates a foundational problem for anyone who wants to use the news as data — not read it, but <strong>work with it</strong>. Political analysts, risk modelers, systematic traders, back-testers, and intelligence teams all share the same need: a structured, consistent, queryable record of what happened. What they get instead is a corpus of prose optimized for something else entirely, which must then be processed, normalized, and interpreted before it can serve any systematic purpose.</p>
+
+          <div class="callout">
+            <span class="callout-icon">—</span>
+            <p class="callout-text">Every organization that attempts to use news as an input to a quantitative model faces the same preprocessing burden: entity resolution, deduplication, sentiment normalization, event classification. These steps are performed inconsistently across teams, are methodologically opaque, and must be repeated from scratch every time the corpus grows. The cost is measured in weeks of analyst time per project.</p>
+          </div>
+
+          <p>The article format also confounds analytically distinct categories within a single container. A typical political news story embeds discrete events alongside quotes about those events, commentary on their background, historical context, speculation about implications, and the editorial judgment of the reporter about what matters and why. These are not the same thing. A statement by a diplomat is not equivalent to a diplomatic action. A journalist's characterization of a trend is not a data point about the trend. Yet in the article format, all of it arrives together, unlabeled, requiring a reader or a model to perform the disambiguation.</p>
+
+          <p>The consequence is an analytical environment where information exists in volume but is structurally inaccessible to the queries it should support. "How many times has actor X engaged actor Y in a bilateral security context over the past three years, with what outcomes?" This is a reasonable question. It has no reliable answer derivable from the prose archive, because the prose archive was never designed to answer it. What any analyst working in this environment actually does is read, remember, and reconstruct — a process that does not scale, cannot be audited, and produces results that are not reproducible.</p>
+
+          <p>The shift required is not from articles to a different format of prose. It is from prose to a <strong>structured event record</strong> as the primary analytical unit — with the article properly demoted to what it actually is: source material, not the finished product. This is what makes systematic accumulation, query, and pattern recognition possible. Not better articles. A different organizing principle, applied from the moment of encoding.</p>
+        </div>
+      </div>
+
+      <!-- ENTRY 6 -->
+      <div class="problem-entry" id="entry-6">
+        <div class="entry-meta">
+          <span class="entry-num">06</span>
+          <span class="entry-tag">Data Quality</span>
+        </div>
+        <h2 class="entry-h">Duplication and <em>the false signal problem</em></h2>
+        <div class="entry-body">
+          <p>A single political event generates dozens to hundreds of reports. Wire services file first; national newspapers follow with context; broadcast segments summarize; newsletters curate; social media amplifies. An analyst monitoring this flow encounters the same underlying event repeatedly, in slightly different framings, with slightly different emphases — and must perform continuous, effortful deduplication simply to maintain an accurate picture of what has actually occurred.</p>
+
+          <p>This problem is not trivial at scale. Any system that aggregates political reporting without a deduplication layer will systematically overweight high-coverage events — those that generate many reports — relative to low-coverage events that may be equally or more significant. A ministerial resignation in a major Western democracy will produce five hundred reports. An equivalent action in a smaller country may produce three. The corpus registers a false signal: not that the first event matters more, but that it generated more prose.</p>
+
+          <div class="pull-quote">
+            <p>Duplication is not redundancy. Redundancy implies that the copies contain the same information. Duplication in political reporting means each copy contains different information — different framings, different emphases, different omissions — making it impossible to simply discard all but one and impossible to confidently merge them.</p>
+          </div>
+
+          <p>The correct solution is an <strong>event-first architecture</strong>: encode the discrete event once, attach source metadata to that encoding, and treat all subsequent reports as additional sources for the same event rather than as independent events. This is structurally impossible with a prose-first system. It requires a formal encoding layer as the organizing principle.</p>
+        </div>
+      </div>
+
+      <!-- ENTRY 7 -->
+      <div class="problem-entry" id="entry-7">
+        <div class="entry-meta">
+          <span class="entry-num">07</span>
+          <span class="entry-tag">Scale</span>
+        </div>
+        <h2 class="entry-h">Neither human nor machine <em>can solve this alone</em></h2>
+        <div class="entry-body">
+          <p>The analyst's response to unmanageable volume is, for understandable reasons, to try harder. More feeds, better aggregators, longer working hours. Monitoring dashboards multiply. Briefing cycles accelerate. The goal is to stay current — to be, as the phrase goes, "monitoring the situation." But the overwhelming preponderance of what crosses any analyst's screen on any given day is undiluted noise. The signal they are looking for may be present; locating it within the volume is the problem.</p>
+
+          <p>The obvious contemporary solution is to route more of this problem through large language models. LLMs can read faster than any human, summarize across more sources, and generate analytical output at scale. The problem is that this addresses quantity while compounding the underlying quality failures. An LLM ingesting political prose inherits its editorializing, its structural ambiguities, its duplication, and its language asymmetries. It processes them fluently — which is precisely what makes the output dangerous. LLM-generated political analysis is polished, confident, and structurally unreliable.</p>
+
+          <div class="callout">
+            <span class="callout-icon">—</span>
+            <p class="callout-text">Empirical studies put AI hallucination rates on generated political information at approximately 45%. That figure is not a failure of the models — it reflects the character of the input. Garbage in, garbage out; but now at scale, and in prose too confident to flag its own uncertainty.</p>
+          </div>
+
+          <p>The resolution is neither more human attention nor more AI processing applied to the same unstructured inputs. It is a <strong>structured encoding layer positioned between the raw information environment and the analytical system</strong> — one that is human-authored for fidelity, machine-parseable for scale, and governed by a formal specification for consistency. The analyst contributes judgment at the encoding stage; the machine operates on the structured record that results. This is the division of labor that actually works.</p>
+        </div>
+      </div>
+
+      <!-- CONCLUSION -->
+      <div class="conclusion-entry" id="conclusion">
+        <div class="conclusion-rule">
+          <span>The diagnosis</span>
+        </div>
+
+        <p class="conclusion-text">Political information infrastructure was not designed for the analytical demands now placed on it. Every layer — format, editorial convention, language, volume — introduces distortion. The distortions compound. <em>The record of what happened in the world does not need to be monitored more closely. It needs to be built differently from the start.</em></p>
+
+        <p class="conclusion-body">This is the problem CIE addresses. Not by replacing journalism or eliminating the need for expert analysis — but by inserting a formal, governed encoding layer between the raw information environment and the analytical systems built on top of it. A layer where what happened is recorded with precision, once, in a format that is consistent, auditable, and systematically comparable across time, geography, and language.</p>
+
+        <a href="cie.html" class="next-page-link">
+          What is CIE <span>→</span>
+        </a>
+      </div>
+
+    </div><!-- /content-main -->
+
+    <!-- SIDEBAR -->
+    <div class="content-sidebar">
+      <div class="sidebar-progress" id="progress-nav">
+        <div class="progress-item active" data-target="entry-1">
+          <div class="progress-dot"></div>
+          <span class="progress-label">Built for another world</span>
+        </div>
+        <div class="progress-item" data-target="entry-2">
+          <div class="progress-dot"></div>
+          <span class="progress-label">What the article contains</span>
+        </div>
+        <div class="progress-item" data-target="entry-3">
+          <div class="progress-dot"></div>
+          <span class="progress-label">Interpretation as fact</span>
+        </div>
+        <div class="progress-item" data-target="entry-4">
+          <div class="progress-dot"></div>
+          <span class="progress-label">Language barrier</span>
+        </div>
+        <div class="progress-item" data-target="entry-5">
+          <div class="progress-dot"></div>
+          <span class="progress-label">Never designed as data</span>
+        </div>
+        <div class="progress-item" data-target="entry-6">
+          <div class="progress-dot"></div>
+          <span class="progress-label">False signal problem</span>
+        </div>
+        <div class="progress-item" data-target="entry-7">
+          <div class="progress-dot"></div>
+          <span class="progress-label">Scale problem</span>
+        </div>
+      </div>
+
+      <div class="sidebar-cta">
+        <div class="sidebar-cta-label">Next</div>
+        <p>The formal encoding layer that resolves these failures — and what it means to have one.</p>
+        <a href="cie.html" class="sidebar-cta-link">What is CIE →</a>
+      </div>
+    </div>
+
+  </div><!-- /content-body -->
+
+</div><!-- /page-container -->
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-left">Mondium<em>.</em>ai — Mondium, LLC © 2026</span>
+  <span class="footer-motto">Omnia Vincit Veritas</span>
+  <span class="footer-left">The Problem — 01 / 05</span>
+</footer>
+
+</div><!-- /page-wrap -->
+
+<script>
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Scroll reveal
+const entries = document.querySelectorAll('.problem-entry, .conclusion-entry');
+const revealObs = new IntersectionObserver((items) => {
+  items.forEach(item => {
+    if (item.isIntersecting) {
+      item.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.06 });
+entries.forEach(e => revealObs.observe(e));
+
+// Sidebar progress tracking
+const progressItems = document.querySelectorAll('.progress-item[data-target]');
+const entryEls = Array.from(progressItems).map(p => document.getElementById(p.dataset.target));
+const progressObs = new IntersectionObserver((items) => {
+  items.forEach(item => {
+    if (item.isIntersecting && item.intersectionRatio > 0.15) {
+      const id = item.target.id;
+      progressItems.forEach(p => {
+        p.classList.toggle('active', p.dataset.target === id);
+      });
+    }
+  });
+}, { threshold: 0.15, rootMargin: '-10% 0px -60% 0px' });
+
+entryEls.forEach(e => { if (e) progressObs.observe(e); });
+</script>
+</body>
+</html>
