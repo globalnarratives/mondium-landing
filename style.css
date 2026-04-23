@@ -670,7 +670,6 @@ footer {
   margin-bottom: 36px;
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 14px;
 }
 .hero-eyebrow::before { content: ''; display: inline-block; width: 28px; height: 1px; background: var(--accent); opacity: 0.5; }
@@ -687,8 +686,11 @@ footer {
 .hero-title em { font-style: italic; color: oklch(0.78 0.10 220); }
 
 .hero-logo {
+  display: block;
   height: 80px;
   width: auto;
+  margin-bottom: 32px;
+  opacity: 1;
 }
 .hero-body {
   font-style: italic;
@@ -883,7 +885,6 @@ footer {
   .stack-layer { border-right: none; border-bottom: 1px solid var(--border); }
   .stack-layer:last-child { border-bottom: none; }
   .hero { padding: 0 24px 64px; }
-  .hero-left { display: flex; }
   .hero-logo { height: 56px; }
   .landing-section { padding: 72px 24px; }
   .problem-grid { grid-template-columns: 1fr 1fr; }
