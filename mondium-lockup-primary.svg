@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 120" fill="none" role="img" aria-label="Mondium — The world, encoded">
+  <title>Mondium — The world, encoded</title>
+  
+  <g transform="translate(24 28) scale(0.778)">
+    <path d="M 12 14 L 34 40 L 12 66" stroke="#E6EBEF" stroke-opacity="0.35" stroke-width="1.2"></path>
+    <path d="M 168 14 L 146 40 L 168 66" stroke="#E6EBEF" stroke-opacity="0.35" stroke-width="1.2"></path>
+    <path d="M 42 20 L 58 40 L 42 60" stroke="#E6EBEF" stroke-opacity="0.65" stroke-width="1.2"></path>
+    <path d="M 138 20 L 122 40 L 138 60" stroke="#E6EBEF" stroke-opacity="0.65" stroke-width="1.2"></path>
+    <path d="M 70 26 L 82 40 L 70 54" stroke="oklch(0.78 0.10 220)" stroke-width="1.4"></path>
+    <path d="M 110 26 L 98 40 L 110 54" stroke="oklch(0.78 0.10 220)" stroke-width="1.4"></path>
+    <rect x="87" y="34" width="6" height="12" fill="oklch(0.78 0.10 220)"></rect>
+  </g>
+  
+  <line x1="192" y1="30" x2="192" y2="90" stroke="#E6EBEF" stroke-opacity="0.20" stroke-width="1"></line>
+  
+  <text x="216" y="58" font-family="Space Grotesk, system-ui, sans-serif" font-weight="300" font-size="36" letter-spacing="6.5" fill="#E6EBEF">MONDIUM</text>
+  
+  <text x="216" y="86" font-family="JetBrains Mono, ui-monospace, monospace" font-weight="400" font-size="10" letter-spacing="3" fill="oklch(0.78 0.10 220)">THE WORLD, ENCODED</text>
+</svg>
