@@ -899,7 +899,7 @@ footer {
 /* Body */
 .animatic-body { padding: 28px 24px 32px; min-height: 260px; display: flex; flex-direction: column; justify-content: flex-start; }
 .animatic-counter { font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; color: var(--text-tertiary); margin-bottom: 20px; opacity: 0.5; }
-.animatic-text { font-family: var(--mono); font-size: 13px; line-height: 2; color: var(--text-secondary); white-space: pre; overflow: hidden; min-height: 180px; }
+.animatic-text { font-family: var(--mono); font-size: 16px; line-height: 2; color: var(--text-secondary); white-space: pre; overflow: hidden; min-height: 180px; }
 
 /* Syntax token colors */
 .animatic-text .t-actor    { color: var(--mono-amber); }
