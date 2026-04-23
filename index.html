@@ -41,10 +41,25 @@
   <p class="hero-body">News is still structured as prose — created for a reader, not a database. Compressed Information Expression changes this: a formal specification language for discrete, observable events, built for systematic, structured analysis at the scale the world now demands.</p>
 
   <div class="hero-actions">
-    <a href="problem.html" class="btn-primary">The Problem</a>
-    <a href="cie.html" class="btn-ghost">What Is CIE</a>
+      <a href="problem.html" class="btn-primary">The Problem</a>
+      <a href="cie.html" class="btn-ghost">What Is CIE</a>
+    </div>
   </div>
-
+ 
+  <div class="hero-right">
+    <div class="animatic-shell">
+      <div class="animatic-header">
+        <span class="animatic-header-label">CIE — Live Corpus</span>
+        <span class="animatic-status">Encoding</span>
+      </div>
+      <div class="animatic-body">
+        <div class="animatic-counter" id="animatic-counter">001 / 038</div>
+        <div class="animatic-text" id="animatic-text"></div>
+      </div>
+      <div class="animatic-footer" id="animatic-pips"></div>
+    </div>
+  </div>
+ 
   <div class="hero-scroll-indicator">Scroll</div>
 </div>
 
@@ -240,11 +255,318 @@
 </div><!-- /page-wrap -->
 
 <script>
+// ── SCROLL REVEAL ──
 const sections = document.querySelectorAll('.landing-section');
 const revealObs = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.06 });
 sections.forEach(s => revealObs.observe(s));
+ 
+// ── CIE ANIMATIC ──
+const EXAMPLES = [
+  `rus.hos.spx [st.sn]
+   - $ {st.pr} / usa.hos -> rus<>ukr
+    - {st.sn} rus.hos x[rv] {st.pr}
+        - [st.gp] $ {st.sp} -> (usa, ukr).hos`,
+ 
+  `usa.hos <[mt]>
+    - usa.sbs.nys.lh.102 $ usa.sbs.nys.nyc.exc.01`,
+ 
+  `gbr.uh.522 [rp.re]
+     - $ axn.hlth / gbr.hog ∫ 01012020:30042021
+        - {rp.re} [st.cr] *.hlth
+       - [st.pr] $ *.hlth, *.scnc, *.infr.cms`,
+ 
+  `jpn.sbs.nii.exc.01 [vu]
+    - $ {sb} / jpn.com.soe.4911.01
+       - *.exc.01 [an.in] $ [nt] {vu} @ jpn.sbs.nii.lh
+               - >> {nt} 02122025`,
+ 
+  `aus.min.infr.cms.psc.exc.01 [su]
+    - $ aus.prl.lh.2024.127.lex
+       - {su} -> usa.com.4899.006
+               - > 10122025`,
+ 
+  `nga.org.rlg.xtn.mmb.001.exc.01 [st.ds]
+    - [st.es] $ {ab}.qty ^ ev.21112025.waf.001
+              - 12.adt, 303.enf`,
+ 
+  `usa.min.forn.exc.01 <[mt]> ukr.min.dfns.ary.exc.03
+    - $ ukr<>rus @ che.sbs.gnv
+          - usa.min.forn.exc.01 [st.pn] {mt} :: ++
+          - ukr.min.dfns.exc.01 [st.gp] {mt}`,
+ 
+  `(fra.min.jstc, .gndm).exc.01 [st.gp]
+    - @ fra.sbs.pac.cpl
+    - $ axn.vrbn, *.psc @ *.loc
+           - {an.in} min.jstc, .gndm >> [sr] @ *.loc`,
+ 
+  `bra.jud.grtc.01 [rl]
+    - {rl} $ ap-2668.dkt
+      - -> bra.1955.001 :: [jl] ∫ *.dt:27112052`,
+ 
+  `gbr.hps.exc.01 [st.pn]
+    - $ gbr.lh.318-2024-26.lex
+       - {st.pn} + $ sbs.imp.lex`,
+ 
+  `vat.sbs.kdn.knt.exc.01 [st.cr]
+    - ^ e.21112025.waf.001 $ axn / nga.min.gndm`,
+ 
+  `indv.und [cl.ax]
+     - $ usa.com.pvt.2911.01
+      - >> com.unm [vs] *.com usd.15.bln ∫ *:31122025`,
+ 
+  `deu.sbs.fsc.jstc.grct.vrbn.02 [op]
+    - az-4st-2-25.dkt {id} vrbn.angf
+        - 6.hom, 1.fem
+              - *.dkt [st.as] *.civ $ vrbn.ide.051`,
+ 
+  `ukr.hos.dfns.cme.exc.01 [cl.fx]
+    - ^ e.23112025.weu.002
+            - {cl.fx} : <[ag]> ^ e.*`,
+ 
+  `fra.hos [a-in]
+    - >> [st.pr] _dfns.lex_ ∫ *:29112025
+       - [st.ds] *.lex $ fra.min.dfns {hi}`,
+ 
+  `chn.sbs.hkg.ntfd.incd.exc.01 [st.ds]
+    - $ axn.incd @ *.loc 26112025.utc.0651
+            - {di} civ.65 + , {ij} *.270 -
+           - unk.hom, *.fem, *.enf`,
+ 
+  `gnb.1972.001 [st.cf]
+   - gnb.min.dfns.ary {rm} gnb.1972.001 ! gnb.hos`,
+ 
+  `usa.sbs.geo.jstc.vrbn.cmte.exc.01 [st.sn]
+    - $ 23sc188947.dkt
+        - {wd} dkt.*`,
+ 
+  `fra.jstc.grtc.vrbn [rl]
+    - $ 24-82.486.dkt
+        - {rl} $ dkt.* : sldg`,
+ 
+  `igo.002.exc.exc.01 [st.sn]
+    - @ igo.002.lh
+          - {st.cr} rus.min.forn ^ e.23112025.weu.0002
+               - {st.pn} rus.min.forn x[rc] <{mt}>`,
+ 
+  `gnb.hos.gndm.exc.01 [st.cf]
+    - $ gnb.dfns.ary {rm} gnb.1972.018 $ gnb.hos
+           - [s-st] {ap} $ gnb.hos : gnb.1960.021`,
+ 
+  `isr.hog.dfns.dig.cme.spx {st.ds}
+    - {ak} # (dig) @ isr.com.sec.5911
+           - ∫ unk.wk:*.dt
+        - [s-as] $ {ak} -> irn.min.intl / org.und.06`,
+ 
+  `ind.hog <[mt]>
+    - rus.hos, rus.min.dfns.exc.01 @ ind.hps
+           - <{sp}> $ eng.hyc, eng.nuc
+       - rus.hos > @ *.loc ∫ 04122025:05122025`,
+ 
+  `chn.ccp.cme.exc.01 <[mt]>
+    - fra.hos @ chn.hps
+      - <{sp}> $ rus<>ukr, chn<>fra
+          - fra.hos > @ *.loc ∫ 04122025:06122025`,
+ 
+  `esp.com.soe.4833.01 [st.sn]
+        - $ che.org.4833.01 / ∫ ev.12052026:16052026.weu
+            - {st.sn} x[rc] *.ev`,
+ 
+  `usa.hos.spx [an.mt]
+    - usa.min.forn.amb.spec.012 <> ukr.hos.dfns.cme.chm.exc.01
+            - > 04122025, @ usa.sbs.fld.mia
+               - <[sp]> $ ukr<>rus`,
+ 
+  `usa.hos.spx [st.rp]
+    - rwa.hos <{mt}> cod.hos @ usa.cpl
+            - {st.rp} rwa.hos [ag] cod.hos $ || <{ak}> @ (rwa, cod).grnz`,
+ 
+  `igo.002.exc.exc.01 [st.sn]
+    - $ igo.002.lh *.uh /{vu}/ com.2025.828.lex
+          - // $ *.lh.cme.resr.eng, *.lh.cme.trde, *.lh, *.uh {vo}
+             - *.lh, .uh [vo] ∫ 11122025:15122025`,
+ 
+  `usa.sbs.ilo.chi.educ.cme.spx [st.sn] $ ilo.sbs.chi.2024.l.004023.dkt
+       - {sl} $ dkt.klgr ~ USD 17.5 mln`,
+ 
+  `twn.com.3672.012 [rp.re]
+        - $ 3355.vpkt.prx
+        - *.prx ∫ 2024.4:2025.4 ~ 117.38.pct usd`,
+ 
+  `deu.com.2711.003 [cl.ax] fra.hos {s-cr} $ usa.hos
+        - {s-cr} @ *.hos<{sp}>ukr.hos, deu.hog
+        - *. usa.hos x[rc] ukr<{sp}>rus`,
+ 
+  `rus.hos [s-gp] $ rus<>ukr / <{mt}>, <{ag}>`,
+ 
+  `sgp.jstc.grtc.vrbn.02 [rl]
+     - $ (900426-2024, 900427-2024).dkt
+     - {rl} $ *.dkt : sldg`,
+ 
+  `tha.dfns.ary.spx [st.ds]
+    - tha.ary {ak} khm.loc.3+
+         - {ak} @ ∫ ~ (13.9.no, 103.2.es).loc # *.ary, *.arf
+         - [cl.uv] khm.ary [nu] tha.ary.unk.1+ [ij] *.8.+`,
+ 
+  `jpn.min.infr.mteo.spx [st.wr]
+    - $ natx.smsc ~ @ (40.8.no, 143.2.es)
+    - {st.wr} natx.tsun @ jpn.sbs.amr, *.hkk, *.iwt`,
+ 
+  `ben.hos [st.sn] $ ev.07122025.ssa.001
+  - [s-cf] ^ *.ev x[rm] ben.1958.001 $ ben.hos`,
+ 
+  `rus.hos.spx [st.sn]
+ - $ {st.pr} / usa.hos
+     - >> [ap] usa.1982.001`
+];
+ 
+// Lightweight syntax colorizer
+function colorize(text) {
+  // We build the output char by char but apply spans around recognizable token patterns
+  // Use a simple replacement approach on the plain text
+  let html = text
+    // Escape HTML first
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+ 
+  // Action codes [xx.xx] and {xx.xx}
+  html = html.replace(/(\[[\w.\-]+\])/g, '<span class="t-action">$1</span>');
+  html = html.replace(/(\{[\w.\-]+\})/g, '<span class="t-action">$1</span>');
+ 
+  // Operators: ->, >>, !, ::, ^, @, $, ∫, ~, #, *, //, /, |, +, -, <>, ++, --
+  html = html.replace(/(->|>>|&lt;&gt;|\+\+|--|\|\||::|\^|@|\$|∫|~|#|\/\/|[+\-!|\/](?!\w))/g,
+    '<span class="t-op">$1</span>');
+ 
+  // Location patterns: *.sbs.xxx, xxx.sbs.xxx, coordinate (nn.n.xx, nn.n.xx)
+  html = html.replace(/([a-z]{2,5}\.sbs\.[a-z0-9.]+)/g, '<span class="t-location">$1</span>');
+  html = html.replace(/(\(\d+\.\d+\.[a-z]+,\s*\d+\.\d+\.[a-z]+\))/g, '<span class="t-location">$1</span>');
+ 
+  // Domain codes: axn.xxx, eng.xxx, natx.xxx, vrbn.xxx, psc, infr, etc
+  html = html.replace(/\b(axn|eng|natx|vrbn|psc|infr|incd|ide|hlth|scnc|cms|sec|gndm|dfns|forn|jstc|rlg|educ|com|trde|resr)\.[a-z0-9.]+/g,
+    '<span class="t-domain">$&</span>');
+ 
+  // Actor patterns: 3-letter country code dot chains
+  html = html.replace(/\b([a-z]{2,4}\.[a-z0-9]{2,}(?:\.[a-z0-9]+){0,6})\b/g, (match) => {
+    // avoid re-wrapping already-wrapped spans
+    if (match.startsWith('t-') || match.includes('span')) return match;
+    return `<span class="t-actor">${match}</span>`;
+  });
+ 
+  // Values: dates, numbers with units
+  html = html.replace(/\b(\d{8}|\d{4,8}:\d{4,8}|\d+\.\d+\.(?:pct|bln|mln)|usd\.\d+[\.\d]*|USD\s[\d.]+\s\w+|\d+\.\w+)\b/g,
+    '<span class="t-value">$1</span>');
+ 
+  return html;
+}
+ 
+const textEl    = document.getElementById('animatic-text');
+const counterEl = document.getElementById('animatic-counter');
+const pipsEl    = document.getElementById('animatic-pips');
+ 
+const TOTAL     = EXAMPLES.length;
+const TYPECHAR  = 18;   // ms per character
+const PAUSE     = 3200; // ms to hold after full reveal
+const FADE      = 400;  // ms fade transition
+ 
+// Build pip indicators (show up to 12, dots for rest)
+const PIP_MAX = 12;
+for (let i = 0; i < Math.min(TOTAL, PIP_MAX); i++) {
+  const pip = document.createElement('div');
+  pip.className = 'animatic-progress-pip';
+  pip.id = `pip-${i}`;
+  pipsEl.appendChild(pip);
+}
+ 
+// Shuffle array (Fisher-Yates)
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+ 
+let queue    = shuffle(EXAMPLES);
+let idx      = 0;
+let charTimer, pauseTimer;
+let running  = true;
+ 
+function updatePips(n) {
+  const pipIdx = n % PIP_MAX;
+  document.querySelectorAll('.animatic-progress-pip').forEach((p, i) => {
+    p.classList.toggle('active', i === pipIdx);
+  });
+}
+ 
+function updateCounter(n) {
+  const display = String(n + 1).padStart(3, '0');
+  const total   = String(TOTAL).padStart(3, '0');
+  counterEl.textContent = `${display} / ${total}`;
+}
+ 
+function typeExample(exampleIdx) {
+  if (!running) return;
+  const raw   = queue[exampleIdx % queue.length];
+  const chars = [...raw]; // preserve unicode
+  let   pos   = 0;
+ 
+  updateCounter(exampleIdx);
+  updatePips(exampleIdx);
+ 
+  textEl.style.opacity = '0';
+  textEl.innerHTML     = '';
+ 
+  // Short fade-in delay then start typing
+  setTimeout(() => {
+    textEl.style.transition = `opacity ${FADE}ms`;
+    textEl.style.opacity    = '1';
+ 
+    function typeNext() {
+      if (!running) return;
+      if (pos < chars.length) {
+        pos++;
+        // Render colorized version of what's typed so far
+        const partial = chars.slice(0, pos).join('');
+        textEl.innerHTML = colorize(partial) + '<span class="animatic-cursor"></span>';
+        charTimer = setTimeout(typeNext, TYPECHAR);
+      } else {
+        // Finished — remove cursor, pause, then fade out
+        textEl.innerHTML = colorize(raw);
+        pauseTimer = setTimeout(() => {
+          textEl.style.transition = `opacity ${FADE}ms`;
+          textEl.style.opacity    = '0';
+          setTimeout(() => {
+            idx = (idx + 1) % TOTAL;
+            if (idx === 0) queue = shuffle(EXAMPLES); // re-shuffle each cycle
+            typeExample(idx);
+          }, FADE + 80);
+        }, PAUSE);
+      }
+    }
+ 
+    typeNext();
+  }, 120);
+}
+ 
+// Pause when tab hidden, resume when visible
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    running = false;
+    clearTimeout(charTimer);
+    clearTimeout(pauseTimer);
+  } else {
+    running = true;
+    typeExample(idx);
+  }
+});
+ 
+// Kick off
+typeExample(0);
 </script>
 </body>
 </html>
+ 
+
