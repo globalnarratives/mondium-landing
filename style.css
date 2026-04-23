@@ -642,6 +642,8 @@ footer {
   flex-direction: column;
   justify-content: center;
   height: 100%;
+  padding-right: 48px;
+  max-width: 100%;
 }
 
 .hero-bg-word {
@@ -905,10 +907,41 @@ footer {
 }
 
 /* Layout — positions the animatic within the hero grid */
-.hero-right { display: flex; flex-direction: column; justify-content: center; height: 100%; }
+.hero-right { display: flex; flex-direction: column; justify-content: center; height: 100%; padding-right: 48px; max-width: 100%; }
+
+/* Title block above shell */
+.animatic-title-block {
+  margin-bottom: 20px;
+}
+
+.animatic-eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0.7;
+  margin-bottom: 8px;
+}
+
+.animatic-heading {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 22px;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+
+.animatic-subhead {
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
 
 /* Shell */
-.animatic-shell { border: 1px solid var(--border-med); background: var(--bg-card); overflow: hidden; position: relative; width: 100%; max-width: 100%; }
+.animatic-shell { border: 1px solid var(--border-med); background: var(--bg-card); overflow: hidden; position: relative; width: 100%; max-width: 560px; }
 
 /* Header bar */
 .animatic-header { padding: 11px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
