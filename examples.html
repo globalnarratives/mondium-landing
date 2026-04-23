@@ -12,14 +12,9 @@
 
 <nav>
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo">Mondium<em>.</em>ai</a>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="problem.html">The Problem</a></li>
-      <li><a href="cie.html">What Is CIE</a></li>
-      <li><a href="examples.html" class="active">Examples</a></li>
-    </ul>
-    <a href="contact.html" class="nav-cta">Contact</a>
+    <button class="hamburger" id="hamburger-btn" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
@@ -349,6 +344,33 @@ const progressObs = new IntersectionObserver((items) => {
   });
 }, { threshold: 0.12, rootMargin: '-10% 0px -60% 0px' });
 document.querySelectorAll('#stack, #entry-1, #entry-2, #entry-3, #entry-4, #conclusion').forEach(e => progressObs.observe(e));
+</script>
+
+<!-- SLIDE MENU -->
+<div class="menu-backdrop" id="menu-backdrop"></div>
+<div class="menu-panel" id="menu-panel">
+  <button class="menu-close" id="menu-close" aria-label="Close menu">✕</button>
+  <nav class="menu-nav">
+    <a href="index.html">Home</a>
+    <a href="problem.html">The Problem</a>
+    <a href="cie.html">What Is CIE</a>
+    <a href="examples.html" class="active">Examples</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="menu-footer"><span class="menu-motto">Omnia Vincit Veritas</span></div>
+</div>
+
+<script>
+const hamburgerBtn = document.getElementById('hamburger-btn');
+const menuPanel    = document.getElementById('menu-panel');
+const menuBackdrop = document.getElementById('menu-backdrop');
+const menuClose    = document.getElementById('menu-close');
+function openMenu()  { menuPanel.classList.add('open'); menuBackdrop.classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeMenu() { menuPanel.classList.remove('open'); menuBackdrop.classList.remove('open'); document.body.style.overflow = ''; }
+hamburgerBtn.addEventListener('click', openMenu);
+menuClose.addEventListener('click', closeMenu);
+menuBackdrop.addEventListener('click', closeMenu);
+document.querySelectorAll('.menu-nav a').forEach(a => a.addEventListener('click', closeMenu));
 </script>
 </body>
 </html>
