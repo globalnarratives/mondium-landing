@@ -76,7 +76,7 @@ nav {
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .hamburger {
@@ -113,18 +113,18 @@ nav {
 .menu-panel {
   position: fixed;
   top: 0;
-  right: 0;
+  left: 0;
   width: 320px;
   max-width: 100vw;
   height: 100vh;
   height: 100dvh;
   background: var(--bg-surface);
-  border-left: 1px solid var(--border-med);
+  border-right: 1px solid var(--border-med);
   z-index: 300;
   display: flex;
   flex-direction: column;
   padding: 48px 40px;
-  transform: translateX(100%);
+  transform: translateX(-100%);
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .menu-panel.open { transform: translateX(0); }
