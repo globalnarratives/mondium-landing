@@ -628,6 +628,7 @@ footer {
   position: relative;
   overflow: hidden;
   gap: 48px;
+  max-width: 100vw;
 }
 
 .hero-left {
@@ -669,6 +670,7 @@ footer {
   margin-bottom: 36px;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 14px;
 }
 .hero-eyebrow::before { content: ''; display: inline-block; width: 28px; height: 1px; background: var(--accent); opacity: 0.5; }
@@ -682,10 +684,10 @@ footer {
   max-width: 900px;
   margin-bottom: 40px;
 }
-.hero-title em { font-style: italic; color: var(--accent); }
+.hero-title em { font-style: italic; color: oklch(0.78 0.10 220); }
 
 .hero-logo {
-  height: 275px;
+  height: 64px;
   width: auto;
 }
 .hero-body {
@@ -857,6 +859,15 @@ footer {
 .cta-actions { display: flex; align-items: center; justify-content: center; gap: 24px; }
 
 /* ── RESPONSIVE ── */
+@media (max-width: 1200px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+  .hero-right {
+    display: none;
+  }
+}
+
 @media (max-width: 1024px) {
   nav, footer { padding-left: 24px; padding-right: 24px; }
   .page-container { padding-left: 24px; padding-right: 24px; }
@@ -894,7 +905,7 @@ footer {
 .hero-right { display: flex; flex-direction: column; justify-content: center; height: 100%; }
 
 /* Shell */
-.animatic-shell { border: 1px solid var(--border-med); background: var(--bg-card); overflow: hidden; position: relative; }
+.animatic-shell { border: 1px solid var(--border-med); background: var(--bg-card); overflow: hidden; position: relative; width: 100%; max-width: 100%; }
 
 /* Header bar */
 .animatic-header { padding: 11px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
@@ -908,7 +919,7 @@ footer {
 /* Body */
 .animatic-body { padding: 28px 24px 32px; min-height: 260px; display: flex; flex-direction: column; justify-content: flex-start; }
 .animatic-counter { font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; color: var(--text-tertiary); margin-bottom: 20px; opacity: 0.5; }
-.animatic-text { font-family: var(--mono); font-size: 16px; line-height: 2; color: var(--text-secondary); white-space: pre; overflow: hidden; min-height: 180px; }
+.animatic-text { font-family: var(--mono); font-size: 16px; line-height: 2; color: var(--text-secondary); white-space: pre-wrap; overflow: hidden; overflow-x: hidden; min-height: 180px; }
 
 /* Syntax token colors */
 .animatic-text .t-actor    { color: var(--mono-amber); }
