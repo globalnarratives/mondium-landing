@@ -90,6 +90,11 @@ nav {
 }
 .nav-logo em { font-style: normal; color: var(--accent); }
 
+.nav-logo img {
+  height: 28px;
+  width: auto;
+}
+
 .nav-links {
   display: flex;
   align-items: center;
