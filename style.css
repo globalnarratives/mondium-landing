@@ -684,6 +684,10 @@ footer {
 }
 .hero-title em { font-style: italic; color: var(--accent); }
 
+.hero-logo {
+  height: 48px;
+  width: auto;
+}
 .hero-body {
   font-style: italic;
   font-weight: 300;
