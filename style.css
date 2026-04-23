@@ -87,7 +87,6 @@ nav {
   flex-direction: column;
   gap: 5px;
   padding: 8px;
-  margin-left: auto;
 }
 .hamburger span {
   display: block;
@@ -739,7 +738,7 @@ footer {
 
 .hero-logo {
   display: block;
-  height: 80px;
+  height: 180px;
   width: auto;
   max-width: 100%;
 }
