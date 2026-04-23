@@ -35,9 +35,9 @@
 .encoding-block { margin: 36px 0; border: 1px solid var(--border-med); background: var(--bg-card); overflow: hidden; }
 
 .encoding-header { padding: 12px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-.encoding-title { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-tertiary); }
+.encoding-title { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-tertiary); }
 .encoding-badges { display: flex; gap: 8px; align-items: center; }
-.badge { font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 8px; border: 1px solid; }
+.badge { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border: 1px solid; }
 .badge-osint  { color: var(--mono-green); border-color: rgba(122,184,154,0.3); }
 .badge-rumint { color: var(--mono-red);   border-color: rgba(200,122,122,0.3); }
 .badge-parsed { color: var(--text-tertiary); border-color: var(--border); }
@@ -62,11 +62,11 @@
 
 .cie-expression {
   font-family: var(--mono);
-  font-size: 13px;
+  font-size: 16px;
   line-height: 2;
   background: rgba(0,0,0,0.25);
   border: 1px solid var(--border);
-  padding: 20px 24px;
+  padding: 24px 28px;
   overflow-x: auto;
   white-space: pre;
 }
@@ -76,13 +76,13 @@
 
 .annotation-toggle {
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 13px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text-tertiary);
   background: none;
   border: 1px solid var(--border);
-  padding: 6px 14px;
+  padding: 12px 24px;
   cursor: pointer;
   transition: color 0.2s, border-color 0.2s;
   display: inline-flex;
@@ -95,12 +95,12 @@
 
 .annotation-panel { display: none; margin-top: 16px; border: 1px solid var(--border); }
 .annotation-panel.open { display: grid; grid-template-columns: 1fr 1fr; }
-.ann-item { padding: 12px 16px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.ann-item { padding: 20px 24px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 .ann-item:nth-child(even) { border-right: none; }
 .ann-item:last-child { border-bottom: none; }
 .ann-item:nth-last-child(2):nth-child(odd) { border-bottom: none; }
-.ann-token { font-family: var(--mono); font-size: 11px; margin-bottom: 5px; }
-.ann-label { font-size: 11px; font-weight: 300; color: var(--text-tertiary); line-height: 1.5; }
+.ann-token { font-family: var(--mono); font-size: 15px; margin-bottom: 8px; }
+.ann-label { font-size: 14px; font-weight: 300; color: var(--text-secondary); line-height: 1.65; }
 
 .conclusion-entry {
   padding: 72px 0 0;
@@ -119,9 +119,11 @@
 @media (max-width: 1024px) {
   .page-header-grid { grid-template-columns: 1fr; gap: 40px; }
   .annotation-panel.open { grid-template-columns: 1fr; }
-  .ann-item { border-right: none; }
+  .ann-item { border-right: none; padding: 16px 18px; }
   .ann-item:nth-last-child(2):nth-child(odd) { border-bottom: 1px solid var(--border); }
   .ann-item:last-child { border-bottom: none; }
+  .ann-token { font-size: 13px; }
+  .ann-label { font-size: 13px; }
   .rumint-header { grid-template-columns: 1fr; }
 }
 </style>
