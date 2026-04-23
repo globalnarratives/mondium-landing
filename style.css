@@ -622,6 +622,23 @@ footer {
   border-bottom: 1px solid var(--border);
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center; /* Vertically centers the content */
+  justify-content: space-between; /* Pushes the two sections to opposite sides */
+  gap: 40px; /* Adjust spacing between left and right */
+  min-height: 80vh; /* Ensures the hero has enough vertical height */
+  padding: 0 5%; /* Standard side padding */
+}
+
+.hero-left {
+  flex: 1; /* Allows the text area to grow/shrink */
+  max-width: 600px;
+}
+
+.hero-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end; /* Keeps the animatic-shell aligned to the right */
 }
 
 .hero-bg-word {
