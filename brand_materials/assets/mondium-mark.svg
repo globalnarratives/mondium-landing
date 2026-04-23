@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 80" fill="none" role="img" aria-label="Mondium mark">
+  <title>Mondium</title>
+  
+  <path class="outer" d="M 12 14 L 34 40 L 12 66" stroke-width="1.2"></path>
+  <path class="outer" d="M 168 14 L 146 40 L 168 66" stroke-width="1.2"></path>
+  <path class="mid" d="M 42 20 L 58 40 L 42 60" stroke-width="1.2"></path>
+  <path class="mid" d="M 138 20 L 122 40 L 138 60" stroke-width="1.2"></path>
+  <path class="inner" d="M 70 26 L 82 40 L 70 54" stroke-width="1.4"></path>
+  <path class="inner" d="M 110 26 L 98 40 L 110 54" stroke-width="1.4"></path>
+  <rect class="core" x="87" y="34" width="6" height="12"></rect>
+</svg>

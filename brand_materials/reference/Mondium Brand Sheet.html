@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Mondium — Brand Sheet</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; background: #17140f; }
+  body { font-family: "Space Grotesk", system-ui, sans-serif; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="design-canvas.jsx"></script>
+
+<script type="text/babel">
+// ── Final palettes ───────────────────────────────────────────
+const MINT = { bg: '#0D1413', teal: 'oklch(0.80 0.10 170)', ink: '#EAEFEC', name: 'Mint' };
+const CYAN = { bg: '#090D10', teal: 'oklch(0.78 0.10 220)', ink: '#E6EBEF', name: 'Cold Cyan' };
+
+// ── Mark ──────────────────────────────────────────────────────
+const Mark = ({ size = 180, palette, strokeScale = 1, mono = false }) => {
+  const s = (n) => n * strokeScale;
+  const p = palette;
+  const tealColor = mono ? p.ink : p.teal;
+  const w = size, h = size * (80 / 180);
+  return (
+    <svg width={w} height={h} viewBox="0 0 180 80" fill="none" style={{ display: 'block' }}>
+      <path d="M 12 14 L 34 40 L 12 66" stroke={p.ink} strokeWidth={s(1.2)} fill="none" opacity="0.35" />
+      <path d="M 168 14 L 146 40 L 168 66" stroke={p.ink} strokeWidth={s(1.2)} fill="none" opacity="0.35" />
+      <path d="M 42 20 L 58 40 L 42 60" stroke={p.ink} strokeWidth={s(1.2)} fill="none" opacity="0.65" />
+      <path d="M 138 20 L 122 40 L 138 60" stroke={p.ink} strokeWidth={s(1.2)} fill="none" opacity="0.65" />
+      <path d="M 70 26 L 82 40 L 70 54" stroke={tealColor} strokeWidth={s(1.4)} fill="none" />
+      <path d="M 110 26 L 98 40 L 110 54" stroke={tealColor} strokeWidth={s(1.4)} fill="none" />
+      <rect x="87" y="34" width="6" height="12" fill={tealColor} />
+    </svg>
+  );
+};
+
+const Tag = ({ children, color, size = 10, tracking = 0.22, weight = 400 }) => (
+  <div style={{
+    fontFamily: '"JetBrains Mono", monospace',
+    fontSize: size, letterSpacing: `${tracking}em`,
+    color: color || 'rgba(234,239,236,0.45)',
+    textTransform: 'uppercase', fontWeight: weight,
+  }}>{children}</div>
+);
+
+// ── The three locked lockups ─────────────────────────────────
+
+// LOCKUP 1 — Primary: 300 All-Caps wordmark, "The world, encoded"
+const Primary = ({ palette = MINT, size = 'default' }) => {
+  const markSize = size === 'small' ? 96 : size === 'large' ? 200 : 140;
+  const wordSize = size === 'small' ? 26 : size === 'large' ? 48 : 36;
+  const rule = size === 'small' ? 44 : size === 'large' ? 80 : 60;
+  const gap = size === 'small' ? 18 : size === 'large' ? 34 : 26;
+  const tagSize = size === 'small' ? 8 : size === 'large' ? 12 : 10;
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap }}>
+      <Mark size={markSize} palette={palette} />
+      <div style={{ width: 1, height: rule, background: palette.ink + '33' }} />
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <div style={{
+          fontFamily: '"Space Grotesk", sans-serif', fontWeight: 300, fontSize: wordSize,
+          letterSpacing: '0.18em', color: palette.ink, lineHeight: 1, textTransform: 'uppercase',
+        }}>MONDIUM</div>
+        <Tag color={palette.teal} size={tagSize} tracking={0.3}>The world, encoded</Tag>
+      </div>
+    </div>
+  );
+};
+
+// LOCKUP 2 — Backup: Cyan 300, Latin motto (stacked)
+const Backup = ({ palette = CYAN, size = 'default' }) => {
+  const markSize = size === 'small' ? 120 : size === 'large' ? 220 : 170;
+  const wordSize = size === 'small' ? 32 : size === 'large' ? 56 : 44;
+  const mottoSize = size === 'small' ? 10 : size === 'large' ? 14 : 12;
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
+      <Mark size={markSize} palette={palette} />
+      <div style={{
+        fontFamily: '"Space Grotesk", sans-serif', fontWeight: 300, fontSize: wordSize,
+        letterSpacing: 0.01 + 'em', color: palette.ink, lineHeight: 1, marginTop: 10,
+      }}>Mondium</div>
+      <div style={{
+        fontFamily: '"Space Grotesk", sans-serif', fontWeight: 400, fontSize: mottoSize,
+        letterSpacing: '0.44em', color: palette.teal, textTransform: 'uppercase', marginTop: 4,
+      }}>OMNIA · VINCIT · VERITAS</div>
+    </div>
+  );
+};
+
+// ── Card ──────────────────────────────────────────────────────
+const Card = ({ tag, info, palette, children, pad = 48, align = 'center' }) => (
+  <div style={{
+    width: '100%', height: '100%', background: palette.bg,
+    display: 'flex', flexDirection: 'column',
+    padding: pad, boxSizing: 'border-box', position: 'relative',
+  }}>
+    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <Tag color={palette.ink + 'a0'} size={9}>{tag}</Tag>
+      {info && <Tag color={palette.teal} size={9}>{info}</Tag>}
+    </div>
+    <div style={{
+      flex: 1, display: 'flex', flexDirection: align === 'left' ? 'column' : 'column',
+      alignItems: align === 'left' ? 'flex-start' : 'center', justifyContent: 'center',
+      color: palette.ink, gap: 16,
+    }}>{children}</div>
+    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <Tag color={palette.ink + '70'} size={8}>Mondium, LLC</Tag>
+      <Tag color={palette.ink + '70'} size={8}>Space Grotesk · JetBrains Mono</Tag>
+    </div>
+  </div>
+);
+
+// ═══════════════════════════════════════════════════════════
+// Primary — 3 sizes, Mint + Cyan
+// ═══════════════════════════════════════════════════════════
+const Primary_Mint_Lg  = () => <Card tag="Primary · Mint · lg"  info="MONDIUM · 300 caps" palette={MINT}><Primary palette={MINT} size="large" /></Card>;
+const Primary_Mint_Md  = () => <Card tag="Primary · Mint · md"  info="MONDIUM · 300 caps" palette={MINT}><Primary palette={MINT} /></Card>;
+const Primary_Mint_Sm  = () => <Card tag="Primary · Mint · sm"  info="MONDIUM · 300 caps" palette={MINT}><Primary palette={MINT} size="small" /></Card>;
+const Primary_Cyan_Lg  = () => <Card tag="Primary · Cyan · lg"  info="MONDIUM · 300 caps" palette={CYAN}><Primary palette={CYAN} size="large" /></Card>;
+const Primary_Cyan_Md  = () => <Card tag="Primary · Cyan · md"  info="MONDIUM · 300 caps" palette={CYAN}><Primary palette={CYAN} /></Card>;
+const Primary_Cyan_Sm  = () => <Card tag="Primary · Cyan · sm"  info="MONDIUM · 300 caps" palette={CYAN}><Primary palette={CYAN} size="small" /></Card>;
+
+// ═══════════════════════════════════════════════════════════
+// Backup — motto
+// ═══════════════════════════════════════════════════════════
+const Backup_Cyan_Lg = () => <Card tag="Backup · Cyan · lg" info="OMNIA VINCIT VERITAS" palette={CYAN}><Backup palette={CYAN} size="large" /></Card>;
+const Backup_Cyan_Md = () => <Card tag="Backup · Cyan · md" info="OMNIA VINCIT VERITAS" palette={CYAN}><Backup palette={CYAN} /></Card>;
+const Backup_Mint_Md = () => <Card tag="Backup · Mint · md" info="OMNIA VINCIT VERITAS" palette={MINT}><Backup palette={MINT} /></Card>;
+
+// ═══════════════════════════════════════════════════════════
+// Monochrome + inversions — safety marks for any surface
+// ═══════════════════════════════════════════════════════════
+const LIGHT = { bg: '#EFEAE0', teal: '#17140F', ink: '#17140F', name: 'Parchment' };
+const BLACK = { bg: '#000000', teal: '#FFFFFF', ink: '#FFFFFF', name: 'Black' };
+const WHITE = { bg: '#FFFFFF', teal: '#000000', ink: '#000000', name: 'White' };
+
+const Mono_Cyan_Ink  = () => <Card tag="Mono · Cyan bg · ink only" palette={CYAN}><Primary palette={CYAN} /></Card>; // for reference
+const Mono_Black     = () => <Card tag="Mono · Black"         info="single-color usage" palette={BLACK}><Primary palette={BLACK} /></Card>;
+const Mono_White     = () => <Card tag="Mono · White"         info="single-color usage" palette={WHITE}><Primary palette={WHITE} /></Card>;
+const Mono_Parchment = () => <Card tag="Light · Parchment"    info="document contexts" palette={LIGHT}><Primary palette={LIGHT} /></Card>;
+
+// ═══════════════════════════════════════════════════════════
+// App icon / favicon — the brackets-only mark in a square
+// ═══════════════════════════════════════════════════════════
+const AppIcon = ({ palette, label, rounded = 0 }) => (
+  <div style={{
+    width: 220, height: 220, background: palette.bg,
+    borderRadius: rounded, display: 'flex', alignItems: 'center',
+    justifyContent: 'center', flexDirection: 'column', gap: 12,
+    boxShadow: '0 14px 40px rgba(0,0,0,0.4)',
+  }}>
+    <Mark size={150} palette={palette} strokeScale={1.2} />
+    <Tag color={palette.teal} size={8} tracking={0.4}>{label}</Tag>
+  </div>
+);
+
+const IconSheet = () => (
+  <div style={{
+    width: '100%', height: '100%', background: MINT.bg, padding: 40,
+    boxSizing: 'border-box', display: 'flex', flexDirection: 'column', gap: 24,
+    position: 'relative',
+  }}>
+    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <Tag color={MINT.ink + 'a0'} size={9}>App icon · Favicon</Tag>
+      <Tag color={MINT.teal} size={9}>brackets-only</Tag>
+    </div>
+    <div style={{ flex: 1, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, alignContent: 'center', justifyItems: 'center' }}>
+      <AppIcon palette={CYAN} label="MONDIUM · CYAN" rounded={48} />
+      <AppIcon palette={MINT} label="MONDIUM · MINT" rounded={48} />
+      <AppIcon palette={BLACK} label="MONOCHROME" rounded={48} />
+      <AppIcon palette={LIGHT} label="LIGHT" rounded={48} />
+    </div>
+    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <Tag color={MINT.ink + '70'} size={8}>Mondium, LLC</Tag>
+      <Tag color={MINT.ink + '70'} size={8}>Favicon recipe: brackets at 1.2× stroke</Tag>
+    </div>
+  </div>
+);
+
+// ═══════════════════════════════════════════════════════════
+// Spec sheet — typography, color, stroke, clear space
+// ═══════════════════════════════════════════════════════════
+const Swatch = ({ color, label, hex }) => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+    <div style={{ width: 80, height: 80, background: color, border: '1px solid rgba(255,255,255,0.08)' }} />
+    <Tag size={8} color="rgba(234,239,236,0.9)">{label}</Tag>
+    <Tag size={8} color="rgba(234,239,236,0.45)">{hex}</Tag>
+  </div>
+);
+
+const Spec = () => (
+  <div style={{
+    width: '100%', height: '100%', background: CYAN.bg, padding: 44,
+    boxSizing: 'border-box', color: CYAN.ink, display: 'flex', flexDirection: 'column', gap: 22,
+    fontFamily: '"Space Grotesk", sans-serif',
+  }}>
+    <Tag color={CYAN.teal} size={10}>Spec · v0</Tag>
+
+    {/* Typography */}
+    <div>
+      <Tag size={9} color={CYAN.ink + 'a0'}>Typography</Tag>
+      <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 20 }}>
+          <div style={{ fontWeight: 300, fontSize: 32, letterSpacing: '0.18em', textTransform: 'uppercase' }}>MONDIUM</div>
+          <Tag size={9} color={CYAN.ink + '75'}>Space Grotesk · 300 · +0.18em · caps</Tag>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 20 }}>
+          <div style={{ fontWeight: 300, fontSize: 32 }}>Mondium</div>
+          <Tag size={9} color={CYAN.ink + '75'}>Space Grotesk · 300 · cased</Tag>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 20 }}>
+          <Tag color={CYAN.teal} size={12} tracking={0.3}>The world, encoded</Tag>
+          <Tag size={9} color={CYAN.ink + '75'}>JetBrains Mono · 400 · +0.30em · caps</Tag>
+        </div>
+      </div>
+    </div>
+
+    {/* Palette */}
+    <div>
+      <Tag size={9} color={CYAN.ink + 'a0'}>Palette</Tag>
+      <div style={{ marginTop: 12, display: 'flex', gap: 22 }}>
+        <Swatch color={CYAN.bg}   label="BG · CYAN"   hex="#090D10" />
+        <Swatch color={CYAN.teal} label="TEAL · CYAN" hex="oklch(.78 .10 220)" />
+        <Swatch color={CYAN.ink}  label="INK"         hex="#E6EBEF" />
+        <Swatch color={MINT.bg}   label="BG · MINT"   hex="#0D1413" />
+        <Swatch color={MINT.teal} label="TEAL · MINT" hex="oklch(.80 .10 170)" />
+      </div>
+    </div>
+
+    {/* Construction */}
+    <div>
+      <Tag size={9} color={CYAN.ink + 'a0'}>Mark construction</Tag>
+      <div style={{ marginTop: 12, display: 'flex', gap: 30, alignItems: 'center' }}>
+        {/* exploded view */}
+        <svg width="280" height="120" viewBox="0 0 180 80" fill="none">
+          <rect x="0" y="0" width="180" height="80" stroke={CYAN.ink + '22'} strokeDasharray="2 2" fill="none" />
+          <path d="M 12 14 L 34 40 L 12 66" stroke={CYAN.ink} strokeWidth="1.2" fill="none" opacity="0.35" />
+          <path d="M 168 14 L 146 40 L 168 66" stroke={CYAN.ink} strokeWidth="1.2" fill="none" opacity="0.35" />
+          <path d="M 42 20 L 58 40 L 42 60" stroke={CYAN.ink} strokeWidth="1.2" fill="none" opacity="0.65" />
+          <path d="M 138 20 L 122 40 L 138 60" stroke={CYAN.ink} strokeWidth="1.2" fill="none" opacity="0.65" />
+          <path d="M 70 26 L 82 40 L 70 54" stroke={CYAN.teal} strokeWidth="1.4" fill="none" />
+          <path d="M 110 26 L 98 40 L 110 54" stroke={CYAN.teal} strokeWidth="1.4" fill="none" />
+          <rect x="87" y="34" width="6" height="12" fill={CYAN.teal} />
+          {/* annotation lines */}
+          <line x1="23" y1="66" x2="23" y2="76" stroke={CYAN.teal} strokeWidth="0.4" />
+          <line x1="157" y1="66" x2="157" y2="76" stroke={CYAN.teal} strokeWidth="0.4" />
+          <line x1="23" y1="76" x2="157" y2="76" stroke={CYAN.teal} strokeWidth="0.4" />
+          <line x1="90" y1="54" x2="90" y2="64" stroke={CYAN.teal} strokeWidth="0.4" />
+        </svg>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          <Tag size={9} color={CYAN.ink + 'a0'}>Ratio · 180 : 80 (9:4)</Tag>
+          <Tag size={9} color={CYAN.ink + 'a0'}>Stroke · 1.2 outer · 1.4 core</Tag>
+          <Tag size={9} color={CYAN.ink + 'a0'}>Opacity · 0.35 → 0.65 → 1.0</Tag>
+          <Tag size={9} color={CYAN.ink + 'a0'}>Core · 6 × 12 solid</Tag>
+          <Tag size={9} color={CYAN.teal}>Clear space · 1× bracket height</Tag>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+// ═══════════════════════════════════════════════════════════
+// Final hero — Cyan 400 (user-selected)
+// ═══════════════════════════════════════════════════════════
+const FinalHero = () => {
+  const palette = CYAN;
+  return (
+    <div style={{
+      width: '100%', height: '100%', background: palette.bg,
+      padding: '44px 60px', boxSizing: 'border-box',
+      display: 'flex', flexDirection: 'column',
+      color: palette.ink, position: 'relative', overflow: 'hidden',
+    }}>
+      <div style={{
+        position: 'absolute', inset: 0,
+        backgroundImage: `linear-gradient(${palette.ink} 1px, transparent 1px), linear-gradient(90deg, ${palette.ink} 1px, transparent 1px)`,
+        backgroundSize: '80px 80px', opacity: 0.03, pointerEvents: 'none',
+      }} />
+      {/* nav */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'relative' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+          <Mark size={60} palette={palette} />
+          <div style={{ width: 1, height: 28, background: palette.ink + '33' }} />
+          <div style={{
+            fontFamily: '"Space Grotesk", sans-serif', fontWeight: 300, fontSize: 20,
+            letterSpacing: '0.18em', textTransform: 'uppercase', color: palette.ink, lineHeight: 1,
+          }}>MONDIUM</div>
+        </div>
+        <div style={{
+          display: 'flex', gap: 30,
+          fontFamily: '"JetBrains Mono", monospace', fontSize: 10,
+          letterSpacing: '0.2em', textTransform: 'uppercase',
+          color: palette.ink + '8a',
+        }}>
+          <span>Home</span><span>The Problem</span><span>What Is CIE</span><span>Examples</span><span>Contact</span>
+        </div>
+      </div>
+
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', maxWidth: 920, position: 'relative', marginTop: 48 }}>
+        <Tag color={palette.teal} size={10} tracking={0.3}>Mondium — The world, encoded</Tag>
+        <h1 style={{
+          fontFamily: '"Space Grotesk", sans-serif',
+          fontWeight: 400, fontSize: 60, lineHeight: 1.08,
+          letterSpacing: '-0.02em', margin: '26px 0 0',
+          textWrap: 'pretty', color: palette.ink,
+        }}>
+          The world has moved from the age of <em style={{ color: palette.teal, fontStyle: 'italic', fontWeight: 500 }}>news</em> to the age of <em style={{ color: palette.teal, fontStyle: 'italic', fontWeight: 500 }}>intelligence.</em> The infrastructure hasn't.
+        </h1>
+        <div style={{
+          fontFamily: '"Space Grotesk", sans-serif', fontWeight: 300, fontSize: 17,
+          color: palette.ink + 'b8', marginTop: 28, maxWidth: 680, lineHeight: 1.5,
+        }}>
+          Political events still arrive as prose — structured for a reader, not a database. CIE is the encoding layer that changes this.
+        </div>
+        <div style={{ display: 'flex', gap: 18, marginTop: 40 }}>
+          <div style={{ padding: '13px 24px', border: `1px solid ${palette.teal}`, color: palette.teal, fontFamily: '"JetBrains Mono", monospace', fontSize: 10, letterSpacing: '0.24em', textTransform: 'uppercase' }}>The Problem →</div>
+          <div style={{ padding: '13px 24px', border: `1px solid ${palette.ink}33`, color: palette.ink + 'c0', fontFamily: '"JetBrains Mono", monospace', fontSize: 10, letterSpacing: '0.24em', textTransform: 'uppercase' }}>What Is CIE</div>
+        </div>
+      </div>
+
+      <div style={{ display: 'flex', justifyContent: 'space-between', position: 'relative' }}>
+        <Tag color={palette.ink + '55'} size={9}>Scroll ↓</Tag>
+        <Tag color={palette.ink + '55'} size={9}>Omnia Vincit Veritas</Tag>
+      </div>
+    </div>
+  );
+};
+
+// ── App ─────────────────────────────────────────────────────
+function App() {
+  return (
+    <DesignCanvas>
+      <DCSection id="brief" title="Mondium — Brand sheet · v0" subtitle="Final selections: 300 All-Caps primary · Cyan 300 motto · Cyan 400 hero">
+        <DCArtboard id="brief" label="Brief" width={640} height={440}>
+          <div style={{
+            width: '100%', height: '100%', background: CYAN.bg, padding: 44,
+            boxSizing: 'border-box', color: CYAN.ink, display: 'flex', flexDirection: 'column', gap: 18,
+            fontFamily: '"Space Grotesk", sans-serif', fontWeight: 300,
+          }}>
+            <Tag size={10} color={CYAN.teal}>Brand sheet · v0</Tag>
+            <div style={{ fontSize: 30, lineHeight: 1.2, fontWeight: 400, letterSpacing: '-0.02em' }}>
+              Three locked lockups, in three sizes, across the official palette plus safety monochromes.
+            </div>
+            <div style={{ height: 1, background: CYAN.teal, opacity: 0.5, width: 60 }} />
+            <div style={{ fontSize: 13, lineHeight: 1.7, color: CYAN.ink + 'c0' }}>
+              <strong style={{ color: CYAN.ink }}>Primary</strong> — MONDIUM 300 all-caps · brackets · "The world, encoded" in JetBrains Mono. Nav-scale to large.<br/>
+              <strong style={{ color: CYAN.ink }}>Backup</strong> — Cyan 300 · Mondium cased · Latin motto "Omnia Vincit Veritas". Formal / signature contexts.<br/>
+              <strong style={{ color: CYAN.ink }}>Hero</strong> — Cold Cyan 400, full landing treatment.
+            </div>
+            <div style={{ flex: 1 }} />
+            <Tag color={CYAN.teal} size={9}>The world, encoded</Tag>
+          </div>
+        </DCArtboard>
+      </DCSection>
+
+      <DCSection id="primary" title="Primary lockup" subtitle="MONDIUM · 300 all-caps · brackets · 'The world, encoded'">
+        <DCArtboard id="pml" label="Mint · large"  width={720} height={320}><Primary_Mint_Lg /></DCArtboard>
+        <DCArtboard id="pmm" label="Mint · medium" width={560} height={280}><Primary_Mint_Md /></DCArtboard>
+        <DCArtboard id="pms" label="Mint · small"  width={440} height={240}><Primary_Mint_Sm /></DCArtboard>
+        <DCArtboard id="pcl" label="Cyan · large"  width={720} height={320}><Primary_Cyan_Lg /></DCArtboard>
+        <DCArtboard id="pcm" label="Cyan · medium" width={560} height={280}><Primary_Cyan_Md /></DCArtboard>
+        <DCArtboard id="pcs" label="Cyan · small"  width={440} height={240}><Primary_Cyan_Sm /></DCArtboard>
+      </DCSection>
+
+      <DCSection id="backup" title="Backup lockup · Latin motto" subtitle="Cyan 300 · Omnia Vincit Veritas">
+        <DCArtboard id="bcl" label="Cyan · large"  width={520} height={520}><Backup_Cyan_Lg /></DCArtboard>
+        <DCArtboard id="bcm" label="Cyan · medium" width={480} height={460}><Backup_Cyan_Md /></DCArtboard>
+        <DCArtboard id="bmm" label="Mint · medium" width={480} height={460}><Backup_Mint_Md /></DCArtboard>
+      </DCSection>
+
+      <DCSection id="mono" title="Safety marks" subtitle="Monochrome + inversion for single-color and document contexts">
+        <DCArtboard id="mb" label="Black"     width={560} height={280}><Mono_Black /></DCArtboard>
+        <DCArtboard id="mw" label="White"     width={560} height={280}><Mono_White /></DCArtboard>
+        <DCArtboard id="mp" label="Parchment" width={560} height={280}><Mono_Parchment /></DCArtboard>
+      </DCSection>
+
+      <DCSection id="icons" title="App icon · Favicon" subtitle="Brackets-only mark, centered in a square">
+        <DCArtboard id="icons" label="Icon sheet" width={640} height={720}><IconSheet /></DCArtboard>
+      </DCSection>
+
+      <DCSection id="hero" title="Hero — Cyan 400" subtitle="Final landing hero with the locked lockup">
+        <DCArtboard id="fh" label="Cyan · 400 · Hero" width={1200} height={620}><FinalHero /></DCArtboard>
+      </DCSection>
+
+      <DCSection id="spec" title="Spec sheet" subtitle="Typography · palette · construction · clear space">
+        <DCArtboard id="spec" label="Spec" width={960} height={640}><Spec /></DCArtboard>
+      </DCSection>
+    </DesignCanvas>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

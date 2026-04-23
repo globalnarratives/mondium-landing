@@ -1,0 +1,46 @@
+:root {
+  /* ——— Official palette · Cold Cyan (canonical) ——— */
+  --bg: #090D10;
+  --teal: oklch(0.78 0.10 220);
+  --ink: #E6EBEF;
+
+  /* ——— Alternate palette · Mint ———
+     Uncomment to switch palettes:
+     --bg: #0D1413;
+     --teal: oklch(0.80 0.10 170);
+     --ink: #EAEFEC;
+  */
+
+  /* ——— Safety monochromes ——— */
+  --safety-black-bg: #000000;
+  --safety-black-fg: #FFFFFF;
+  --safety-white-bg: #FFFFFF;
+  --safety-white-fg: #000000;
+  --safety-parchment-bg: #EFEAE0;
+  --safety-parchment-fg: #17140F;
+
+  /* ——— Type ——— */
+  --font-sans: "Space Grotesk", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --weight-wordmark: 300;
+  --weight-ui: 400;
+  --weight-emphasis: 500;
+
+  --tracking-wordmark: 0.18em;   /* MONDIUM all-caps */
+  --tracking-tagline: 0.30em;    /* "The world, encoded" */
+  --tracking-motto: 0.44em;      /* OMNIA · VINCIT · VERITAS */
+  --tracking-tight: -0.02em;     /* Large headings */
+
+  /* ——— Layout ——— */
+  --mark-aspect: calc(180 / 80);   /* 9 : 4 */
+  --mark-clear-space: 1;            /* × mark height */
+
+  /* ——— Opacities ——— */
+  --opacity-outer-bracket: 0.35;
+  --opacity-mid-bracket: 0.65;
+  --opacity-inner-bracket: 1;
+  --opacity-subtle-text: 0.75;
+  --opacity-caption: 0.45;
+  --opacity-rule: 0.20;
+}
