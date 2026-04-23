@@ -866,3 +866,40 @@ footer {
   .problem-grid { grid-template-columns: 1fr; }
   .stack-row    { grid-template-columns: 1fr; }
 }
+
+/* Layout — positions the animatic within the hero grid */
+.hero-right { display: flex; flex-direction: column; justify-content: center; height: 100%; }
+
+/* Shell */
+.animatic-shell { border: 1px solid var(--border-med); background: var(--bg-card); overflow: hidden; position: relative; }
+
+/* Header bar */
+.animatic-header { padding: 11px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.animatic-header-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-tertiary); }
+
+/* Status indicator with pulsing dot */
+.animatic-status { display: flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; color: var(--mono-green); opacity: 0.7; }
+.animatic-status::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--mono-green); display: block; animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+/* Body */
+.animatic-body { padding: 28px 24px 32px; min-height: 260px; display: flex; flex-direction: column; justify-content: flex-start; }
+.animatic-counter { font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; color: var(--text-tertiary); margin-bottom: 20px; opacity: 0.5; }
+.animatic-text { font-family: var(--mono); font-size: 13px; line-height: 2; color: var(--text-secondary); white-space: pre; overflow: hidden; min-height: 180px; }
+
+/* Syntax token colors */
+.animatic-text .t-actor    { color: var(--mono-amber); }
+.animatic-text .t-action   { color: var(--mono-green); }
+.animatic-text .t-domain   { color: var(--mono-blue); }
+.animatic-text .t-location { color: var(--mono-purple); }
+.animatic-text .t-op       { color: var(--text-tertiary); }
+.animatic-text .t-value    { color: var(--mono-red); }
+
+/* Blinking cursor */
+.animatic-cursor { display: inline-block; width: 7px; height: 14px; background: var(--accent); opacity: 0.7; vertical-align: middle; animation: blink 1s step-end infinite; margin-left: 1px; }
+@keyframes blink { 0%, 100% { opacity: 0.7; } 50% { opacity: 0; } }
+
+/* Progress pips footer */
+.animatic-footer { padding: 10px 18px; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+.animatic-progress-pip { width: 20px; height: 2px; background: var(--border-med); transition: background 0.4s, width 0.4s; }
+.animatic-progress-pip.active { background: var(--accent); width: 28px; }
