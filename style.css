@@ -615,30 +615,27 @@ footer {
 /* ── PAGE: HERO (index.html) ── */
 .hero {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 0 48px 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 100px 48px 80px;
   border-bottom: 1px solid var(--border);
   position: relative;
   overflow: hidden;
-  display: flex;
-  align-items: center; /* Vertically centers the content */
-  justify-content: space-between; /* Pushes the two sections to opposite sides */
-  gap: 40px; /* Adjust spacing between left and right */
-  min-height: 80vh; /* Ensures the hero has enough vertical height */
-  padding: 0 5%; /* Standard side padding */
+  gap: 48px;
 }
 
 .hero-left {
-  flex: 1; /* Allows the text area to grow/shrink */
-  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .hero-right {
-  flex: 1;
   display: flex;
-  justify-content: flex-end; /* Keeps the animatic-shell aligned to the right */
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
 }
 
 .hero-bg-word {
