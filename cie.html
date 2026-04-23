@@ -76,32 +76,31 @@
 
 .annotation-toggle {
   font-family: var(--mono);
-  font-size: 12px;
-  letter-spacing: 0.12em;
+  font-size: 10px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--text-tertiary);
   background: none;
-  border: 1px solid rgba(196,180,154,0.35);
-  padding: 10px 20px;
+  border: 1px solid var(--border);
+  padding: 6px 14px;
   cursor: pointer;
-  transition: background 0.2s, border-color 0.2s;
-  margin-top: 8px;
+  transition: color 0.2s, border-color 0.2s;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
-.annotation-toggle:hover { background: var(--accent-dim); border-color: rgba(196,180,154,0.6); }
+.annotation-toggle:hover { color: var(--accent); border-color: rgba(196,180,154,0.3); }
 .toggle-arrow { display: inline-block; transition: transform 0.25s ease; font-size: 9px; opacity: 0.6; }
 .annotation-toggle.open .toggle-arrow { transform: rotate(90deg); }
 
 .annotation-panel { display: none; margin-top: 16px; border: 1px solid var(--border); }
 .annotation-panel.open { display: grid; grid-template-columns: 1fr 1fr; }
-.ann-item { padding: 16px 20px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.ann-item { padding: 12px 16px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 .ann-item:nth-child(even) { border-right: none; }
 .ann-item:last-child { border-bottom: none; }
 .ann-item:nth-last-child(2):nth-child(odd) { border-bottom: none; }
-.ann-token { font-family: var(--mono); font-size: 13px; margin-bottom: 6px; }
-.ann-label { font-size: 13px; font-weight: 300; color: var(--text-secondary); line-height: 1.6; }
+.ann-token { font-family: var(--mono); font-size: 11px; margin-bottom: 5px; }
+.ann-label { font-size: 11px; font-weight: 300; color: var(--text-tertiary); line-height: 1.5; }
 
 .conclusion-entry {
   padding: 72px 0 0;
@@ -149,7 +148,7 @@
 
     <div class="page-header-grid">
       <div>
-        <h1 class="page-title">A formal language for <em>what actually happened.</em></h1>
+        <h1 class="page-title">A structured language for <em>the event exactly</em>Not for the story <em>about</em>the event.</h1>
         <p class="page-intro">Compressed Information Expression is a domain-specific encoding language for discrete, observable political events. Human-authored for fidelity. Machine-parseable for scale. Governed by specification for consistency across analysts, time, and geography.</p>
       </div>
       <div>
@@ -189,7 +188,7 @@
           <p>An expression is syntactically valid by reference to the grammar alone. It is semantically valid — and analytically meaningful — only when its tokens resolve to entries in the Registry. This separation is foundational: it means the grammar is stable while the vocabulary can grow, and it means two expressions using the same action code are making the same claim, regardless of who encoded them or when.</p>
           <div class="callout">
             <span class="callout-icon">—</span>
-            <p class="callout-text">CIE does not replace the source reporting. It sits above it — a structured record of what the reporting contains, from which the prose can be recovered on demand. The encoding is the analytical unit; the article is the citation.</p>
+            <p class="callout-text">CIE is not designed to be an 'adaptation' or 'translation' of a separate source article, which is necessarily informationally lossy. It is instead an authoritative and formal encoding on its own.</p>
           </div>
           <p>The examples below are drawn from real events across different action types and information environments. They are not edge cases chosen to show the system's range — they are representative of what a working analyst encodes on any given day. The complexity varies; the underlying logic is the same throughout.</p>
         </div>
@@ -221,10 +220,11 @@
 	<span class="tok-operator">-</span> <span class="tok-actor">rus.hos</span> <span class="tok-operator">&gt; @</span> <span class="tok-location">*.loc</span> <span class="tok-operator">&#x222b;</span> <span class="tok-value">04122025:05122025</span></pre>
           </div>
           <div class="caption-block">
-            <button class="annotation-toggle open" onclick="toggleAnnotation(this,'ann-1')">
-              Hide annotation <span class="toggle-arrow">&#9658;</span>
+            <p class="caption-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua — including bilateral scope, the two-day temporal span, and the energy domain specifications that prose accounts of this meeting consistently omitted or submerged in context.</p>
+            <button class="annotation-toggle" onclick="toggleAnnotation(this,'ann-1')">
+              Show annotation <span class="toggle-arrow">&#9658;</span>
             </button>
-            <div id="ann-1" class="annotation-panel open">
+            <div id="ann-1" class="annotation-panel">
               <div class="ann-item">
                 <div class="ann-token"><span class="tok-actor">ind.hog</span></div>
                 <div class="ann-label">India / Head of Government — subject of the senior clause</div>
@@ -280,10 +280,11 @@
 		<span class="tok-operator">-</span><span class="tok-action">[cl.uv]</span> <span class="tok-actor">khm.ary</span> <span class="tok-action">[nu]</span> <span class="tok-actor">tha.ary.unk.1+</span> <span class="tok-action">[ij]</span> <span class="tok-operator">*.8.+</span></pre>
           </div>
           <div class="caption-block">
-            <button class="annotation-toggle open" onclick="toggleAnnotation(this,'ann-2')">
-              Hide annotation <span class="toggle-arrow">&#9658;</span>
+            <p class="caption-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris — encoding both the act of the statement and the events described within it as distinct analytical layers, with coordinate-based location and explicit casualty quantification in the subsidiary clause.</p>
+            <button class="annotation-toggle" onclick="toggleAnnotation(this,'ann-2')">
+              Show annotation <span class="toggle-arrow">&#9658;</span>
             </button>
-            <div id="ann-2" class="annotation-panel open">
+            <div id="ann-2" class="annotation-panel">
               <div class="ann-item">
                 <div class="ann-token"><span class="tok-actor">tha.min.dfns.ary.spx</span></div>
                 <div class="ann-label">Thailand / Ministry of Defence / Army / Spokesperson — the acting subject issuing the statement</div>
@@ -340,10 +341,11 @@
 	<span class="tok-operator">-</span> <span class="tok-operator">{st.wr}</span> <span class="tok-domain">natx.tsun</span> <span class="tok-operator">@</span> <span class="tok-location">jpn.sbs.amr</span><span class="tok-operator">,</span> <span class="tok-location">*.hkk</span><span class="tok-operator">,</span> <span class="tok-location">*.iwt</span></pre>
           </div>
           <div class="caption-block">
-            <button class="annotation-toggle open" onclick="toggleAnnotation(this,'ann-3')">
-              Hide annotation <span class="toggle-arrow">&#9658;</span>
+            <p class="caption-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum — two clauses encoding both the seismic event and the derived coastal warning, with prefecture-level location resolution and coordinate approximation for the epicentre.</p>
+            <button class="annotation-toggle" onclick="toggleAnnotation(this,'ann-3')">
+              Show annotation <span class="toggle-arrow">&#9658;</span>
             </button>
-            <div id="ann-3" class="annotation-panel open">
+            <div id="ann-3" class="annotation-panel">
               <div class="ann-item">
                 <div class="ann-token"><span class="tok-actor">jpn.min.infr.mteo.spx</span></div>
                 <div class="ann-label">Japan / Ministry of Infrastructure / Meteorological Agency / Spokesperson</div>
@@ -400,10 +402,11 @@
 		<span class="tok-operator">-</span> <span class="tok-operator">&#x222b;</span> <span class="tok-operator">*.dt :</span> <span class="tok-value">02.wk</span></pre>
           </div>
           <div class="caption-block">
-            <button class="annotation-toggle open" onclick="toggleAnnotation(this,'ann-4')">
-              Hide annotation <span class="toggle-arrow">&#9658;</span>
+            <p class="caption-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia — a source claim about nonpublic coordination between a Turkish defence official and a Lebanese counterpart, with a proposed military action contingent on a prior statement, carrying medium analyst confidence and a two-week forward time horizon.</p>
+            <button class="annotation-toggle" onclick="toggleAnnotation(this,'ann-4')">
+              Show annotation <span class="toggle-arrow">&#9658;</span>
             </button>
-            <div id="ann-4" class="annotation-panel open">
+            <div id="ann-4" class="annotation-panel">
               <div class="ann-item">
                 <div class="ann-token"><span class="tok-meta">Source: 6512.2983 &nbsp;/&nbsp; Rel/Cred: C4</span></div>
                 <div class="ann-label">Registry source identifier with credibility rating — sourcing metadata that travels with the encoding and does not touch the event body</div>
