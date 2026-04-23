@@ -119,13 +119,13 @@ nav {
   font-size: 10px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent) !important;
-  border: 1px solid rgba(45,212,191,0.25);
+  color: oklch(0.78 0.10 220) !important;
+  border: 1px solid oklch(0.78 0.10 220 / 0.25);
   padding: 7px 16px;
   text-decoration: none;
   transition: background 0.2s;
 }
-.nav-cta:hover { background: var(--accent-dim); }
+.nav-cta:hover { background: oklch(0.78 0.10 220 / 0.10); }
 
 /* ── LAYOUT ── */
 .page-container {
@@ -487,8 +487,8 @@ nav {
   font-size: 11px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--bg);
-  background: var(--accent);
+  color: #0a0a0b;
+  background: oklch(0.78 0.10 220);
   border: none;
   padding: 12px 28px;
   text-decoration: none;
@@ -687,7 +687,7 @@ footer {
 .hero-title em { font-style: italic; color: oklch(0.78 0.10 220); }
 
 .hero-logo {
-  height: 64px;
+  height: 80px;
   width: auto;
 }
 .hero-body {
@@ -883,6 +883,8 @@ footer {
   .stack-layer { border-right: none; border-bottom: 1px solid var(--border); }
   .stack-layer:last-child { border-bottom: none; }
   .hero { padding: 0 24px 64px; }
+  .hero-left { display: flex; }
+  .hero-logo { height: 56px; }
   .landing-section { padding: 72px 24px; }
   .problem-grid { grid-template-columns: 1fr 1fr; }
   .cie-split { grid-template-columns: 1fr; gap: 40px; }
