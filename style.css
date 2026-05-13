@@ -170,6 +170,27 @@ nav {
   color: var(--text-tertiary);
 }
 
+/* ── NAV CTA (index.html only) ── */
+.nav-cta {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+  border: 1px solid rgba(45,212,191,0.4);
+  padding: 6px 14px;
+  white-space: nowrap;
+  transition: background 0.2s, border-color 0.2s;
+}
+.nav-cta:hover {
+  background: var(--accent-dim);
+  border-color: rgba(45,212,191,0.6);
+}
+@media (max-width: 768px) {
+  .nav-cta { display: none; }
+}
+
 /* ── LAYOUT ── */
 .page-container {
   max-width: 1280px;
