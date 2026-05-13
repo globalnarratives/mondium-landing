@@ -917,7 +917,8 @@ footer {
     grid-template-columns: 1fr;
   }
   .hero-right {
-    display: none;
+    padding-right: 0;
+    height: auto;
   }
 }
 
@@ -951,6 +952,8 @@ footer {
 
 @media (max-width: 768px) {
   .hero-logo { height: 56px; }
+  .animatic-body { padding: 20px 16px 24px; min-height: 200px; }
+  .animatic-text { font-size: 13px; min-height: 140px; }
 }
 
 @media (max-width: 640px) {
