@@ -193,6 +193,28 @@
   .contact-layout { grid-template-columns: 1fr; gap: 48px; }
   .form-row { grid-template-columns: 1fr; }
 }
+
+.form-field-error {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: #f87171;
+  margin-top: 4px;
+}
+#form-error {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 300;
+  color: #f87171;
+  line-height: 1.6;
+  margin-top: 10px;
+  display: none;
+}
+#form-error a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(45,212,191,0.3);
+}
 </style>
 </head>
 <body>
@@ -263,14 +285,14 @@
         <span class="form-header-enc">mondium.ai</span>
       </div>
 
-      <form class="contact-form" id="contact-form" onsubmit="handleSubmit(event)">
+      <form class="contact-form" id="contact-form" onsubmit="handleSubmit(event)" novalidate>
         <div class="form-row">
-          <input type="text" placeholder="Name" required>
-          <input type="text" placeholder="Organization">
+          <input id="field-name"  type="text"  placeholder="Name">
+          <input id="field-org"   type="text"  placeholder="Organization">
         </div>
-        <input type="email" placeholder="Email address" required>
-        <input type="text" placeholder="Role / title">
-        <select>
+        <input id="field-email" type="email" placeholder="Email address">
+        <input id="field-role"  type="text"  placeholder="Role / title">
+        <select id="field-interest">
           <option value="" disabled selected>Area of interest</option>
           <option>Political Risk / Intelligence Analysis</option>
           <option>Defense / Government</option>
@@ -279,8 +301,8 @@
           <option>Technology / Infrastructure</option>
           <option>Other</option>
         </select>
-        <textarea placeholder="What brings you here?"></textarea>
-        <button type="submit" class="form-submit">Send message</button>
+        <textarea id="field-message" placeholder="What brings you here?"></textarea>
+        <button id="form-submit-btn" type="submit" class="form-submit">Send message</button>
       </form>
 
       <div class="form-confirm" id="form-confirm">
@@ -301,10 +323,110 @@
 </div><!-- /page-wrap -->
 
 <script>
-function handleSubmit(e) {
+// ── RESEND API KEY ────────────────────────────────────────────────────────────
+// TODO: migrate to a backend proxy before public launch to avoid client exposure.
+// This key is restricted to send-only on mondium.ai.
+const RESEND_API_KEY = 'RESEND_KEY_HERE';
+// ─────────────────────────────────────────────────────────────────────────────
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function clearFieldErrors() {
+  document.querySelectorAll('.form-field-error').forEach(el => el.remove());
+}
+
+function showFieldError(fieldId, msg) {
+  const field = document.getElementById(fieldId);
+  if (!field) return;
+  const err = document.createElement('p');
+  err.className = 'form-field-error';
+  err.textContent = msg;
+  field.insertAdjacentElement('afterend', err);
+}
+
+function setFormError(html) {
+  let el = document.getElementById('form-error');
+  if (!el) {
+    el = document.createElement('p');
+    el.id = 'form-error';
+    document.getElementById('form-submit-btn').insertAdjacentElement('afterend', el);
+  }
+  el.innerHTML = html;
+  el.style.display = 'block';
+}
+
+function clearFormError() {
+  const el = document.getElementById('form-error');
+  if (el) el.style.display = 'none';
+}
+
+async function handleSubmit(e) {
   e.preventDefault();
-  document.getElementById('contact-form').style.display = 'none';
-  document.getElementById('form-confirm').style.display = 'block';
+
+  const submitBtn = document.getElementById('form-submit-btn');
+  const name      = document.getElementById('field-name').value.trim();
+  const org       = document.getElementById('field-org').value.trim();
+  const email     = document.getElementById('field-email').value.trim();
+  const role      = document.getElementById('field-role').value.trim();
+  const interest  = document.getElementById('field-interest').value;
+  const message   = document.getElementById('field-message').value.trim();
+
+  clearFieldErrors();
+  clearFormError();
+
+  let hasError = false;
+  if (!name)    { showFieldError('field-name',    'Name is required.');                     hasError = true; }
+  if (!email)   { showFieldError('field-email',   'Email address is required.');            hasError = true; }
+  if (!message) { showFieldError('field-message', 'Please tell us what brings you here.'); hasError = true; }
+  if (hasError) return;
+
+  submitBtn.disabled    = true;
+  submitBtn.textContent = 'Sending…';
+
+  const subject = `Mondium Contact — ${name}${org ? ' / ' + org : ''}`;
+
+  const html = [
+    '<div style="font-family:\'PT Mono\',monospace;font-size:13px;line-height:2;color:#e2e8f0;background:#1e2030;padding:32px;max-width:560px;">',
+    '<p style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#64748b;border-bottom:1px solid #2e3150;padding-bottom:14px;margin-bottom:24px;">Mondium — Contact Submission</p>',
+    `<p><span style="color:#64748b;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;">Name</span><br>${escHtml(name)}</p>`,
+    `<p><span style="color:#64748b;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;">Organization</span><br>${org ? escHtml(org) : '—'}</p>`,
+    `<p><span style="color:#64748b;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;">Email</span><br><a href="mailto:${escHtml(email)}" style="color:#2dd4bf;">${escHtml(email)}</a></p>`,
+    `<p><span style="color:#64748b;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;">Role / Title</span><br>${role ? escHtml(role) : '—'}</p>`,
+    `<p><span style="color:#64748b;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;">Area of Interest</span><br>${(interest && interest !== '') ? escHtml(interest) : '—'}</p>`,
+    `<p><span style="color:#64748b;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;">Message</span><br>${escHtml(message).replace(/\n/g,'<br>')}</p>`,
+    '</div>'
+  ].join('');
+
+  try {
+    const res = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${RESEND_API_KEY}`
+      },
+      body: JSON.stringify({
+        from:     'editor@mondium.ai',
+        to:       'editor@mondium.ai',
+        reply_to: email,
+        subject,
+        html
+      })
+    });
+
+    if (res.ok) {
+      document.getElementById('contact-form').style.display = 'none';
+      document.getElementById('form-confirm').style.display = 'block';
+    } else {
+      const data = await res.json().catch(() => ({}));
+      throw new Error(data.message || `HTTP ${res.status}`);
+    }
+  } catch (err) {
+    setFormError('Something went wrong — please try again or email <a href="mailto:editor@mondium.ai">editor@mondium.ai</a> directly.');
+    submitBtn.disabled    = false;
+    submitBtn.textContent = 'Send message';
+  }
 }
 </script>
 
