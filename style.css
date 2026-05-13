@@ -188,7 +188,7 @@ nav {
   border-color: rgba(45,212,191,0.6);
 }
 @media (max-width: 768px) {
-  .nav-cta { display: none; }
+  .nav-cta { padding: 5px 10px; margin-left: 12px; }
 }
 
 /* ── LAYOUT ── */
