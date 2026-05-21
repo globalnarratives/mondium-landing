@@ -187,8 +187,20 @@ nav {
   background: var(--accent-dim);
   border-color: rgba(45,212,191,0.6);
 }
+/* ── NAV LOGIN BUTTON (index.html only) ── */
+.nav-login {
+  background: #00d9ff;
+  border-color: #00d9ff;
+  color: #0a0f1a;
+  margin-right: 8px;
+}
+.nav-login:hover {
+  background: #33e4ff;
+  border-color: #33e4ff;
+}
 @media (max-width: 768px) {
   .nav-cta { padding: 5px 10px; margin-left: 12px; }
+  .nav-login { margin-right: 6px; }
 }
 
 /* ── LAYOUT ── */
