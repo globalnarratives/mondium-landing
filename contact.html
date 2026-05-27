@@ -378,7 +378,7 @@ async function handleSubmit(e) {
   submitBtn.textContent = 'Sending…';
 
   try {
-    const res = await fetch(FORMSPREE_ENDPOINT, {
+    const res = await fetch(CONTACT_ENDPOINT, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
