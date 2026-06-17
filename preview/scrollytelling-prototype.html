@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mondium — Events have a language.</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@100;300&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --meridian:  #213B65;
+  --parchment: #E6D9C2;
+  --horizon:   #496289;
+  --bg-deep:   #172d4e;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  background: var(--meridian);   /* Layer 1 — base */
+  color: var(--parchment);
+  overflow-x: hidden;
+}
+
+/* ---------- Background layers (fixed, persistent) ---------- */
+
+#bg-ambient {              /* Layer 2 — ambient glow */
+  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  background: radial-gradient(ellipse 60% 50% at 50% 50%,
+              rgba(73,98,137,0.35) 0%, transparent 70%);
+}
+
+#starfield {               /* Layer 3 — starfield canvas */
+  position: fixed; inset: 0; z-index: 2; pointer-events: none;
+  display: block;
+}
+
+#bg-frags {                /* Layer 4 — CIE fragment field */
+  position: fixed; inset: 0; z-index: 3; pointer-events: none;
+  overflow: hidden;
+}
+.frag {
+  position: absolute;
+  font-family: 'Courier New', Courier, monospace;
+  color: var(--horizon);
+  white-space: nowrap;
+  line-height: 1;
+  will-change: transform, left, top, opacity;
+}
+
+/* ---------- Hero (pinned stage) ---------- */
+
+#hero { position: relative; height: 100vh; z-index: 10; }
+
+.beat {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  padding: 0 6vw;
+}
+/* Hidden until GSAP reveals them (prevents flash-of-all-beats) */
+#beat2, #beat3, #beat4, #beat5 { opacity: 0; }
+#b3-name, #b4-line2, #b5-cta { opacity: 0; }
+
+/* Beat 1 */
+#mark {
+  width: clamp(70px, 10vw, 120px);
+  height: auto;
+  display: block;
+  margin: 0 auto 2.2rem;
+}
+#wordmark {
+  font-weight: 100;
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  text-indent: 0.35em;     /* optically centre the tracked text */
+  line-height: 1;
+}
+#rule {
+  width: clamp(100px, 18vw, 180px);
+  border: none;
+  border-top: 0.5px solid var(--parchment);
+  opacity: 0.35;
+  margin: 2rem auto;
+}
+.primary {
+  font-weight: 100;
+  font-size: clamp(2rem, 4.5vw, 3.8rem);
+  line-height: 1.2;
+}
+#b1-line2 { opacity: 0.75; }
+
+#scroll-hint {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+}
+#scroll-hint .label {
+  font-weight: 300;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  opacity: 0.45;
+}
+#scroll-hint .hint-line {
+  width: 0.5px;
+  height: 36px;
+  background: var(--parchment);
+  opacity: 0.3;
+}
+
+/* Beat 2 */
+#beat2 .original { color: #f0e8d8; }
+
+/* Beat 3 — two stacked lines */
+#b3-name { margin-top: 0.8em; }
+
+/* Beat 4 */
+#b4-line2 {
+  font-weight: 300;
+  font-size: clamp(1rem, 1.8vw, 1.4rem);
+  line-height: 1.8;
+  max-width: 500px;
+  margin: 1.5rem auto 0;
+}
+
+/* Beat 5 */
+#b5-line {
+  font-weight: 100;
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  line-height: 1.1;
+}
+#b5-cta {
+  margin-top: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+#b5-cta a {
+  font-weight: 300;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--parchment);
+  opacity: 0.55;
+  text-decoration: none;
+  transition: opacity 0.4s ease;
+}
+#b5-cta a:hover { opacity: 1; }
+#b5-cta .sep { color: var(--parchment); opacity: 0.25; font-size: 11px; }
+
+/* ---------- Reduced motion ---------- */
+body.reduced .beat {
+  position: relative;
+  opacity: 1 !important;
+  transform: none !important;
+  min-height: 100vh;
+  display: flex;
+}
+body.reduced #b3-name, body.reduced #b4-line2, body.reduced #b5-cta { opacity: 1 !important; }
+body.reduced #hero { height: auto; }
+body.reduced #scroll-hint { display: none; }
+
+/* ---------- Mobile ---------- */
+@media (max-width: 768px) {
+  #b5-cta { flex-direction: column; gap: 0.6rem; }
+  #b5-cta .sep { display: none; }
+  #b4-line2 { max-width: 86vw; }
+}
+</style>
+</head>
+<body>
+
+<!-- Background layers -->
+<div id="bg-ambient"></div>
+<canvas id="starfield"></canvas>
+<div id="bg-frags"></div>
+
+<!-- ============ Hero sequence ============ -->
+<section id="hero">
+
+  <!-- Beat 1 -->
+  <div class="beat" id="beat1">
+    <svg id="mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-label="Mondium mark" fill="none">
+      <g stroke="#E6D9C2" stroke-width="0.8" fill="none">
+        <circle cx="50" cy="50" r="46"/>
+        <ellipse cx="50" cy="50" rx="46" ry="17"/>
+        <ellipse cx="50" cy="50" rx="17" ry="46"/>
+        <ellipse cx="50" cy="50" rx="17" ry="46" transform="rotate(45 50 50)"/>
+        <path d="M50,24 L56,44 L76,50 L56,56 L50,76 L44,56 L24,50 L44,44 Z"/>
+      </g>
+    </svg>
+    <div id="wordmark">Mondium</div>
+    <hr id="rule">
+    <div class="primary" id="b1-line1">Events have a language.</div>
+    <div class="primary" id="b1-line2">We've only ever had the translation.</div>
+
+    <div id="scroll-hint">
+      <span class="label">scroll</span>
+      <span class="hint-line"></span>
+    </div>
+  </div>
+
+  <!-- Beat 2 -->
+  <div class="beat" id="beat2">
+    <div class="primary">Now you can read <span class="original">The Original</span>.</div>
+  </div>
+
+  <!-- Beat 3 -->
+  <div class="beat" id="beat3">
+    <div class="primary" id="b3-intro">Introducing</div>
+    <div class="primary" id="b3-name">Compressed Information Expression</div>
+  </div>
+
+  <!-- Beat 4 -->
+  <div class="beat" id="beat4">
+    <div class="primary" id="b4-line1">The source code of human events.</div>
+    <div id="b4-line2">See the Truth that's been there the whole time.</div>
+  </div>
+
+  <!-- Beat 5 -->
+  <div class="beat" id="beat5">
+    <div id="b5-line">Welcome to the Age of Intelligence.</div>
+    <div id="b5-cta">
+      <a href="#next">Learn More</a>
+      <span class="sep">|</span>
+      <a href="mailto:hello@mondium.ai">hello@mondium.ai</a>
+    </div>
+  </div>
+
+</section>
+
+<!-- Placeholder continuation -->
+<section id="next" style="min-height:100vh; display:flex; align-items:center; justify-content:center; background:var(--meridian);">
+  <p style="font-family:'Jost',sans-serif; font-weight:300; color:var(--parchment); opacity:0.25; letter-spacing:0.2em; font-size:12px; text-transform:uppercase;">— continuation —</p>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+  const END = isMobile ? 3000 : 4000;
+  const lerp = (a, b, t) => a + (b - a) * t;
+
+  /* ===================== Starfield canvas ===================== */
+  const canvas = document.getElementById('starfield');
+  const ctx = canvas.getContext('2d');
+  let stars = [], lines = [];
+
+  function buildStars() {
+    const w = canvas.width = window.innerWidth;
+    const h = canvas.height = window.innerHeight;
+    const count = isMobile ? 100 : 180;
+    stars = [];
+    for (let i = 0; i < count; i++) {
+      stars.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: 0.4 + Math.random() * 1.4,                 // 0.4–1.8px
+        base: 0.15 + Math.random() * 0.55,            // 0.15–0.7
+        amp: 0.15,                                    // ±0.15 twinkle
+        sp: 0.0008 + Math.random() * 0.0013,          // period ~3–8s
+        ph: Math.random() * Math.PI * 2
+      });
+    }
+    // Constellation lines: pairs of stars 80–200px apart
+    lines = [];
+    const target = isMobile ? 6 : 12;
+    let attempts = 0;
+    while (lines.length < target && attempts < 4000) {
+      attempts++;
+      const a = stars[(Math.random() * stars.length) | 0];
+      const b = stars[(Math.random() * stars.length) | 0];
+      if (a === b) continue;
+      const d = Math.hypot(a.x - b.x, a.y - b.y);
+      if (d >= 80 && d <= 200) lines.push([a, b]);
+    }
+  }
+
+  function drawConstellations() {
+    ctx.lineWidth = 0.5;
+    ctx.strokeStyle = 'rgba(230,217,194,0.06)';
+    for (const [a, b] of lines) {
+      ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+    }
+  }
+  function drawStars(t) {
+    for (const s of stars) {
+      const o = Math.max(0, Math.min(0.85, s.base + Math.sin(t * s.sp + s.ph) * s.amp));
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(230,217,194,' + o.toFixed(3) + ')';
+      ctx.fill();
+    }
+  }
+
+  buildStars();
+  let twinkleRAF = null;
+  function animateStars(t) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawConstellations();
+    drawStars(t);
+    twinkleRAF = requestAnimationFrame(animateStars);
+  }
+  function drawStatic() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawConstellations();
+    drawStars(0);
+  }
+  // Rebuild on resize (debounced)
+  let rT;
+  window.addEventListener('resize', () => {
+    clearTimeout(rT);
+    rT = setTimeout(() => {
+      buildStars();
+      if (prefersReduced) drawStatic();
+    }, 200);
+  });
+
+  /* ===================== Fragment field ===================== */
+  const fragLayer = document.getElementById('bg-frags');
+  const ALL_FRAGS = [
+    { text: 'rus.hos.spx',         sl: 8,  st: 15, size: 5.0, rot: -12, cl: 30, ct: 40 },
+    { text: 'usa.hos <[mt]>',      sl: 70, st: 12, size: 5.5, rot:  9,  cl: 62, ct: 37 },
+    { text: '[rp.re]',             sl: 87, st: 40, size: 6.0, rot: -7,  cl: 47, ct: 30 },
+    { text: '∫ 01012020:30042021', sl: 10, st: 72, size: 3.2, rot:  6,  cl: 33, ct: 58 },
+    { text: '@ che.sbs.gnv',       sl: 60, st: 82, size: 4.2, rot: -10, cl: 58, ct: 60 },
+    { text: '<{sp}>',              sl: 40, st: 7,  size: 6.0, rot:  13, cl: 50, ct: 47 },
+    { text: 'gbr.uh.522',          sl: 90, st: 68, size: 4.6, rot: -9,  cl: 69, ct: 52 },
+    { text: '04122025:05122025',   sl: 5,  st: 45, size: 3.0, rot:  5,  cl: 28, ct: 48 },
+    { text: 'jpn.sbs.nii.exc.01',  sl: 48, st: 90, size: 3.0, rot: -4,  cl: 50, ct: 67 },
+    { text: '@ ind.hps',           sl: 78, st: 52, size: 5.0, rot:  8,  cl: 71, ct: 41 }
+  ];
+  const fragData = ALL_FRAGS.slice(0, isMobile ? 5 : 10);
+  const sizeScale = isMobile ? 0.55 : 1;   // mobile fragments smaller (~1.8–3.3rem)
+
+  const fragEls = fragData.map(f => {
+    const s = document.createElement('span');
+    s.className = 'frag';
+    s.textContent = f.text;
+    s.style.left = f.sl + '%';
+    s.style.top = f.st + '%';
+    s.style.fontSize = (f.size * sizeScale).toFixed(2) + 'rem';
+    s.style.opacity = '0.08';
+    s.style.transform = 'translate(-50%,-50%) rotate(' + f.rot + 'deg)';
+    fragLayer.appendChild(s);
+    return s;
+  });
+
+  /* ===================== Reduced motion: no animation ===================== */
+  if (prefersReduced) {
+    document.body.classList.add('reduced');
+    drawStatic();
+    return; // fragments stay at scattered start; beats shown stacked via CSS
+  }
+
+  /* ===================== Animated path ===================== */
+  drawStatic();                                   // paint one frame immediately (covers
+                                                  // hidden-tab / pre-rAF state)
+  twinkleRAF = requestAnimationFrame(animateStars);
+
+  // Scroll-hint pulse (rAF, lightweight) on the inner line so GSAP can still fade the wrapper
+  const hintLine = document.querySelector('#scroll-hint .hint-line');
+  (function pulse(t) {
+    const o = 0.3 + Math.sin(t * 0.0025) * 0.15; // 0.15 → 0.45
+    hintLine.style.opacity = o.toFixed(3);
+    requestAnimationFrame(pulse);
+  })(0);
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* ---------- Entry animation (page load) ---------- */
+  gsap.timeline()
+    .from('#mark',       { opacity: 0, duration: 1.2, ease: 'power2.out' })
+    .from('#wordmark',   { opacity: 0, y: 8,  duration: 1.0, ease: 'power2.out' }, '-=0.85')
+    .from('#rule',       { scaleX: 0, transformOrigin: 'center', duration: 0.8, ease: 'power2.out' }, '-=0.7')
+    .from('#b1-line1',   { opacity: 0, y: 10, duration: 0.9, ease: 'power2.out' }, '-=0.5')
+    .from('#b1-line2',   { opacity: 0, y: 10, duration: 0.9, ease: 'power2.out' }, '-=0.6')
+    .from('#scroll-hint',{ opacity: 0, duration: 0.6, ease: 'power2.out' }, '-=0.3');
+
+  /* ---------- Main pinned timeline (content + fragments, one timeline for exact sync) ----------
+     Fragment coalescence is placed on the SAME timeline at the SAME absolute times as the
+     content beats, guaranteeing that "Compressed Information Expression" reaching full opacity
+     and the fragment field reaching its coalesced state happen together (criterion 6). */
+  gsap.set('#beat1', { opacity: 1 });
+  gsap.set(['#beat2', '#beat3', '#beat4', '#beat5'], { y: 8 });
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: '#hero',
+      start: 'top top',
+      end: '+=' + END,
+      scrub: 1.2,
+      pin: true,
+      anticipatePin: 1
+    }
+  });
+
+  tl
+    .addLabel('b2', 0.6)
+    .addLabel('b3', 1.3)
+    .addLabel('b4', 2.4)
+    .addLabel('b5', 3.1)
+    // Beat 1 → Beat 2
+    .to('#beat1', { opacity: 0, y: -8, duration: 0.25 }, 'b2')
+    .to('#scroll-hint', { opacity: 0, duration: 0.1 }, 'b2')
+    .to('#beat2', { opacity: 1, y: 0, duration: 0.25 }, 'b2+=0.12')
+    // Beat 2 → Beat 3a ("Introducing")
+    .to('#beat2', { opacity: 0, duration: 0.2 }, 'b3')
+    .to('#beat3', { opacity: 1, y: 0, duration: 0.25 }, 'b3+=0.08')
+    // Beat 3b ("Compressed Information Expression") — full opacity at t≈2.1, synced to coalesce
+    .to('#b3-name', { opacity: 1, y: 0, duration: 0.3 }, 1.8)
+    // Beat 3 → Beat 4
+    .to('#beat3', { opacity: 0, duration: 0.2 }, 'b4')
+    .to('#beat4', { opacity: 1, y: 0, duration: 0.25 }, 'b4+=0.08')
+    .to('#b4-line2', { opacity: 1, duration: 0.25 }, 'b4+=0.35')
+    // Beat 4 → Beat 5
+    .to('#beat4', { opacity: 0, duration: 0.2 }, 'b5')
+    .to('#beat5', { opacity: 1, y: 0, duration: 0.3 }, 'b5+=0.08')
+    .to('#b5-cta', { opacity: 1, duration: 0.2 }, 'b5+=0.55');
+
+  /* ---------- Fragment narrative (same timeline, absolute times) ----------
+     scattered → drift in (b2) → cluster (b3) → COALESCE op .28 upright (t≈2.1)
+     → settle/hold op .22 (b4) → disperse back to scattered op .08 (b5→end) */
+  gsap.set(fragEls, { xPercent: -50, yPercent: -50 });
+  fragEls.forEach((el, i) => {
+    const f = fragData[i];
+    gsap.set(el, { left: f.sl + '%', top: f.st + '%', rotation: f.rot, opacity: 0.08 });
+    tl.to(el, { left: lerp(f.sl, f.cl, 0.4) + '%', top: lerp(f.st, f.ct, 0.4) + '%',
+                rotation: f.rot * 0.5, opacity: 0.12, ease: 'none', duration: 0.6 }, 0)
+      .to(el, { left: lerp(f.sl, f.cl, 0.7) + '%', top: lerp(f.st, f.ct, 0.7) + '%',
+                rotation: f.rot * 0.2, opacity: 0.18, ease: 'none', duration: 0.7 }, 0.6)
+      .to(el, { left: f.cl + '%', top: f.ct + '%',
+                rotation: 0, opacity: 0.28, ease: 'none', duration: 0.8 }, 1.3)   // coalesced at t=2.1
+      .to(el, { opacity: 0.22, ease: 'none', duration: 0.3 }, 2.1)                // settle/hold by b4
+      .to(el, { left: f.sl + '%', top: f.st + '%',
+                rotation: f.rot, opacity: 0.08, ease: 'none', duration: 0.9 }, 3.1); // disperse
+  });
+
+  ScrollTrigger.refresh();
+})();
+</script>
+
+</body>
+</html>
