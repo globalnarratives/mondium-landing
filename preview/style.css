@@ -3,7 +3,30 @@
     --color-origin-dark: #0E1725;
     --color-meridian-blue: #213B65;
     --text-primary: #E6D9C2;
-    --font-editorial: "Avenir", "Avenir Next", system-ui, sans-serif;
+    --font-editorial: "Avenir", "Avenir Next", system-ui, sans-serif;    
+    /* Angular, Mechanical Monospace Stack for CIE */
+    --font-mechanical-mono: "IBM Plex Mono", "Courier Prime", "Courier New", "Courier", monospace;
+    
+    /* Accent & Structural Layers */
+    --white-accent: #EBF1F5;
+    --border-muted: #496289;
+    
+    /* CIE Card Layout System Colors */
+    --cie-bg-surface: #1E2530;
+    --cie-grid-lines: #333F54;      
+    --cie-meta-highlight: #EBF1F5; /* Shared premium high-contrast label color */
+
+    /* CIE 10-Token Syntax Engine */
+    --cie-token-inst: #89B4FA;      /* Position / Institution (90%+) */
+    --cie-token-actor: #B4BEFE;     /* Actor (Rare) */
+    --cie-token-verb: #E0AF68;      /* Action: Verb */
+    --cie-token-gerund: #9ECE6A;    /* Action: Gerundive */
+    --cie-token-delim: #6C7A96;     /* Delimiter: General */
+    --cie-token-prep: #2CF0C2;      /* Delimiter: Universal Preposition */
+    --cie-token-neg: #CD6B5E;       /* Delimiter: Action Negation */
+    --cie-token-date: #A6ADC8;      /* Events & Dates */
+    --cie-token-law: #CBA6F7;       /* Misc: Laws & Bills */
+    --cie-token-misc: #585B70;      /* Misc: All else */
 }
 
 * {
@@ -13,11 +36,185 @@
 }
 
 body {
-    background-color: var(--color-origin-dark);
+    background-color: var(--canvas-dark);
     color: var(--text-primary);
     font-family: var(--font-editorial);
+    font-weight: 100;
+    letter-spacing: 0.03em;
+    line-height: 1.6;
+    padding: 4rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 5rem;
+    align-items: center;
+}
+
+/* ==========================================================================
+    2. EDITORIAL PROSE STYLING
+    ========================================================================== */
+.editorial-pane h1 {
+    font-size: 2.75rem;
+    font-weight: 100;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+    text-shadow: 1px 1px 0px rgba(14, 23, 37, 0.8), 
+                    2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.editorial-pane h1 em {
+    font-style: italic;
+    font-weight: 200;
+}
+
+.accent-divider {
+    height: 1px;
+    background-color: var(--white-accent);
+    width: 80px;
+    margin: 2rem 0;
+    opacity: 0.9;
+}
+
+.editorial-pane p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 1.5rem;
+}
+
+/* ==========================================================================
+    3. CIE RIGID LEDGER DESIGN (Continuous Dual-Axis Matrix)
+    ========================================================================== */
+.cie-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.cie-panel-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #89A3C8;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+}
+
+/* Pure Two-Column Master Grid */
+.cie-card {
+    background-color: var(--cie-bg-surface);
+    border: 1px solid var(--border-muted);
+    border-radius: 6px;
+    width: 100%;
+    max-width: 520px; 
+    box-shadow: 0 25px 50px -12px rgba(7, 12, 22, 0.5);
+    font-family: var(--font-mechanical-mono);
+    display: grid;
+    grid-template-columns: 60px 1fr; /* Rigid gutter layout threshold */
+    overflow: hidden;
+}
+
+/* 1. Left Gutter Column (Runs unbroken to the top edge) */
+.cie-gutter-axis {
+    border-right: 1px solid var(--cie-grid-lines);
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+    background-color: rgba(0, 0, 0, 0.12);
+}
+
+.cie-gutter-header-spacer {
+    height: 46px;
+    border-bottom: 1px solid var(--cie-grid-lines);
+}
+
+.cie-num-label {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Matched formatting with the event code header */
+    color: var(--cie-meta-highlight);
+    font-size: 0.85rem;
+    font-weight: 500;
+    opacity: 0.85;
+}
+
+/* 2. Right Workspace Column */
+.cie-workspace-axis {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Right-justified Header Content */
+.cie-card-header {
+    height: 46px;
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; 
+    border-bottom: 1px solid var(--cie-grid-lines);
+    color: var(--cie-meta-highlight);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+}
+
+/* Unified Document Layout Body */
+.cie-corpus-body {
+    padding: 0 0 1rem 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Strict Wrapping Code Row Environment */
+.cie-data-row {
+    min-height: 48px;
+    padding: 0.65rem 1.5rem;
+    display: block;
+    font-size: 0.95rem;
+    letter-spacing: -0.01em;
+    line-height: 1.6;
+    white-space: pre-wrap;      /* Allows words to wrap naturally when hitting card walls */
+    word-break: break-word;     
+    text-indent: -1.5rem;       /* Hanging indentation setup */
+    padding-left: 3rem;         /* Aligns wrapped block lines cleanly under text, not bullets */
+}
+
+/* Core Bullets */
+.cie-bullet {
+    color: var(--border-muted);
+    font-size: 0.65rem;
+    margin-right: 0.75rem;
+    display: inline-block;
+    text-indent: 0;
+    user-select: none;
+}
+
+/* Token Color Application Mapping */
+.t-inst-code  { color: var(--cie-token-inst); font-weight: 400; } 
+.t-verb-group { color: var(--cie-token-verb); }                   
+.t-gerund-grp { color: var(--cie-token-gerund); font-weight: 400; } 
+.t-delim      { color: var(--cie-token-delim); }                  
+.t-prep       { color: var(--cie-token-prep); font-weight: 500; }  
+.t-neg-group  { color: var(--cie-token-neg); font-weight: 500; }   
+
+@media (max-width: 900px) {
+    .container { grid-template-columns: 1fr; gap: 3rem; }
+    body { padding: 2rem 1rem; }
+    .cie-card { max-width: 100%; }
 }
 
 /* Fixed Brand Anchor Layout */
