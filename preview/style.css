@@ -1,0 +1,126 @@
+:root {
+    /* Palette State Variables */
+    --color-origin-dark: #0E1725;
+    --color-meridian-blue: #213B65;
+    --text-primary: #E6D9C2;
+    --font-editorial: "Avenir", "Avenir Next", system-ui, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--color-origin-dark);
+    color: var(--text-primary);
+    font-family: var(--font-editorial);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+/* Fixed Brand Anchor Layout */
+.brand-anchor {
+    position: fixed;
+    top: 2.5rem;
+    left: 2.5rem;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.brand-logo {
+    width: 120px; 
+    height: auto;
+    display: block;
+}
+
+/* SCROLL TIMELINE CONTAINER: SECTION 1 */
+.scrolly-timeline-s1 {
+    position: relative;
+    height: 600vh; /* Expanded the runway to accommodate 5 distinct structural phases */
+}
+
+/* Sticky viewport window frame */
+.sticky-viewport-frame {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-origin-dark);
+    transition: background-color 0.5s ease-out;
+}
+
+/* Stack Container — Now utilizing a rigid Grid layout to prevent height collapse */
+.stage-stack {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1000px;
+    padding: 0 4rem;
+    text-align: center;
+    min-height: 200px; /* Guarantees layout mass even when elements fade out */
+}
+
+/* Forces all sequence elements to overlap perfectly in the dead center */
+.stage-stack h1, 
+.cie-brand-group {
+    grid-area: 1 / 1; 
+    font-size: 3.25rem;
+    font-weight: 100;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    opacity: 0;
+    transform: translateY(20px);
+    width: 100%;
+    /* Keep transitions ONLY for non-calculated properties if desired, or remove entirely */
+}
+
+/* Specific typographic scaling rules */
+.cie-brand-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.cie-brand-group .system-label {
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 0.5rem;
+}
+
+.cie-brand-group .system-title {
+    font-size: 4rem;
+    line-height: 1.15;
+}
+
+/* Phrase 4 size and case treatment — selector specificity (0,2,1) overrides .stage-stack h1 (0,1,1) */
+.stage-stack h1.phrase-4-style {
+    font-size: calc(3.25rem * 1.15);
+}
+
+/* Dimensional layered text shadow mapping carried over */
+.dimensional-text {
+    text-shadow: 1px 1px 0px rgba(14, 23, 37, 0.8), 
+                 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* Layout Overlap Wrapper to switch between scrolling layout and absolute center switches */
+.absolute-overlay {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-content: center;
+}
