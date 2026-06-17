@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mondium Style Architecture Test — Mechanical Shift</title>
+    <title>Mondium Style Architecture Test — Mechanical Mono</title>
     <style>
         /* ==========================================================================
            1. CORE GLOBAL ARCHITECTURE
@@ -14,15 +14,15 @@
             --text-primary: #E6D9C2;
             --font-editorial: "Avenir", "Avenir Next", system-ui, sans-serif;
             
-            /* Mechanical Serif Stack for CIE */
-            --font-mechanical-serif: "Times New Roman", "Times", "Didot", "Cambria", serif;
+            /* Angular, Mechanical Monospace Stack for CIE */
+            --font-mechanical-mono: "IBM Plex Mono", "Courier Prime", "Courier New", "Courier", monospace;
             
             /* Accent & Structural Layers */
             --white-accent: #EBF1F5;
             --border-muted: #496289;
             
-            /* CIE Inset Surface */
-            --cie-bg-surface: #0E1725;
+            /* CIE Inset Surface — Adjusted from near-black to a true dark iron grey */
+            --cie-bg-surface: #1E2530;
 
             /* CIE 10-Token Syntax Engine */
             --cie-token-inst: #89B4FA;      /* Position / Institution (90%+) */
@@ -63,13 +63,13 @@
             max-width: 1100px;
             width: 100%;
             display: grid;
-            grid-template-columns: 1.1fr 0.9fr; /* Slid layout balance slightly left */
+            grid-template-columns: 1.1fr 0.9fr;
             gap: 5rem;
             align-items: center;
         }
 
         /* ==========================================================================
-           2. EDITORIAL PROSE STYLING (Dimensional Title)
+           2. EDITORIAL PROSE STYLING
            ========================================================================== */
         .editorial-pane h1 {
             font-size: 2.75rem;
@@ -77,7 +77,6 @@
             line-height: 1.15;
             margin-bottom: 1.5rem;
             letter-spacing: -0.02em;
-            /* Dimensionality injection via crisp layered text shadowing */
             text-shadow: 1px 1px 0px rgba(14, 23, 37, 0.8), 
                          2px 2px 4px rgba(0, 0, 0, 0.4);
         }
@@ -102,7 +101,7 @@
         }
 
         /* ==========================================================================
-           3. CIE TERMINAL CARD STYLING (Vertical Ratio & Serif Engine)
+           3. CIE TERMINAL CARD STYLING (True Iron Grey & Mono Engine)
            ========================================================================== */
         .cie-panel {
             display: flex;
@@ -123,21 +122,21 @@
             background-color: var(--cie-bg-surface);
             border: 1px solid var(--border-muted);
             border-radius: 6px;
-            padding: 2.5rem 1.75rem; /* Swapped padding values to emphasize verticality */
-            max-width: 420px;       /* Constrained width to lock the vertical ratio */
+            padding: 2.5rem 1.75rem;
+            max-width: 440px; /* Slight width expansion to accommodate mono font widths */
             width: 100%;
             box-shadow: 0 25px 50px -12px rgba(7, 12, 22, 0.5);
         }
 
         /* Code/Data Line Formatting */
         .cie-code-block {
-            font-family: var(--font-mechanical-serif);
-            font-weight: 100;
-            font-size: 1.05rem;
+            font-family: var(--font-mechanical-mono);
+            font-weight: 300; /* Adjusted for typical mono weight scaling */
+            font-size: 0.95rem; /* Slight step down for monospace density balance */
             line-height: 1.8;
-            white-space: pre-wrap; /* Allows clean structural wrapping inside a narrow card */
+            white-space: pre-wrap;
             word-break: break-all;
-            letter-spacing: 0.02em;
+            letter-spacing: -0.01em;
         }
 
         .cie-indent-1 { 
@@ -152,13 +151,13 @@
             margin-top: 0.5rem;
         }
 
-        /* Token Assignment & Enclosing Action Groups */
-        .t-inst-code  { color: var(--cie-token-inst); font-weight: 200; } 
-        .t-verb-group { color: var(--cie-token-verb); }                   /* Brackets + verb text */
-        .t-gerund-grp { color: var(--cie-token-gerund); font-weight: 200; } /* Brackets + gerund text */
+        /* Token Colors */
+        .t-inst-code  { color: var(--cie-token-inst); font-weight: 400; } 
+        .t-verb-group { color: var(--cie-token-verb); }                   
+        .t-gerund-grp { color: var(--cie-token-gerund); font-weight: 400; } 
         .t-delim      { color: var(--cie-token-delim); }                  
-        .t-prep       { color: var(--cie-token-prep); font-weight: 300; }  /* @ and $ mapping */
-        .t-neg-group  { color: var(--cie-token-neg); font-weight: 300; }   /* Brackets + negation text */
+        .t-prep       { color: var(--cie-token-prep); font-weight: 500; }  
+        .t-neg-group  { color: var(--cie-token-neg); font-weight: 500; }   
         
         @media (max-width: 900px) {
             .container { grid-template-columns: 1fr; gap: 3rem; }
@@ -171,12 +170,14 @@
 
     <div class="container">
         
+        <!-- Left Side: Parent Brand / Editorial Context -->
         <div class="editorial-pane">
             <h1>The world has moved from the age of <em>news</em> to the age of <em>intelligence</em>.</h1>
             <div class="accent-divider"></div>
             <p>News is still structured as prose — created for a reader, not a database. Compressed Information Expression changes this: a formal specification language for discrete, observable events, built for systematic, structured analysis at the scale the world now demands.</p>
         </div>
 
+        <!-- Right Side: The Functional CIE Inset Block -->
         <div class="cie-panel">
             <div class="cie-panel-label">Live Corpus Encoding</div>
             <div class="cie-card">
