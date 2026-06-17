@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mondium Style Architecture Test</title>
+    <title>Mondium Style Architecture Test — Meridian Blue Pivot</title>
     <style>
         /* ==========================================================================
            1. CORE GLOBAL ARCHITECTURE
            ========================================================================== */
         :root {
-            /* Canvas & Master Typography */
-            --canvas-dark: #0E1725;
+            /* Canvas & Master Typography — Shifted to Meridian Blue */
+            --canvas-dark: #213B65;
             --text-primary: #E6D9C2;
             --font-editorial: "Avenir", "Avenir Next", system-ui, sans-serif;
             
@@ -18,10 +18,10 @@
             --white-accent: #EBF1F5;
             --border-muted: #496289;
             
-            /* CIE Inset Surface */
-            --cie-bg-surface: #151D2A;
+            /* CIE Inset Surface — Repurposed deep navy for structural depth */
+            --cie-bg-surface: #0E1725;
 
-            /* CIE 10-Token Syntax Engine */
+            /* CIE 10-Token Syntax Engine (Calibrated for deep navy inset) */
             --cie-token-inst: #89B4FA;      /* Position / Institution (90%+) */
             --cie-token-actor: #B4BEFE;     /* Actor (Rare) */
             --cie-token-verb: #E0AF68;      /* Action: Verb */
@@ -86,12 +86,12 @@
             background-color: var(--white-accent);
             width: 80px;
             margin: 2rem 0;
-            opacity: 0.8;
+            opacity: 0.9; /* Slight opacity bump against Meridian background */
         }
 
         .editorial-pane p {
             font-size: 1.1rem;
-            opacity: 0.85;
+            opacity: 0.9;
             margin-bottom: 1.5rem;
         }
 
@@ -108,7 +108,7 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.15em;
-            color: var(--border-muted);
+            color: #89A3C8; /* Softened label for better contrast against Meridian */
             margin-bottom: 0.75rem;
             font-weight: 500;
         }
@@ -118,12 +118,12 @@
             border: 1px solid var(--border-muted);
             border-radius: 6px;
             padding: 2rem;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 25px 50px -12px rgba(7, 12, 22, 0.5); /* Recalibrated shadow for lighter canvas */
         }
 
         /* Code/Data Line Formatting */
         .cie-code-block {
-            font-family: var(--font-editorial); /* Using Avenir Ultra Light as a system code font */
+            font-family: var(--font-editorial);
             font-weight: 100;
             font-size: 1rem;
             line-height: 1.7;
@@ -136,12 +136,12 @@
         .cie-indent-2 { padding-left: 6rem; }
 
         /* Token Color Application & Type Selection */
-        .t-inst-code  { color: var(--cie-token-inst); font-weight: 200; } /* Positions/Institutions */
-        .t-verb       { color: var(--cie-token-verb); }                   /* Actions: Verbs */
-        .t-gerund     { color: var(--cie-token-gerund); font-weight: 200; } /* Actions: Gerundives */
-        .t-delim      { color: var(--cie-token-delim); }                  /* Brackets/Operators */
-        .t-prep       { color: var(--cie-token-prep); font-weight: 300; }  /* Universal Preposition */
-        .t-neg        { color: var(--cie-token-neg); font-weight: 300; }   /* Action Negation */
+        .t-inst-code  { color: var(--cie-token-inst); font-weight: 200; } 
+        .t-verb       { color: var(--cie-token-verb); }                   
+        .t-gerund     { color: var(--cie-token-gerund); font-weight: 200; } 
+        .t-delim      { color: var(--cie-token-delim); }                  
+        .t-prep       { color: var(--cie-token-prep); font-weight: 300; }  
+        .t-neg        { color: var(--cie-token-neg); font-weight: 300; }   
         
         /* Responsive adjustments */
         @media (max-width: 900px) {
@@ -154,24 +154,19 @@
 
     <div class="container">
         
-        <!-- Left Side: Parent Brand / Editorial Context -->
         <div class="editorial-pane">
             <h1>The world has moved from the age of <em>news</em> to the age of <em>intelligence</em>.</h1>
             <div class="accent-divider"></div>
             <p>News is still structured as prose — created for a reader, not a database. Compressed Information Expression changes this: a formal specification language for discrete, observable events, built for systematic, structured analysis at the scale the world now demands.</p>
         </div>
 
-        <!-- Right Side: The Functional CIE Inset Block -->
         <div class="cie-panel">
             <div class="cie-panel-label">Live Corpus Encoding</div>
             <div class="cie-card">
                 <div class="cie-code-block">
-<!-- Line 1 -->
 <span class="t-inst-code">usa.hos.spx</span> <span class="t-delim">[</span><span class="t-gerund">st.rp</span><span class="t-delim">]</span> 
 
-<!-- Line 2 -->
 <div class="cie-indent-1"><span class="t-delim">-</span> <span class="t-inst-code">rwa.hos</span> <span class="t-delim">&lt;{</span><span class="t-verb">mt</span><span class="t-delim">}&gt;</span> <span class="t-inst-code">cod.hos</span> <span class="t-prep">@</span> <span class="t-inst-code">usa.cpl</span></div> 
-<!-- Line 3 -->
 <div class="cie-indent-2"><span class="t-delim">-&gt;</span> <span class="t-delim">{</span><span class="t-gerund">st.rp</span><span class="t-delim">}</span> <span class="t-inst-code">rwa.hos</span> <span class="t-delim">[</span><span class="t-neg">ag</span><span class="t-delim">]</span> <span class="t-inst-code">cod.hos</span> <span class="t-delim">$</span> <span class="t-delim">||</span> <span class="t-delim">&lt;{</span><span class="t-verb">ak</span><span class="t-delim">}&gt;</span> <span class="t-prep">@</span> <span class="t-delim">(</span><span class="t-inst-code">rwa</span><span class="t-delim">,</span> <span class="t-inst-code">cod</span><span class="t-delim">).</span><span class="t-inst-code">grnz</span></div>
                 </div>
             </div>
