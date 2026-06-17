@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mondium Style Architecture Test — Mechanical Mono</title>
+    <title>Mondium Style Architecture Test — Enforced Grid Convergence</title>
     <style>
         /* ==========================================================================
            1. CORE GLOBAL ARCHITECTURE
@@ -21,8 +21,10 @@
             --white-accent: #EBF1F5;
             --border-muted: #496289;
             
-            /* CIE Inset Surface — Adjusted from near-black to a true dark iron grey */
+            /* CIE Card Layout System Colors */
             --cie-bg-surface: #1E2530;
+            --cie-grid-lines: #333F54;      
+            --cie-meta-highlight: #EBF1F5; /* Shared premium high-contrast label color */
 
             /* CIE 10-Token Syntax Engine */
             --cie-token-inst: #89B4FA;      /* Position / Institution (90%+) */
@@ -60,7 +62,7 @@
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             width: 100%;
             display: grid;
             grid-template-columns: 1.1fr 0.9fr;
@@ -101,7 +103,7 @@
         }
 
         /* ==========================================================================
-           3. CIE TERMINAL CARD STYLING (True Iron Grey & Mono Engine)
+           3. CIE RIGID LEDGER DESIGN (Continuous Dual-Axis Matrix)
            ========================================================================== */
         .cie-panel {
             display: flex;
@@ -118,40 +120,99 @@
             font-weight: 500;
         }
 
+        /* Pure Two-Column Master Grid */
         .cie-card {
             background-color: var(--cie-bg-surface);
             border: 1px solid var(--border-muted);
             border-radius: 6px;
-            padding: 2.5rem 1.75rem;
-            max-width: 440px; /* Slight width expansion to accommodate mono font widths */
             width: 100%;
+            max-width: 520px; 
             box-shadow: 0 25px 50px -12px rgba(7, 12, 22, 0.5);
-        }
-
-        /* Code/Data Line Formatting */
-        .cie-code-block {
             font-family: var(--font-mechanical-mono);
-            font-weight: 300; /* Adjusted for typical mono weight scaling */
-            font-size: 0.95rem; /* Slight step down for monospace density balance */
-            line-height: 1.8;
-            white-space: pre-wrap;
-            word-break: break-all;
+            display: grid;
+            grid-template-columns: 60px 1fr; /* Rigid gutter layout threshold */
+            overflow: hidden;
+        }
+
+        /* 1. Left Gutter Column (Runs unbroken to the top edge) */
+        .cie-gutter-axis {
+            border-right: 1px solid var(--cie-grid-lines);
+            display: flex;
+            flex-direction: column;
+            user-select: none;
+            background-color: rgba(0, 0, 0, 0.12);
+        }
+
+        .cie-gutter-header-spacer {
+            height: 46px;
+            border-bottom: 1px solid var(--cie-grid-lines);
+        }
+
+        .cie-num-label {
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Matched formatting with the event code header */
+            color: var(--cie-meta-highlight);
+            font-size: 0.85rem;
+            font-weight: 500;
+            opacity: 0.85;
+        }
+
+        /* 2. Right Workspace Column */
+        .cie-workspace-axis {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Right-justified Header Content */
+        .cie-card-header {
+            height: 46px;
+            padding: 0 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end; 
+            border-bottom: 1px solid var(--cie-grid-lines);
+            color: var(--cie-meta-highlight);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        /* Unified Document Layout Body */
+        .cie-corpus-body {
+            padding: 0 0 1rem 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Strict Wrapping Code Row Environment */
+        .cie-data-row {
+            min-height: 48px;
+            padding: 0.65rem 1.5rem;
+            display: block;
+            font-size: 0.95rem;
             letter-spacing: -0.01em;
+            line-height: 1.6;
+            white-space: pre-wrap;      /* Allows words to wrap naturally when hitting card walls */
+            word-break: break-word;     
+            text-indent: -1.5rem;       /* Hanging indentation setup */
+            padding-left: 3rem;         /* Aligns wrapped block lines cleanly under text, not bullets */
         }
 
-        .cie-indent-1 { 
-            display: block;
-            padding-left: 1.5rem; 
-            margin-top: 0.5rem;
-        }
-        
-        .cie-indent-2 { 
-            display: block;
-            padding-left: 3rem; 
-            margin-top: 0.5rem;
+        /* Core Bullets */
+        .cie-bullet {
+            color: var(--border-muted);
+            font-size: 0.65rem;
+            margin-right: 0.75rem;
+            display: inline-block;
+            text-indent: 0;
+            user-select: none;
         }
 
-        /* Token Colors */
+        /* Token Color Application Mapping */
         .t-inst-code  { color: var(--cie-token-inst); font-weight: 400; } 
         .t-verb-group { color: var(--cie-token-verb); }                   
         .t-gerund-grp { color: var(--cie-token-gerund); font-weight: 400; } 
@@ -161,8 +222,8 @@
         
         @media (max-width: 900px) {
             .container { grid-template-columns: 1fr; gap: 3rem; }
-            .cie-card { max-width: 100%; }
             body { padding: 2rem 1rem; }
+            .cie-card { max-width: 100%; }
         }
     </style>
 </head>
@@ -170,18 +231,35 @@
 
     <div class="container">
         
-        <!-- Left Side: Parent Brand / Editorial Context -->
         <div class="editorial-pane">
             <h1>The world has moved from the age of <em>news</em> to the age of <em>intelligence</em>.</h1>
             <div class="accent-divider"></div>
             <p>News is still structured as prose — created for a reader, not a database. Compressed Information Expression changes this: a formal specification language for discrete, observable events, built for systematic, structured analysis at the scale the world now demands.</p>
         </div>
 
-        <!-- Right Side: The Functional CIE Inset Block -->
         <div class="cie-panel">
             <div class="cie-panel-label">Live Corpus Encoding</div>
             <div class="cie-card">
-                <div class="cie-code-block"><span class="t-inst-code">usa.hos.spx</span> <span class="t-gerund-grp">[st.rp]</span><span class="cie-indent-1"><span class="t-delim">-</span> <span class="t-inst-code">rwa.hos</span> <span class="t-verb-group">&lt;{mt}&gt;</span> <span class="t-inst-code">cod.hos</span> <span class="t-prep">@</span> <span class="t-inst-code">usa.cpl</span></span><span class="cie-indent-2"><span class="t-delim">-&gt;</span> <span class="t-gerund-grp">{st.rp}</span> <span class="t-inst-code">rwa.hos</span> <span class="t-neg-group">[ag]</span> <span class="t-inst-code">cod.hos</span> <span class="t-prep">$</span> <span class="t-delim">||</span> <span class="t-verb-group">&lt;{ak}&gt;</span> <span class="t-prep">@</span> <span class="t-delim">(</span><span class="t-inst-code">rwa</span><span class="t-delim">,</span> <span class="t-inst-code">cod</span><span class="t-delim">).</span><span class="t-inst-code">grnz</span></span></div>
+                
+                <div class="cie-gutter-axis">
+                    <div class="cie-gutter-header-spacer"></div>
+                    <div class="cie-num-label">01</div>
+                    <div class="cie-num-label">02</div>
+                    <div class="cie-num-label">03</div>
+                </div>
+
+                <div class="cie-workspace-axis">
+                    <div class="cie-card-header">ev.10062025.weu.0107</div>
+                    
+                    <div class="cie-corpus-body">
+                        <div class="cie-data-row"><span class="cie-bullet">■</span><span class="t-inst-code">usa.hos.spx</span> <span class="t-gerund-grp">[st.rp]</span></div>
+
+                        <div class="cie-data-row">&nbsp;&nbsp;&nbsp;&nbsp;<span class="cie-bullet">■</span><span class="t-inst-code">rwa.hos</span> <span class="t-verb-group">&lt;{mt}&gt;</span> <span class="t-inst-code">cod.hos</span> <span class="t-prep">@</span> <span class="t-inst-code">usa.cpl</span></div>
+
+                        <div class="cie-data-row">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cie-bullet">■</span><span class="t-gerund-grp">{st.rp}</span> <span class="t-inst-code">rwa.hos</span> <span class="t-neg-group">[ag]</span> <span class="t-inst-code">cod.hos</span> <span class="t-prep">$</span> <span class="t-delim">||</span> <span class="t-verb-group">&lt;{ak}&gt;</span> <span class="t-prep">@</span> <span class="t-delim">(</span><span class="t-inst-code">rwa</span><span class="t-delim">,</span> <span class="t-inst-code">cod</span><span class="t-delim">).</span><span class="t-inst-code">grnz</span></div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
