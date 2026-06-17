@@ -3,25 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mondium Style Architecture Test — Meridian Blue Pivot</title>
+    <title>Mondium Style Architecture Test — Mechanical Shift</title>
     <style>
         /* ==========================================================================
            1. CORE GLOBAL ARCHITECTURE
            ========================================================================== */
         :root {
-            /* Canvas & Master Typography — Shifted to Meridian Blue */
+            /* Canvas & Master Typography */
             --canvas-dark: #213B65;
             --text-primary: #E6D9C2;
             --font-editorial: "Avenir", "Avenir Next", system-ui, sans-serif;
+            
+            /* Mechanical Serif Stack for CIE */
+            --font-mechanical-serif: "Times New Roman", "Times", "Didot", "Cambria", serif;
             
             /* Accent & Structural Layers */
             --white-accent: #EBF1F5;
             --border-muted: #496289;
             
-            /* CIE Inset Surface — Repurposed deep navy for structural depth */
+            /* CIE Inset Surface */
             --cie-bg-surface: #0E1725;
 
-            /* CIE 10-Token Syntax Engine (Calibrated for deep navy inset) */
+            /* CIE 10-Token Syntax Engine */
             --cie-token-inst: #89B4FA;      /* Position / Institution (90%+) */
             --cie-token-actor: #B4BEFE;     /* Actor (Rare) */
             --cie-token-verb: #E0AF68;      /* Action: Verb */
@@ -44,7 +47,7 @@
             background-color: var(--canvas-dark);
             color: var(--text-primary);
             font-family: var(--font-editorial);
-            font-weight: 100; /* Global Ultra Light environment */
+            font-weight: 100;
             letter-spacing: 0.03em;
             line-height: 1.6;
             padding: 4rem 2rem;
@@ -60,12 +63,13 @@
             max-width: 1100px;
             width: 100%;
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            grid-template-columns: 1.1fr 0.9fr; /* Slid layout balance slightly left */
+            gap: 5rem;
+            align-items: center;
         }
 
         /* ==========================================================================
-           2. EDITORIAL PROSE STYLING (The Global Environment)
+           2. EDITORIAL PROSE STYLING (Dimensional Title)
            ========================================================================== */
         .editorial-pane h1 {
             font-size: 2.75rem;
@@ -73,20 +77,22 @@
             line-height: 1.15;
             margin-bottom: 1.5rem;
             letter-spacing: -0.02em;
+            /* Dimensionality injection via crisp layered text shadowing */
+            text-shadow: 1px 1px 0px rgba(14, 23, 37, 0.8), 
+                         2px 2px 4px rgba(0, 0, 0, 0.4);
         }
 
         .editorial-pane h1 em {
             font-style: italic;
-            font-weight: 200; /* Subtle emphasis bump */
+            font-weight: 200;
         }
 
-        /* Razor-sharp white accent rule */
         .accent-divider {
             height: 1px;
             background-color: var(--white-accent);
             width: 80px;
             margin: 2rem 0;
-            opacity: 0.9; /* Slight opacity bump against Meridian background */
+            opacity: 0.9;
         }
 
         .editorial-pane p {
@@ -96,7 +102,7 @@
         }
 
         /* ==========================================================================
-           3. CIE TERMINAL CARD STYLING (The Inset Environment)
+           3. CIE TERMINAL CARD STYLING (Vertical Ratio & Serif Engine)
            ========================================================================== */
         .cie-panel {
             display: flex;
@@ -108,7 +114,7 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.15em;
-            color: #89A3C8; /* Softened label for better contrast against Meridian */
+            color: #89A3C8;
             margin-bottom: 0.75rem;
             font-weight: 500;
         }
@@ -117,35 +123,46 @@
             background-color: var(--cie-bg-surface);
             border: 1px solid var(--border-muted);
             border-radius: 6px;
-            padding: 2rem;
-            box-shadow: 0 25px 50px -12px rgba(7, 12, 22, 0.5); /* Recalibrated shadow for lighter canvas */
+            padding: 2.5rem 1.75rem; /* Swapped padding values to emphasize verticality */
+            max-width: 420px;       /* Constrained width to lock the vertical ratio */
+            width: 100%;
+            box-shadow: 0 25px 50px -12px rgba(7, 12, 22, 0.5);
         }
 
         /* Code/Data Line Formatting */
         .cie-code-block {
-            font-family: var(--font-editorial);
+            font-family: var(--font-mechanical-serif);
             font-weight: 100;
-            font-size: 1rem;
-            line-height: 1.7;
-            white-space: pre;
-            overflow-x: auto;
-            letter-spacing: 0.05em;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            white-space: pre-wrap; /* Allows clean structural wrapping inside a narrow card */
+            word-break: break-all;
+            letter-spacing: 0.02em;
         }
 
-        .cie-indent-1 { padding-left: 2.5rem; }
-        .cie-indent-2 { padding-left: 6rem; }
-
-        /* Token Color Application & Type Selection */
-        .t-inst-code  { color: var(--cie-token-inst); font-weight: 200; } 
-        .t-verb       { color: var(--cie-token-verb); }                   
-        .t-gerund     { color: var(--cie-token-gerund); font-weight: 200; } 
-        .t-delim      { color: var(--cie-token-delim); }                  
-        .t-prep       { color: var(--cie-token-prep); font-weight: 300; }  
-        .t-neg        { color: var(--cie-token-neg); font-weight: 300; }   
+        .cie-indent-1 { 
+            display: block;
+            padding-left: 1.5rem; 
+            margin-top: 0.5rem;
+        }
         
-        /* Responsive adjustments */
+        .cie-indent-2 { 
+            display: block;
+            padding-left: 3rem; 
+            margin-top: 0.5rem;
+        }
+
+        /* Token Assignment & Enclosing Action Groups */
+        .t-inst-code  { color: var(--cie-token-inst); font-weight: 200; } 
+        .t-verb-group { color: var(--cie-token-verb); }                   /* Brackets + verb text */
+        .t-gerund-grp { color: var(--cie-token-gerund); font-weight: 200; } /* Brackets + gerund text */
+        .t-delim      { color: var(--cie-token-delim); }                  
+        .t-prep       { color: var(--cie-token-prep); font-weight: 300; }  /* @ and $ mapping */
+        .t-neg-group  { color: var(--cie-token-neg); font-weight: 300; }   /* Brackets + negation text */
+        
         @media (max-width: 900px) {
             .container { grid-template-columns: 1fr; gap: 3rem; }
+            .cie-card { max-width: 100%; }
             body { padding: 2rem 1rem; }
         }
     </style>
@@ -163,12 +180,7 @@
         <div class="cie-panel">
             <div class="cie-panel-label">Live Corpus Encoding</div>
             <div class="cie-card">
-                <div class="cie-code-block">
-<span class="t-inst-code">usa.hos.spx</span> <span class="t-delim">[</span><span class="t-gerund">st.rp</span><span class="t-delim">]</span> 
-
-<div class="cie-indent-1"><span class="t-delim">-</span> <span class="t-inst-code">rwa.hos</span> <span class="t-delim">&lt;{</span><span class="t-verb">mt</span><span class="t-delim">}&gt;</span> <span class="t-inst-code">cod.hos</span> <span class="t-prep">@</span> <span class="t-inst-code">usa.cpl</span></div> 
-<div class="cie-indent-2"><span class="t-delim">-&gt;</span> <span class="t-delim">{</span><span class="t-gerund">st.rp</span><span class="t-delim">}</span> <span class="t-inst-code">rwa.hos</span> <span class="t-delim">[</span><span class="t-neg">ag</span><span class="t-delim">]</span> <span class="t-inst-code">cod.hos</span> <span class="t-delim">$</span> <span class="t-delim">||</span> <span class="t-delim">&lt;{</span><span class="t-verb">ak</span><span class="t-delim">}&gt;</span> <span class="t-prep">@</span> <span class="t-delim">(</span><span class="t-inst-code">rwa</span><span class="t-delim">,</span> <span class="t-inst-code">cod</span><span class="t-delim">).</span><span class="t-inst-code">grnz</span></div>
-                </div>
+                <div class="cie-code-block"><span class="t-inst-code">usa.hos.spx</span> <span class="t-gerund-grp">[st.rp]</span><span class="cie-indent-1"><span class="t-delim">-</span> <span class="t-inst-code">rwa.hos</span> <span class="t-verb-group">&lt;{mt}&gt;</span> <span class="t-inst-code">cod.hos</span> <span class="t-prep">@</span> <span class="t-inst-code">usa.cpl</span></span><span class="cie-indent-2"><span class="t-delim">-&gt;</span> <span class="t-gerund-grp">{st.rp}</span> <span class="t-inst-code">rwa.hos</span> <span class="t-neg-group">[ag]</span> <span class="t-inst-code">cod.hos</span> <span class="t-prep">$</span> <span class="t-delim">||</span> <span class="t-verb-group">&lt;{ak}&gt;</span> <span class="t-prep">@</span> <span class="t-delim">(</span><span class="t-inst-code">rwa</span><span class="t-delim">,</span> <span class="t-inst-code">cod</span><span class="t-delim">).</span><span class="t-inst-code">grnz</span></span></div>
             </div>
         </div>
 
