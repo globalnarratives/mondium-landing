@@ -36,20 +36,17 @@
 }
 
 body {
-    background-color: var(--canvas-dark);
+    background-color: var(--color-origin-dark);
     color: var(--text-primary);
     font-family: var(--font-editorial);
     font-weight: 100;
     letter-spacing: 0.03em;
     line-height: 1.6;
-    padding: 4rem 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    margin: 0;
+    padding: 0;
 }
 
 .container {
@@ -204,8 +201,8 @@ body {
 }
 
 /* Token Color Application Mapping */
-.t-inst-code  { color: var(--cie-token-inst); font-weight: 400; } 
-.t-verb-group { color: var(--cie-token-verb); }                   
+.t-inst-code  { color: var(--cie-token-inst); font-weight: 500; }
+.t-verb-group { color: var(--cie-token-verb); font-weight: 500; }
 .t-gerund-grp { color: var(--cie-token-gerund); font-weight: 400; } 
 .t-delim      { color: var(--cie-token-delim); }                  
 .t-prep       { color: var(--cie-token-prep); font-weight: 500; }  
@@ -235,7 +232,7 @@ body {
 /* SCROLL TIMELINE CONTAINER: SECTION 1 */
 .scrolly-timeline-s1 {
     position: relative;
-    height: 600vh; /* Expanded the runway to accommodate 5 distinct structural phases */
+    height: 1000vh; /* Extended runway: widened windows + extended holds for breathing room */
 }
 
 /* Sticky viewport window frame */
@@ -248,7 +245,6 @@ body {
     justify-content: center;
     align-items: center;
     background-color: var(--color-origin-dark);
-    transition: background-color 0.5s ease-out;
 }
 
 /* Stack Container — Now utilizing a rigid Grid layout to prevent height collapse */
@@ -265,10 +261,10 @@ body {
 }
 
 /* Forces all sequence elements to overlap perfectly in the dead center */
-.stage-stack h1, 
+.stage-stack h1,
 .cie-brand-group {
-    grid-area: 1 / 1; 
-    font-size: 3.25rem;
+    grid-area: 1 / 1;
+    font-size: 4rem;
     font-weight: 100;
     line-height: 1.3;
     letter-spacing: -0.01em;
@@ -300,7 +296,7 @@ body {
 
 /* Phrase 4 size and case treatment — selector specificity (0,2,1) overrides .stage-stack h1 (0,1,1) */
 .stage-stack h1.phrase-4-style {
-    font-size: calc(3.25rem * 1.15);
+    font-size: calc(4rem * 1.2);
 }
 
 /* Dimensional layered text shadow mapping carried over */
@@ -321,3 +317,114 @@ body {
     align-items: center;
     justify-content: center;
 }
+
+/* ==========================================================================
+   ATMOSPHERE LAYER — Background scroll environment
+   ========================================================================== */
+
+/* Outer container — absolute inside sticky frame, behind stage-stack */
+.atmos-layer {
+    position: absolute;
+    top: 0;
+    left: 280px;        /* Reserved for hamburger nav */
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Ensure stage-stack sits above atmosphere layer */
+.stage-stack {
+    position: relative;
+    z-index: 10;
+}
+
+/* News fragment base style */
+.news-frag {
+    position: absolute;
+    font-family: var(--font-editorial);
+    font-size: clamp(0.9rem, 1.4vw, 1.15rem);
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--text-primary);
+    opacity: 0;
+    max-width: 220px;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* Highlighted word within a news fragment */
+.news-frag .frag-highlight {
+    color: var(--cie-token-verb);
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+/* Pill container — applied to all CIE atmosphere elements */
+.cie-pill {
+    background-color: rgba(10, 14, 20, 0.82);
+    border: 1px solid rgba(73, 98, 137, 0.35);
+    border-radius: 4px;
+    padding: 3px 10px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5),
+                0 1px 3px rgba(0, 0, 0, 0.6);
+    display: inline-block;
+}
+
+/* CIE token fragment base style — partial tokens, peripheral (pill folded in) */
+.cie-token-frag {
+    position: absolute;
+    font-family: var(--font-mechanical-mono);
+    font-size: clamp(1rem, 1.6vw, 1.3rem);
+    line-height: 1.6;
+    opacity: 0;
+    pointer-events: none;
+    user-select: none;
+    white-space: nowrap;
+    /* Pill */
+    background-color: rgba(18, 32, 58, 0.88);
+    border: 1px solid rgba(73, 98, 137, 0.30);
+    border-radius: 4px;
+    padding: 4px 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.40), 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+
+/* Sub-clause fragment — mid-field, between tokens and full lines */
+.cie-sub-frag {
+    position: absolute;
+    font-family: var(--font-mechanical-mono);
+    font-size: clamp(0.9rem, 1.45vw, 1.2rem);
+    line-height: 1.6;
+    opacity: 0;
+    pointer-events: none;
+    user-select: none;
+    white-space: nowrap;
+    /* Pill — same height as token */
+    background-color: rgba(18, 32, 58, 0.88);
+    border: 1px solid rgba(73, 98, 137, 0.30);
+    border-radius: 4px;
+    padding: 4px 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.40), 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+
+/* Full floating CIE expression line (pill folded in — same height as token and sub-frag) */
+.cie-float-expr {
+    position: absolute;
+    font-family: var(--font-mechanical-mono);
+    font-size: clamp(0.85rem, 1.3vw, 1.1rem);
+    line-height: 1.6;
+    opacity: 0;
+    pointer-events: none;
+    user-select: none;
+    white-space: pre;
+    /* Pill — same height as token and sub-frag */
+    background-color: rgba(18, 32, 58, 0.88);
+    border: 1px solid rgba(73, 98, 137, 0.30);
+    border-radius: 4px;
+    padding: 4px 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.40), 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+
+/* Date token color — used in atmosphere layer CIE fragments */
+.t-date { color: var(--cie-token-date); }
