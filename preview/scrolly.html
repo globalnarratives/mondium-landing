@@ -252,42 +252,46 @@
 
         // ── Stage 1 + 2: Phrase 1 and 2 ──────────────────────────────────────
         // P1 starts centered. As P2 enters, P1 shifts upward simultaneously.
-        // At full pair state: P1 at -60px, P2 at +60px. Clear separation.
+        // At full pair state: P1 at -pairOffset, P2 at +pairOffset. Clear separation.
+        // Mobile needs more separation because phrases wrap to more lines.
+        // Re-evaluated each scroll event so rotation/resize is handled.
+        const pairOffset = window.innerWidth <= 768 ? 110 : 60;
+        const p2Start    = window.innerWidth <= 768 ? 130 : 80;
         if (p <= 0.12) {
             // Stage 1: P1 centered alone
             p1.style.opacity = 1;
             p1.style.transform = 'translateY(0px)';
             p2.style.opacity = 0;
-            p2.style.transform = 'translateY(80px)';
+            p2.style.transform = `translateY(${p2Start}px)`;
 
         } else if (p <= 0.24) {
             // Simultaneous: P1 moves up, P2 enters from below
             const t = (p - 0.12) / 0.12;
             p1.style.opacity = 1;
-            p1.style.transform = `translateY(${-60 * t}px)`;
+            p1.style.transform = `translateY(${-pairOffset * t}px)`;
             p2.style.opacity = t;
-            p2.style.transform = `translateY(${80 - (20 * t)}px)`;
+            p2.style.transform = `translateY(${p2Start - ((p2Start - pairOffset) * t)}px)`;
 
         } else if (p <= 0.38) {
             // Hold: P1 above center, P2 below center
             p1.style.opacity = 1;
-            p1.style.transform = 'translateY(-60px)';
+            p1.style.transform = `translateY(-${pairOffset}px)`;
             p2.style.opacity = 1;
-            p2.style.transform = 'translateY(60px)';
+            p2.style.transform = `translateY(${pairOffset}px)`;
 
         } else if (p <= 0.48) {
             // Transition A: both exit together
             const t = (p - 0.38) / 0.10;
             p1.style.opacity = 1 - t;
-            p1.style.transform = `translateY(${-60 - (24 * t)}px)`;
+            p1.style.transform = `translateY(${-pairOffset - (24 * t)}px)`;
             p2.style.opacity = 1 - t;
-            p2.style.transform = `translateY(${60 + (24 * t)}px)`;
+            p2.style.transform = `translateY(${pairOffset + (24 * t)}px)`;
 
         } else {
             p1.style.opacity = 0;
-            p1.style.transform = 'translateY(-84px)';
+            p1.style.transform = `translateY(-${pairOffset + 24}px)`;
             p2.style.opacity = 0;
-            p2.style.transform = 'translateY(84px)';
+            p2.style.transform = `translateY(${pairOffset + 24}px)`;
         }
 
         // ── Stage 3, 4, 5 ─────────────────────────────────────────────────────

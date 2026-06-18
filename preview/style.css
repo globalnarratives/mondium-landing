@@ -428,3 +428,52 @@ body {
 
 /* Date token color — used in atmosphere layer CIE fragments */
 .t-date { color: var(--cie-token-date); }
+
+/* ==========================================================================
+   MOBILE — screens 768px wide and below
+   ========================================================================== */
+@media (max-width: 768px) {
+
+    /* 1. Remove nav margin — no hamburger nav on mobile */
+    .atmos-layer {
+        left: 0;
+    }
+
+    /* 2. Hide full expression lines and sub-clause fragments — too wide for mobile */
+    .cie-float-expr,
+    .cie-sub-frag {
+        display: none !important;
+    }
+
+    /* 3. Hide the majority of news fragments — keep only 4 peripherally positioned ones */
+    .news-frag {
+        display: none !important;
+    }
+
+    /* Re-show the 4 selected peripheral news fragments */
+    /* nf1 (12%), nf2 (18%), nf4 (72%), nf7 (82%) — all outside 30–70% center band */
+    #nf1, #nf2, #nf4, #nf7 {
+        display: block !important;
+        max-width: 160px;
+        font-size: 0.7rem;
+    }
+
+    /* 4. Show all token fragments on mobile, then suppress center-band ones */
+    .cie-token-frag {
+        display: none !important; /* base rule hides all */
+    }
+
+    /* Re-show all token fragments */
+    #tf1, #tf2, #tf3, #tf4, #tf5, #tf6, #tf7,
+    #tk1, #tk2, #tk3, #tk4, #tk5 {
+        display: inline-block !important;
+        font-size: 0.8rem;
+    }
+
+    /* 5. Suppress tokens in the center band (top 30%–70%) */
+    /* tf2 (70%), tf3 (48%), tf5 (55%), tf6 (58%), tk5 (46%) */
+    #tf2, #tf3, #tf5, #tf6, #tk5 {
+        display: none !important;
+    }
+
+}
