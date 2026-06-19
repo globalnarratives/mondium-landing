@@ -596,6 +596,89 @@ body {
         font-size: clamp(1.6rem, 5vw, 2.2rem);
     }
 
+    /* ── Fix 1 — Logo + Stage 6 title clearance ───────────────────────────── */
+    .brand-logo {
+        width: 70px;
+    }
+
+    .brand-anchor {
+        top: 1rem;
+        left: 1rem;
+    }
+
+    .sticky-viewport-s6 {
+        padding-top: 5rem; /* push Stage 6 content below the (now 70px) logo */
+    }
+
+    .s6-title {
+        margin-top: 0;
+    }
+
+    /* ── Fix 2 — Stage 6 card aspect ratio ────────────────────────────────── */
+    /* Neutralize flex stretch — cards size to content, not container */
+    .s6-card-row .cie-card {
+        flex: 0 0 auto;
+        height: auto;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* Remove inner scroll box — let the page scroll naturally */
+    .s6-card-row {
+        max-height: none;
+        overflow-y: visible;
+    }
+
+    /* ── Fix 3 — Solo card positioning ────────────────────────────────────── */
+    /* Drop desktop left-column absolute placement; flow, full width */
+    .s6-card-solo {
+        position: relative !important;
+        left: auto !important;
+        top: auto !important;
+        transform: none !important;
+        width: 90% !important;
+        max-width: 380px !important;
+        margin: 5rem auto 1.5rem auto;
+    }
+
+    /* ── Fix 4c — Annotation block layout (stacked, full width) ────────────── */
+    .s7-annotation-block,
+    #s8-ann-1, #s8-ann-2, #s8-ann-3, #s8-ann-4 {
+        position: relative !important;
+        left: auto !important;
+        top: auto !important;
+        max-width: 100% !important;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .s7-annotation-layer {
+        position: relative !important;
+        inset: auto !important;
+        display: flex;
+        flex-direction: column;
+        padding: 0 1.25rem 2rem 1.25rem;
+        pointer-events: auto;
+    }
+
+    /* ── Fix 5 — Hide connector lines (meaningless in stacked layout) ──────── */
+    .s7-line-svg {
+        display: none !important;
+    }
+
+    /* ── Fix 6b — Header text: static flow, full width ────────────────────── */
+    .s7-header-text {
+        position: relative !important;
+        left: auto !important;
+        right: auto !important;
+        top: auto !important;
+        max-width: 100% !important;
+        width: 100%;
+        padding: 1rem 1.25rem 1rem 1.25rem;
+        font-size: 0.82rem;
+        margin-bottom: 1.5rem;
+    }
+
 }
 
 /* ==========================================================================
@@ -703,14 +786,14 @@ body {
     position: absolute;
     top: 2.5rem;
     left: calc(280px + 3rem);
-    right: 3rem;
     font-family: var(--font-editorial);
     font-size: clamp(1rem, 2.1vw, 1.7rem);
     font-weight: 300;
     line-height: 1.1;
     color: var(--text-primary);
     opacity: 0;
-    max-width: 860px;
+    right: auto; /* Fix 6a — was 3rem; constrain right edge to clear annotation column */
+    max-width: calc(58% - (280px + 3rem) - 2rem); /* keeps a 2rem gutter before the 58% annotation column at any width */
     z-index: 20;
 }
 
@@ -746,4 +829,84 @@ body {
     position: absolute;
     max-width: 300px;
     opacity: 0;
+}
+
+/* ==========================================================================
+   Fix 4b — Annotation block positions (moved out of inline HTML styles)
+   Desktop defaults. Placed AFTER all base Stage 7/8 rules and BEFORE the
+   1200px / 768px overrides below so the cascade resolves desktop → 1200 → 768.
+   ========================================================================== */
+#s7-ann-1 { left: 58%; top: 15%; }
+#s7-ann-2 { left: 58%; top: 42%; }
+#s7-ann-3 { left: 58%; top: 68%; }
+
+#s8-ann-1 { left: 58%; top: 10%; }
+#s8-ann-2 { left: 58%; top: 32%; }
+#s8-ann-3 { left: 58%; top: 56%; }
+#s8-ann-4 { left: 58%; top: 76%; }
+
+/* ==========================================================================
+   Stage 7/8 — Laptop layout (intermediate width breakpoint)
+   Positioned at end of file (after all base Stage 7/8 rules) so these
+   non-!important rules win over the base rules at ≤1440px via source order.
+   The 768px block still wins at ≤768px because its rules use !important.
+   ========================================================================== */
+@media (max-width: 1440px) {
+
+    /* ── Card ──────────────────────────────────────────────────────── */
+    /* NOTE: width:300px below is INERT — `.s6-card-row .cie-card`
+       (specificity 0,2,0) overrides `.s6-card-solo` (0,1,0), so the card
+       renders at 320px. Right edge = 328 + 320 = 648px. The annotation
+       column left is therefore 680px (648 + 32px gutter), not 660px. */
+    .s6-card-solo {
+        left: calc(280px + 3rem);   /* 328px from left */
+        width: 300px;
+        max-width: 300px;
+    }
+
+    /* ── Header text — full usable width ───────────────────────────── */
+    /* Spans from card left edge to right gutter; left/right define width. */
+    .s7-header-text {
+        left: calc(280px + 3rem);   /* align with card */
+        right: 3rem;                /* match right gutter */
+        max-width: none;            /* let left/right define width */
+        top: 2rem;
+        font-size: clamp(0.78rem, 1vw, 0.92rem);
+    }
+
+    /* ── Annotation column — px-based to track card exactly ────────── */
+    /* Card right edge (648px, see card note) + 2rem gutter (32px) = 680px. */
+    #s7-ann-1, #s7-ann-2, #s7-ann-3,
+    #s8-ann-1, #s8-ann-2, #s8-ann-3, #s8-ann-4 {
+        left: 680px;
+    }
+
+    /* Annotation block max-width — fits within remaining usable width. */
+    .s7-annotation-block {
+        max-width: 320px;
+    }
+
+    /* ── Annotation vertical positions — spread to avoid overlap ───── */
+    #s7-ann-1 { top: 20%; }
+    #s7-ann-2 { top: 46%; }
+    #s7-ann-3 { top: 68%; }
+
+    #s8-ann-1 { top: 12%; }
+    #s8-ann-2 { top: 30%; }
+    #s8-ann-3 { top: 52%; }
+    #s8-ann-4 { top: 72%; }
+
+    /* ── Annotation text — readable at laptop size ─────────────────── */
+    .s7-annotation-label {
+        font-size: 0.7rem;
+    }
+
+    .s7-annotation-title {
+        font-size: 1.05rem;
+    }
+
+    .s7-annotation-desc {
+        font-size: 0.82rem;
+    }
+
 }
