@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mondium — The World, Encoded</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
 
@@ -398,6 +399,60 @@
 
             </div><!-- /.s8-annotation-layer -->
 
+            <!-- ========================================================
+                 STAGE 9 — Forecast Visualization
+                 ======================================================== -->
+            <div class="s9-panel" id="s9-panel">
+
+                <!-- SVG connecting-line overlay -->
+                <svg class="s9-line-layer" id="s9-line-layer">
+                    <line class="s9-line" id="s9-line-1" x1="0" y1="0" x2="0" y2="0"/>
+                    <line class="s9-line" id="s9-line-2" x1="0" y1="0" x2="0" y2="0"/>
+                </svg>
+
+                <!-- Left column — descriptive text + forecast chart -->
+                <div class="s9-left-col">
+                    <p class="s9-desc-text" id="s9-desc-text">Events encoded in CIE allow for forward-planning forecasting and scenario planning to be procedurally transparent, informationally dense and interlinked, and structurally falsifiable for constant methodological validation and ongoing improvement.</p>
+                    <div class="s9-chart-wrap">
+                        <canvas id="s9-chart" width="1040" height="520"></canvas>
+                    </div>
+                </div>
+
+                <!-- Right column — indicator card, arrow, linked event card -->
+                <div class="s9-right-col">
+
+                    <!-- Indicator card -->
+                    <div class="s9-card" id="s9-indicator-card">
+                        <div class="s9-card-header">Forecast Indicator</div>
+                        <div class="s9-card-divider"></div>
+                        <div class="s9-data-row"><span class="s9-row-label">Indicator</span><span class="s9-row-val">Takaichi cabinet reshuffle signal</span></div>
+                        <div class="s9-data-row"><span class="s9-row-label">Triggered</span><span class="s9-row-val">May 14, 2026</span></div>
+                        <div class="s9-data-row"><span class="s9-row-label">Probability Δ</span><span class="s9-row-val s9-delta">−0.05&nbsp;&nbsp;(0.30 → 0.25)</span></div>
+                        <div class="s9-data-row"><span class="s9-row-label">Analyst note</span><span class="s9-row-val">Coalition partner signaling interpreted as weakening of Takaichi factional support. Linked event encoded below.</span></div>
+                        <div class="s9-card-divider"></div>
+                        <div class="s9-data-row"><span class="s9-row-label">Forecast</span><span class="s9-row-val">&ldquo;Sanae Takaichi will not be PM of Japan by Dec 31, 2026&rdquo;</span></div>
+                    </div>
+
+                    <!-- Progression arrow -->
+                    <div class="s9-arrow" id="s9-arrow">&#8595;</div>
+
+                    <!-- Linked CIE event card -->
+                    <div class="s9-card" id="s9-event-card">
+                        <div class="s9-card-header">Linked Event</div>
+                        <div class="s9-card-divider"></div>
+                        <div class="s9-cie-expr"><span class="t-inst-code">igo.002.exc.exc.01</span> <span class="t-verb-group">[s-st]</span>
+  <span class="s9-sigil">$</span> <span class="t-inst-code">igo.002.lh</span> <span class="t-inst-code">*.uh</span> <span class="s9-cond">/</span><span class="t-gerund-grp">{vu}</span><span class="s9-cond">/</span> <span class="t-inst-code">com.2025.828.lex</span>
+    <span class="s9-cond">//</span> <span class="s9-sigil">$</span> <span class="t-inst-code">*.lh.cme.resr.eng</span>, <span class="t-inst-code">*.lh.cme.trde</span>, <span class="t-inst-code">*.lh</span>, <span class="t-inst-code">*.uh</span> <span class="t-gerund-grp">{vo}</span>
+      <span class="t-inst-code">*.lh</span>, <span class="t-inst-code">*.uh</span> <span class="t-verb-group">[vo]</span> <span class="t-date">&#8747; 11122025:15122025</span></div>
+                        <div class="s9-card-divider"></div>
+                        <div class="s9-data-row"><span class="s9-row-label">Encoded</span><span class="s9-row-val">Dec 12, 2025</span></div>
+                        <div class="s9-data-row"><span class="s9-row-label">Region</span><span class="s9-row-val">NEA</span></div>
+                        <div class="s9-data-row"><span class="s9-row-label">Event code</span><span class="s9-row-val">ev.04122025.nea.038</span></div>
+                    </div>
+
+                </div><!-- /.s9-right-col -->
+            </div><!-- /#s9-panel -->
+
         </div><!-- /.sticky-viewport-s6 -->
     </section>
 
@@ -740,6 +795,211 @@
         });
     }
 
+    // ── STAGE 9 — Forecast visualization: chart + connecting lines ───────────
+    let s9Chart = null;
+    let s9Initialized      = false;
+    let s9PointHighlighted = false;
+    let s9Line1Drawn       = false;
+    let s9Line2Drawn       = false;
+    let s9Pulsed           = false;
+
+    const S9_GOLD   = '#E6D9C2';
+    const S9_ORANGE = '#E87A2F';
+    const S9_FONT   = '"Jost", "Avenir Next", sans-serif';
+    const S9_TICK   = 'rgba(230, 217, 194, 0.7)';
+
+    // Vertical anticipatory event markers (dashed orange) at Aug (7) and Nov (10)
+    const verticalMarkerPlugin = {
+        id: 'verticalMarkers',
+        afterDraw(chart) {
+            const ctx = chart.ctx;
+            const xAxis = chart.scales.x;
+            const yAxis = chart.scales.y;
+            if (!xAxis || !yAxis) return;
+            [7, 10].forEach(index => {
+                const x = xAxis.getPixelForValue(index);
+                ctx.save();
+                ctx.beginPath();
+                ctx.setLineDash([4, 3]);
+                ctx.strokeStyle = 'rgba(232, 122, 47, 0.5)';
+                ctx.lineWidth = 1.5;
+                ctx.moveTo(x, yAxis.top);
+                ctx.lineTo(x, yAxis.bottom);
+                ctx.stroke();
+                ctx.restore();
+            });
+        }
+    };
+    if (typeof Chart !== 'undefined') Chart.register(verticalMarkerPlugin);
+
+    function setOpacity(id, v) {
+        const el = document.getElementById(id);
+        if (el) el.style.opacity = v;
+    }
+
+    function initS9Chart() {
+        const ctx = document.getElementById('s9-chart');
+        if (!ctx || s9Chart || typeof Chart === 'undefined') return;
+        s9Chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan','Feb','Mar','Apr','May','Jun',
+                         'Jul','Aug','Sep','Oct','Nov','Dec'],
+                datasets: [
+                    {
+                        // Observed (Jan → Jun) — solid parchment line. Index 4 highlighted at Beat B.
+                        data: [0.27, 0.31, 0.29, 0.35, 0.30, 0.22, null, null, null, null, null, null],
+                        borderColor: S9_GOLD,
+                        borderWidth: 2,
+                        fill: false,
+                        tension: 0.3,
+                        spanGaps: false,
+                        pointRadius: [3,3,3,3,3,3,0,0,0,0,0,0],
+                        pointHoverRadius: [3,3,3,3,3,3,0,0,0,0,0,0],
+                        pointBackgroundColor: new Array(12).fill(S9_GOLD),
+                        pointBorderColor: new Array(12).fill(S9_GOLD)
+                    },
+                    {
+                        // Projected (Jul → Dec) — disconnected dots, no connecting line
+                        data: [null, null, null, null, null, null, 0.19, 0.24, 0.20, 0.16, 0.18, 0.18],
+                        borderColor: 'transparent',
+                        borderWidth: 0,
+                        showLine: false,
+                        fill: false,
+                        pointRadius: 3,
+                        pointHoverRadius: 3,
+                        pointBackgroundColor: 'rgba(230, 217, 194, 0.45)',
+                        pointBorderColor: 'rgba(230, 217, 194, 0.45)'
+                    }
+                ]
+            },
+            options: {
+                // responsive:false + fixed 520×260 canvas — avoids Chart.js
+                // mis-measuring the absolutely-positioned overlay at init (width→0)
+                responsive: false,
+                maintainAspectRatio: false,
+                animation: { duration: 1000 },
+                plugins: {
+                    legend:  { display: false },
+                    tooltip: { enabled: false },
+                    title:   { display: false }
+                },
+                scales: {
+                    x: {
+                        grid:  { color: 'rgba(230, 217, 194, 0.1)' },
+                        ticks: {
+                            color: S9_TICK, maxRotation: 0, minRotation: 0,
+                            font: { size: 11, family: S9_FONT, weight: '300' },
+                            callback: function(value, index) {
+                                const q = { 0: 'Jan', 3: 'Apr', 6: 'Jul', 9: 'Oct' };
+                                return q[index] !== undefined ? q[index] : '';
+                            }
+                        }
+                    },
+                    y: {
+                        min: 0, max: 0.6,
+                        grid:  { color: 'rgba(230, 217, 194, 0.1)' },
+                        ticks: {
+                            color: S9_TICK, stepSize: 0.1,
+                            font: { size: 11, family: S9_FONT, weight: '300' },
+                            callback: function(value) { return value.toFixed(1); }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function highlightS9Point() {
+        if (!s9Chart || s9PointHighlighted) return;
+        const ds = s9Chart.data.datasets[0];   // observed segment (Jan–Jun)
+        ds.pointRadius = [3,3,3,3,7,3,0,0,0,0,0,0];
+        ds.pointBackgroundColor = ds.pointBackgroundColor.map((c, i) => i === 4 ? S9_ORANGE : S9_GOLD);
+        ds.pointBorderColor     = ds.pointBackgroundColor.slice();
+        s9Chart.update();
+        s9PointHighlighted = true;
+    }
+
+    function unhighlightS9Point() {
+        if (!s9Chart || !s9PointHighlighted) return;
+        const ds = s9Chart.data.datasets[0];   // observed segment (Jan–Jun)
+        ds.pointRadius = [3,3,3,3,3,3,0,0,0,0,0,0];
+        ds.pointBackgroundColor = new Array(12).fill(S9_GOLD);
+        ds.pointBorderColor     = new Array(12).fill(S9_GOLD);
+        s9Chart.update('none');
+        s9PointHighlighted = false;
+    }
+
+    // Shared draw-on reveal — set endpoints, then animate stroke-dashoffset → 0
+    function drawS9LineSeg(line, x1, y1, x2, y2) {
+        line.setAttribute('x1', x1); line.setAttribute('y1', y1);
+        line.setAttribute('x2', x2); line.setAttribute('y2', y2);
+        const len = Math.hypot(x2 - x1, y2 - y1);
+        line.style.transition = 'none';
+        line.style.strokeDasharray  = len;
+        line.style.strokeDashoffset = len;
+        void line.getBoundingClientRect();              // force reflow
+        line.style.transition = 'stroke-dashoffset 0.6s ease';
+        line.style.strokeDashoffset = 0;
+    }
+
+    // Line 1 — from highlighted chart point (index 4) to indicator card left edge
+    function drawS9Line1() {
+        if (s9Line1Drawn || !s9Chart) return;
+        const svg    = document.getElementById('s9-line-layer');
+        const canvas = document.getElementById('s9-chart');
+        const card   = document.getElementById('s9-indicator-card');
+        const line   = document.getElementById('s9-line-1');
+        if (!svg || !canvas || !card || !line) return;
+        const meta = s9Chart.getDatasetMeta(0);
+        const pt   = meta.data[4];
+        if (!pt) return;
+        const svgRect    = svg.getBoundingClientRect();
+        const canvasRect = canvas.getBoundingClientRect();
+        const cardRect   = card.getBoundingClientRect();
+        const x1 = canvasRect.left - svgRect.left + pt.x;
+        const y1 = canvasRect.top  - svgRect.top  + pt.y;
+        const x2 = cardRect.left - svgRect.left;
+        const y2 = cardRect.top  - svgRect.top + cardRect.height / 2;
+        drawS9LineSeg(line, x1, y1, x2, y2);
+        s9Line1Drawn = true;
+    }
+
+    // Line 2 — from indicator card bottom edge to event card top edge
+    function drawS9Line2() {
+        if (s9Line2Drawn) return;
+        const svg  = document.getElementById('s9-line-layer');
+        const ind  = document.getElementById('s9-indicator-card');
+        const ev   = document.getElementById('s9-event-card');
+        const line = document.getElementById('s9-line-2');
+        if (!svg || !ind || !ev || !line) return;
+        const svgRect = svg.getBoundingClientRect();
+        const indRect = ind.getBoundingClientRect();
+        const evRect  = ev.getBoundingClientRect();
+        const x1 = indRect.left - svgRect.left + indRect.width / 2;
+        const y1 = indRect.bottom - svgRect.top;
+        const x2 = evRect.left - svgRect.left + evRect.width / 2;
+        const y2 = evRect.top  - svgRect.top;
+        drawS9LineSeg(line, x1, y1, x2, y2);
+        s9Line2Drawn = true;
+    }
+
+    function resetS9Lines() {
+        ['s9-line-1', 's9-line-2'].forEach(id => {
+            const line = document.getElementById(id);
+            if (!line) return;
+            line.style.transition = 'none';
+            const da = line.style.strokeDasharray;
+            if (da) line.style.strokeDashoffset = da;
+        });
+    }
+
+    function pulseS9EventCard() {
+        if (s9Pulsed) return;
+        document.getElementById('s9-event-card')?.classList.add('s9-pulsing');
+        s9Pulsed = true;
+    }
+
     // ── STAGE 6 SCROLL DRIVER ────────────────────────────────────────────────
     window.addEventListener('scroll', () => {
         const track = document.getElementById('timeline-s6');
@@ -754,8 +1014,8 @@
         // ── Title ──────────────────────────────────────────────────────────────
         const title = document.getElementById('s6-title');
         if (title) {
-            if (p <= 0.083) {
-                title.style.opacity = p / 0.083;
+            if (p <= 0.063) {
+                title.style.opacity = p / 0.063;
             } else {
                 title.style.opacity = 1;
             }
@@ -764,11 +1024,11 @@
         // ── Card row ───────────────────────────────────────────────────────────
         const cardRow = document.getElementById('s6-card-row');
         if (cardRow) {
-            if (p < 0.055) {
+            if (p < 0.042) {
                 cardRow.style.opacity = 0;
                 cardRow.style.transform = 'translateY(20px)';
-            } else if (p <= 0.194) {
-                const t = (p - 0.055) / 0.139;
+            } else if (p <= 0.148) {
+                const t = (p - 0.042) / 0.106;
                 cardRow.style.opacity = t;
                 cardRow.style.transform = `translateY(${20 - (t * 20)}px)`;
             } else {
@@ -780,12 +1040,12 @@
         // ── Body text (visibility toggled to avoid pre-Beat-2 layout shift) ─────
         const body = document.getElementById('s6-body');
         if (body) {
-            if (p < 0.312) {
+            if (p < 0.239) {
                 body.style.opacity = 0;
                 body.style.visibility = 'hidden';
-            } else if (p <= 0.402) {
+            } else if (p <= 0.307) {
                 body.style.visibility = 'visible';
-                body.style.opacity = (p - 0.312) / 0.090;
+                body.style.opacity = (p - 0.239) / 0.068;
             } else {
                 body.style.opacity = 1;
                 body.style.visibility = 'visible';
@@ -793,10 +1053,10 @@
         }
 
         // ══════════════════════════════════════════════════════════════════
-        // STAGE 7 — Card shift + annotation lines (recalibrated p 0.52 → 0.75)
+        // STAGE 7 — Card shift + annotation lines (recalibrated p 0.398 → 0.574)
         // Runs after Stage 6 logic; later assignments override where they overlap.
         // ══════════════════════════════════════════════════════════════════
-        if (p < 0.52) {
+        if (p < 0.398) {
             // Reset Stage 7 state when scrolled back into Stage 6 range
             const c3 = document.getElementById('s7s8-card');
             if (c3) c3.classList.remove('s6-card-solo');
@@ -814,67 +1074,67 @@
             if (c2r) c2r.style.opacity = 1;
             window.s7LinesInitialized = false;
         } else {
-            // ── Beat 1: title + body exit (0.52 → 0.58) ────────────────────
-            const tEx = Math.min((p - 0.52) / 0.06, 1);
+            // ── Beat 1: title + body exit (0.398 → 0.444) ──────────────────
+            const tEx = Math.min((p - 0.398) / 0.046, 1);
             const title7 = document.getElementById('s6-title');
             const body7  = document.getElementById('s6-body');
             if (title7) title7.style.opacity = 1 - tEx;
             if (body7)  body7.style.opacity  = 1 - tEx;
 
-            // ── Beat 1: cards 1 + 2 fade out (0.52 → 0.60) ─────────────────
+            // ── Beat 1: cards 1 + 2 fade out (0.398 → 0.459) ───────────────
             const card1 = document.getElementById('s6-card-1');
             const card2 = document.getElementById('s6-card-2');
-            if (card1) card1.style.opacity = Math.max(0, 1 - (p - 0.52) / 0.08);
-            if (card2) card2.style.opacity = Math.max(0, 1 - (p - 0.52) / 0.08);
+            if (card1) card1.style.opacity = Math.max(0, 1 - (p - 0.398) / 0.061);
+            if (card2) card2.style.opacity = Math.max(0, 1 - (p - 0.398) / 0.061);
 
-            // ── Beat 1: card 3 shifts to solo left column (from 0.55) ──────
+            // ── Beat 1: card 3 shifts to solo left column (from 0.421) ─────
             const card3 = document.getElementById('s7s8-card');
             if (card3) {
-                if (p >= 0.55) card3.classList.add('s6-card-solo');
+                if (p >= 0.421) card3.classList.add('s6-card-solo');
                 else card3.classList.remove('s6-card-solo');
             }
 
-            // ── Beat 1: annotation layer fades in (0.60 → 0.66) ────────────
+            // ── Beat 1: annotation layer fades in (0.459 → 0.505) ──────────
             const annLayer = document.getElementById('s7-annotation-layer');
-            if (annLayer) annLayer.style.opacity = p < 0.60 ? 0 : Math.min((p - 0.60) / 0.06, 1);
+            if (annLayer) annLayer.style.opacity = p < 0.459 ? 0 : Math.min((p - 0.459) / 0.046, 1);
 
             // ── Beat 2: lines, token highlights, annotation blocks ─────────
-            if (p >= 0.64 && !window.s7LinesInitialized) {
+            if (p >= 0.489 && !window.s7LinesInitialized) {
                 updateLines();
                 window.s7LinesInitialized = true;
             }
 
-            if (p >= 0.64) {
+            if (p >= 0.489) {
                 document.getElementById('s7-line-1')?.classList.add('drawn');
                 document.getElementById('hl-1')?.classList.add('active');
                 document.getElementById('hl-2')?.classList.add('active');
                 document.getElementById('hl-3')?.classList.add('active');
             }
-            if (p >= 0.67) document.getElementById('s7-line-2')?.classList.add('drawn');
-            if (p >= 0.70) document.getElementById('s7-line-3')?.classList.add('drawn');
+            if (p >= 0.512) document.getElementById('s7-line-2')?.classList.add('drawn');
+            if (p >= 0.535) document.getElementById('s7-line-3')?.classList.add('drawn');
 
             const ann1 = document.getElementById('s7-ann-1');
             const ann2 = document.getElementById('s7-ann-2');
             const ann3 = document.getElementById('s7-ann-3');
-            if (ann1) ann1.style.opacity = p < 0.66 ? 0 : Math.min((p - 0.66) / 0.04, 1);
-            if (ann2) ann2.style.opacity = p < 0.68 ? 0 : Math.min((p - 0.68) / 0.04, 1);
-            if (ann3) ann3.style.opacity = p < 0.72 ? 0 : Math.min((p - 0.72) / 0.03, 1);
+            if (ann1) ann1.style.opacity = p < 0.505 ? 0 : Math.min((p - 0.505) / 0.031, 1);
+            if (ann2) ann2.style.opacity = p < 0.520 ? 0 : Math.min((p - 0.520) / 0.031, 1);
+            if (ann3) ann3.style.opacity = p < 0.551 ? 0 : Math.min((p - 0.551) / 0.023, 1);
         }
 
         // ── Stage 7/8 persistent header text — fade in at Stage 7 entry, hold to end ──
         const s7Header = document.getElementById('s7-header-text');
         if (s7Header) {
-            if (p < 0.52) {
+            if (p < 0.398) {
                 s7Header.style.opacity = 0;
-            } else if (p <= 0.60) {
-                s7Header.style.opacity = (p - 0.52) / 0.08;
+            } else if (p <= 0.459) {
+                s7Header.style.opacity = (p - 0.398) / 0.061;
             } else {
                 s7Header.style.opacity = 1;
             }
         }
 
         // ══════════════════════════════════════════════════════════════════
-        // STAGE 8 — Content crossfade within shared card + new annotations (p 0.75 → 1.0)
+        // STAGE 8 — Content crossfade within shared card + new annotations (p 0.574 → 0.734)
         // Card frame never moves; only the content layers crossfade.
         // ══════════════════════════════════════════════════════════════════
         const s7Content  = document.getElementById('s7-content');
@@ -884,12 +1144,12 @@
         const s8Layer    = document.getElementById('s8-annotation-layer');
 
         // Content crossfade + header text
-        if (p >= 0.75 && p <= 0.86) {
-            const t = Math.min((p - 0.75) / 0.11, 1);
+        if (p >= 0.574 && p <= 0.658) {
+            const t = Math.min((p - 0.574) / 0.084, 1);
             if (s7Content) s7Content.style.opacity = 1 - t;
             if (s8Content) s8Content.style.opacity = t;
             if (cardHeader) cardHeader.textContent = t > 0.5 ? 'ev.04122025.sas.042' : 'ev.02122025.nea.038';
-        } else if (p < 0.75) {
+        } else if (p < 0.574) {
             if (s7Content) s7Content.style.opacity = 1;
             if (s8Content) s8Content.style.opacity = 0;
             if (cardHeader) cardHeader.textContent = 'ev.02122025.nea.038';
@@ -899,9 +1159,9 @@
             if (cardHeader) cardHeader.textContent = 'ev.04122025.sas.042';
         }
 
-        // Stage 7 annotation teardown (p ≥ 0.75) / Stage 8 reset (p < 0.75)
-        if (p >= 0.75) {
-            const exitT = Math.min((p - 0.75) / 0.06, 1);
+        // Stage 7 annotation teardown (p ≥ 0.574) / Stage 8 reset (p < 0.574)
+        if (p >= 0.574) {
+            const exitT = Math.min((p - 0.574) / 0.046, 1);
             if (s7Layer) s7Layer.style.opacity = 1 - exitT;
             ['hl-1', 'hl-2', 'hl-3'].forEach(id => document.getElementById(id)?.classList.remove('active'));
             ['s7-line-1', 's7-line-2', 's7-line-3'].forEach(id => document.getElementById(id)?.classList.remove('drawn'));
@@ -916,9 +1176,9 @@
             window.s8LinesInitialized = false;
         }
 
-        if (p >= 0.86) {
-            // Beat 2 — annotation layer fade in (0.86 → 0.90)
-            if (s8Layer) s8Layer.style.opacity = p <= 0.90 ? (p - 0.86) / 0.04 : 1;
+        if (p >= 0.658) {
+            // Beat 2 — annotation layer fade in (0.658 → 0.688)
+            if (s8Layer) s8Layer.style.opacity = p <= 0.688 ? (p - 0.658) / 0.031 : 1;
             // Highlights activate (header doubles as a highlight target)
             ['s7s8-card-header', 's8-hl-1', 's8-hl-2', 's8-hl-3'].forEach(id => document.getElementById(id)?.classList.add('active'));
             // Initialize lines once
@@ -927,19 +1187,71 @@
                 window.s8LinesInitialized = true;
             }
             // Draw lines staggered
-            if (p >= 0.88) document.getElementById('s8-line-1')?.classList.add('drawn');
-            if (p >= 0.91) document.getElementById('s8-line-2')?.classList.add('drawn');
-            if (p >= 0.93) document.getElementById('s8-line-3')?.classList.add('drawn');
-            if (p >= 0.95) document.getElementById('s8-line-4')?.classList.add('drawn');
+            if (p >= 0.673) document.getElementById('s8-line-1')?.classList.add('drawn');
+            if (p >= 0.696) document.getElementById('s8-line-2')?.classList.add('drawn');
+            if (p >= 0.711) document.getElementById('s8-line-3')?.classList.add('drawn');
+            if (p >= 0.726) document.getElementById('s8-line-4')?.classList.add('drawn');
             // Annotation fades
             const a1 = document.getElementById('s8-ann-1');
             const a2 = document.getElementById('s8-ann-2');
             const a3 = document.getElementById('s8-ann-3');
             const a4 = document.getElementById('s8-ann-4');
-            if (a1) a1.style.opacity = p < 0.90 ? 0 : Math.min((p - 0.90) / 0.03, 1);
-            if (a2) a2.style.opacity = p < 0.92 ? 0 : Math.min((p - 0.92) / 0.03, 1);
-            if (a3) a3.style.opacity = p < 0.94 ? 0 : Math.min((p - 0.94) / 0.03, 1);
-            if (a4) a4.style.opacity = p < 0.96 ? 0 : Math.min((p - 0.96) / 0.04, 1);
+            if (a1) a1.style.opacity = p < 0.688 ? 0 : Math.min((p - 0.688) / 0.023, 1);
+            if (a2) a2.style.opacity = p < 0.704 ? 0 : Math.min((p - 0.704) / 0.023, 1);
+            if (a3) a3.style.opacity = p < 0.719 ? 0 : Math.min((p - 0.719) / 0.023, 1);
+            if (a4) a4.style.opacity = p < 0.734 ? 0 : Math.min((p - 0.734) / 0.031, 1);
+        }
+
+        // ══════════════════════════════════════════════════════════════════
+        // STAGE 9 — Forecast Visualization (p 0.76 → 1.00)
+        // Extends the existing #timeline-s6 listener; guard flags prevent
+        // one-time animations from re-triggering on every scroll event.
+        // ══════════════════════════════════════════════════════════════════
+        const s9Panel = document.getElementById('s9-panel');
+        if (p < 0.76) {
+            // Scrolled above Stage 9 — hide panel, reset guards, restore Stage 8 view
+            if (s9Panel) s9Panel.style.opacity = 0;
+            setOpacity('s9-desc-text', 0);
+            setOpacity('s9-indicator-card', 0);
+            setOpacity('s9-event-card', 0);
+            setOpacity('s9-arrow', 0);
+            unhighlightS9Point();
+            resetS9Lines();
+            document.getElementById('s9-event-card')?.classList.remove('s9-pulsing');
+            s9Line1Drawn = false; s9Line2Drawn = false; s9Pulsed = false;
+            const soloReset = document.getElementById('s7s8-card');
+            if (soloReset) soloReset.style.opacity = 1;
+        } else {
+            // ── Stage 9 takeover: fade out the Stage 8 view (0.76 → 0.80) ──
+            const s9t  = Math.min((p - 0.76) / 0.04, 1);
+            const solo = document.getElementById('s7s8-card');
+            if (s8Layer) s8Layer.style.opacity = 1 - s9t;
+            if (solo)    solo.style.opacity     = 1 - s9t;
+            if (s7Header) s7Header.style.opacity = 1 - s9t;
+
+            // ── Beat A (p ≥ 0.76): panel + chart + descriptive text ────────
+            if (!s9Initialized) { initS9Chart(); s9Initialized = true; }
+            if (s9Panel) s9Panel.style.opacity = 1;
+            setOpacity('s9-desc-text', 1);
+
+            // ── Beat B (p ≥ 0.83): highlight point, line 1, indicator card ─
+            if (p >= 0.83) {
+                highlightS9Point();
+                setOpacity('s9-indicator-card', 1);
+                drawS9Line1();
+            }
+
+            // ── Beat C (p ≥ 0.90): line 2, event card, arrow ───────────────
+            if (p >= 0.90) {
+                setOpacity('s9-event-card', 1);
+                setOpacity('s9-arrow', 1);
+                drawS9Line2();
+            }
+
+            // ── Beat D (p ≥ 0.97): pulse/glow the event card ───────────────
+            if (p >= 0.97) {
+                pulseS9EventCard();
+            }
         }
     });
     </script>
